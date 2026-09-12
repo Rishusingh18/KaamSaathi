@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>11C</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #0b0f17;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+      background-size: 24px 24px;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+    }
+
+    /* Master Phone Shell: Exact 390x884 iPhone 14 Pro Frame */
+    .phone-viewport {
+      width: 390px;
+      height: 884px;
+      background-color: #f8fafc;
+      border-radius: 52px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 
+        0 0 0 12px #1e293b,
+        0 0 0 13px rgba(255, 255, 255, 0.1),
+        0 25px 60px -15px rgba(0, 0, 0, 0.8),
+        0 0 40px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Dynamic Island */
+    .dynamic-island {
+      position: absolute;
+      top: 11px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 32px;
+      background-color: #000000;
+      border-radius: 20px;
+      z-index: 50;
+    }
+
+    /* Screen internal scroll container */
+    .screen-content {
+      flex: 1;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 90px; /* Space for bottom nav & sticky bar */
+    }
+    .screen-content::-webkit-scrollbar {
+      display: none;
+    }
+    .screen-content {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Bottom Navigation Bar */
+    .bottom-nav {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 72px;
+      background: #ffffff;
+      border-top: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding-bottom: 12px;
+      z-index: 40;
+    }
+
+    /* Home Indicator */
+    .home-indicator {
+      position: absolute;
+      bottom: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 138px;
+      height: 5px;
+      background-color: #0f172a;
+      border-radius: 3px;
+      z-index: 50;
+    }
+
+    /* Worker selection card styling */
+    .worker-card {
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      user-select: none;
+    }
+    .worker-card.selected {
+      border-color: #087443 !important;
+      background-color: #f0fdf4 !important;
+    }
+    .worker-card:active {
+      transform: scale(0.985);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="phone-viewport" id="phoneContainer">
+    <!-- Dynamic Island -->
+    <div class="dynamic-island"></div>
+
+    <!-- Status Bar -->
+    <div class="pt-3 px-7 flex justify-between items-center text-xs font-semibold text-slate-800 z-40 select-none">
+      <span class="tracking-tight">09:41</span>
+      <div class="flex items-center gap-1.5 text-slate-800">
+        <!-- Cellular -->
+        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19.4c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l1.9-1.9C9.22 19.58 10.56 20 12 20c4.97 0 9-4.03 9-9s-4.03-9-9-9zm0 15c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/>
+        </svg>
+        <!-- Wifi -->
+        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98A16.88 16.88 0 0 0 12 4zm0 3.2c3.7 0 7.08 1.4 9.61 3.73L12 19.38 2.39 10.93C4.92 8.6 8.3 7.2 12 7.2z"/>
+        </svg>
+        <!-- Battery -->
+        <div class="w-5 h-2.5 border border-slate-700 rounded-sm p-0.5 flex items-center">
+          <div class="h-full w-full bg-slate-800 rounded-2xs"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Top App Header -->
+    <div class="px-5 pt-3 pb-2.5 flex items-center justify-between border-b border-slate-100 bg-white/95 backdrop-blur z-30">
+      <button onclick="handleCancel()" class="flex items-center gap-1 text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors py-1 px-1 -ml-1 rounded-lg active:bg-slate-100">
+        <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        <span>Back</span>
+      </button>
+      <h1 class="text-base font-bold text-[#123B5D] tracking-tight">Assign Workers</h1>
+      <div class="flex items-center gap-1 px-2 py-1 bg-slate-100 rounded-full text-[11px] font-medium text-slate-600">
+        <span class="font-bold text-[#123B5D]">EN</span>
+        <span class="text-slate-300">|</span>
+        <span class="text-slate-500">हिन्दी</span>
+      </div>
+    </div>
+
+    <!-- Scrollable Screen Content -->
+    <div class="screen-content px-4 py-3.5 space-y-3.5">
+      
+      <!-- Screen Header Intro -->
+      <div>
+        <p class="text-xs text-slate-500 font-medium">Select workers for Community Hall Repair.</p>
+      </div>
+
+      <!-- Project Summary Card -->
+      <div class="bg-white rounded-2xl p-3.5 border border-slate-200 shadow-2xs">
+        <div class="flex items-start justify-between">
+          <div>
+            <div class="flex items-center gap-1.5 mb-1">
+              <span class="px-2 py-0.5 bg-slate-100 text-slate-700 text-[10px] font-medium rounded-md border border-slate-200">
+                🏢 Najafgarh Community Centre
+              </span>
+            </div>
+            <h2 class="text-sm font-bold text-[#123B5D]">Community Hall Repair</h2>
+            <p class="text-xs text-slate-500 mt-0.5 flex items-center gap-1">
+              <span>🗓️ Sep 18–22, 2026</span>
+              <span class="text-slate-300">•</span>
+              <span>⏰ 9:00 AM–5:00 PM</span>
+            </p>
+          </div>
+          <div class="text-right">
+            <span class="inline-block px-2 py-1 bg-[#EBF3FA] text-[#123B5D] text-[11px] font-bold rounded-lg border border-blue-100">
+              5 workers
+            </span>
+          </div>
+        </div>
+
+        <div class="mt-2.5 pt-2.5 border-t border-slate-100 flex flex-wrap items-center gap-1.5">
+          <span class="text-[11px] font-semibold text-slate-600">Required Skills:</span>
+          <span class="px-2 py-0.5 bg-slate-100 text-slate-700 text-[10px] font-medium rounded-md">Masonry</span>
+          <span class="px-2 py-0.5 bg-slate-100 text-slate-700 text-[10px] font-medium rounded-md">Painting</span>
+          <span class="px-2 py-0.5 bg-slate-100 text-slate-700 text-[10px] font-medium rounded-md">General Labour</span>
+        </div>
+      </div>
+
+      <!-- Recommended Workers Header -->
+      <div class="pt-1 flex items-baseline justify-between">
+        <div>
+          <h3 class="text-xs font-bold uppercase tracking-wider text-slate-600">Recommended Workers</h3>
+          <p class="text-[11px] text-slate-500">AI-assisted matching based on skills, availability and experience.</p>
+        </div>
+      </div>
+
+      <!-- Worker Selection List -->
+      <div class="space-y-2.5" id="workerList">
+        
+        <!-- Worker 1: Ramlal Kumar (Selected by default) -->
+        <div class="worker-card selected bg-white rounded-2xl p-3.5 border border-slate-200 shadow-2xs relative" onclick="toggleWorker(0)" id="worker-0">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <!-- Custom Checkbox -->
+              <div class="w-5 h-5 rounded-md border-2 border-[#087443] bg-[#087443] flex items-center justify-center transition-colors checkmark-box">
+                <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <div class="w-10 h-10 rounded-full bg-[#123B5D]/10 text-[#123B5D] font-bold text-xs flex items-center justify-center border border-[#123B5D]/20">
+                RK
+              </div>
+              <div>
+                <div class="flex items-center gap-1.5">
+                  <h4 class="text-sm font-bold text-[#123B5D]">Ramlal Kumar</h4>
+                  <span class="px-1.5 py-0.5 bg-emerald-50 text-[#087443] border border-emerald-200 text-[9px] font-semibold rounded">✓ Available</span>
+                </div>
+                <p class="text-xs text-slate-600 font-medium mt-0.5">Painting • Masonry <span class="text-slate-400">•</span> 5 years</p>
+              </div>
+            </div>
+            <div class="text-right">
+              <span class="px-2 py-0.5 bg-emerald-100 text-[#087443] font-bold text-[11px] rounded-full border border-emerald-200">
+                Match: 94%
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Worker 2: Anita Sharma -->
+        <div class="worker-card bg-white rounded-2xl p-3.5 border border-slate-200 shadow-2xs relative" onclick="toggleWorker(1)" id="worker-1">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <!-- Custom Checkbox -->
+              <div class="w-5 h-5 rounded-md border-2 border-slate-300 bg-white flex items-center justify-center transition-colors checkmark-box">
+                <svg class="w-3.5 h-3.5 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <div class="w-10 h-10 rounded-full bg-amber-500/10 text-amber-800 font-bold text-xs flex items-center justify-center border border-amber-500/20">
+                AS
+              </div>
+              <div>
+                <div class="flex items-center gap-1.5">
+                  <h4 class="text-sm font-bold text-[#123B5D]">Anita Sharma</h4>
+                  <span class="px-1.5 py-0.5 bg-emerald-50 text-[#087443] border border-emerald-200 text-[9px] font-semibold rounded">✓ Available</span>
+                </div>
+                <p class="text-xs text-slate-600 font-medium mt-0.5">General Labour • Cleaning <span class="text-slate-400">•</span> 3 years</p>
+              </div>
+            </div>
+            <div class="text-right">
+              <span class="px-2 py-0.5 bg-emerald-50 text-[#087443] font-bold text-[11px] rounded-full border border-emerald-200">
+                Match: 82%
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Worker 3: Mohan Lal -->
+        <div class="worker-card bg-white rounded-2xl p-3.5 border border-slate-200 shadow-2xs relative" onclick="toggleWorker(2)" id="worker-2">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <!-- Custom Checkbox -->
+              <div class="w-5 h-5 rounded-md border-2 border-slate-300 bg-white flex items-center justify-center transition-colors checkmark-box">
+                <svg class="w-3.5 h-3.5 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <div class="w-10 h-10 rounded-full bg-blue-500/10 text-[#123B5D] font-bold text-xs flex items-center justify-center border border-blue-500/20">
+                ML
+              </div>
+              <div>
+                <div class="flex items-center gap-1.5">
+                  <h4 class="text-sm font-bold text-[#123B5D]">Mohan Lal</h4>
+                  <span class="px-1.5 py-0.5 bg-amber-50 text-[#D97706] border border-amber-200 text-[9px] font-semibold rounded">→ Assigned</span>
+                </div>
+                <p class="text-xs text-slate-600 font-medium mt-0.5">Carpentry • General Labour <span class="text-slate-400">•</span> 6 years</p>
+              </div>
+            </div>
+            <div class="text-right">
+              <span class="px-2 py-0.5 bg-blue-50 text-blue-800 font-bold text-[11px] rounded-full border border-blue-200">
+                Match: 76%
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Worker 4: Sunita Devi -->
+        <div class="worker-card bg-white rounded-2xl p-3.5 border border-slate-200 shadow-2xs relative" onclick="toggleWorker(3)" id="worker-3">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <!-- Custom Checkbox -->
+              <div class="w-5 h-5 rounded-md border-2 border-slate-300 bg-white flex items-center justify-center transition-colors checkmark-box">
+                <svg class="w-3.5 h-3.5 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <div class="w-10 h-10 rounded-full bg-emerald-500/10 text-[#087443] font-bold text-xs flex items-center justify-center border border-emerald-500/20">
+                SD
+              </div>
+              <div>
+                <div class="flex items-center gap-1.5">
+                  <h4 class="text-sm font-bold text-[#123B5D]">Sunita Devi</h4>
+                  <span class="px-1.5 py-0.5 bg-blue-50 text-blue-700 border border-blue-200 text-[9px] font-semibold rounded">● Working</span>
+                </div>
+                <p class="text-xs text-slate-600 font-medium mt-0.5">Electrical • Maintenance <span class="text-slate-400">•</span> 4 years</p>
+              </div>
+            </div>
+            <div class="text-right">
+              <span class="px-2 py-0.5 bg-slate-100 text-slate-700 font-bold text-[11px] rounded-full border border-slate-200">
+                Match: 64%
+              </span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Sticky / Bottom Action Section -->
+      <div class="pt-2 pb-1 space-y-2.5" id="actionPanel">
+        <!-- Live Selection Counter Badge -->
+        <div class="flex items-center justify-between px-3.5 py-2.5 bg-white rounded-xl border border-slate-200 shadow-2xs">
+          <div class="flex items-center gap-2">
+            <div class="w-2 h-2 rounded-full bg-[#087443] animate-pulse"></div>
+            <span class="text-xs font-semibold text-slate-700" id="selectionCountText">1 of 5 workers selected</span>
+          </div>
+          <span class="text-[11px] text-slate-400 font-medium">Req: 5 workers</span>
+        </div>
+
+        <!-- Primary Action Button -->
+        <button id="assignBtn" onclick="handleAssignment()" class="w-full py-3.5 px-4 bg-[#087443] hover:bg-[#076239] text-white text-sm font-semibold rounded-xl transition-all shadow-sm active:scale-[0.99] flex items-center justify-center gap-2">
+          <span>Assign Selected Workers</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </button>
+
+        <!-- Secondary Action: Cancel -->
+        <button onclick="handleCancel()" class="w-full py-2.5 px-4 text-xs font-medium text-slate-600 hover:text-slate-900 transition-colors text-center active:bg-slate-100 rounded-lg">
+          Cancel
+        </button>
+      </div>
+
+      <!-- Success State Banner (Hidden Initially, Revealed Upon Assignment) -->
+      <div id="successCard" class="hidden bg-emerald-50 border border-emerald-200 rounded-2xl p-4 shadow-sm space-y-3">
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 rounded-full bg-[#087443] text-white flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <div>
+            <h4 class="text-sm font-bold text-[#087443]">Workers Assigned ✓</h4>
+            <p class="text-xs text-slate-700 mt-0.5 leading-relaxed">
+              Selected workers have been assigned to <span class="font-semibold text-slate-900">Community Hall Repair</span>.
+            </p>
+          </div>
+        </div>
+
+        <div class="pt-2 border-t border-emerald-200/60 flex flex-col gap-2">
+          <button onclick="goToProjects()" class="w-full py-2.5 px-3 bg-[#123B5D] hover:bg-[#0d2a42] text-white text-xs font-semibold rounded-xl transition-all text-center flex items-center justify-center gap-1.5 shadow-2xs">
+            <span>View Active Project →</span>
+          </button>
+          <button onclick="resetAssignment()" class="text-center text-[11px] font-medium text-slate-600 hover:text-slate-900 py-1">
+            Modify Worker Selection
+          </button>
+        </div>
+      </div>
+
+      <!-- Subtle Trust Note -->
+      <div class="p-3 bg-slate-100/70 rounded-xl border border-slate-200 text-center">
+        <p class="text-[11px] text-slate-500">
+          Work invitations and skill match details will be dispatched immediately to the selected workers' SAHYOG apps.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Bottom Navigation Bar (Workers selected) -->
+    <div class="bottom-nav">
+      <!-- Home -->
+      <button onclick="navTo('6C')" class="flex flex-col items-center gap-1 py-1 text-slate-500 hover:text-slate-900 transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+        </svg>
+        <span class="text-[10px] font-medium">Home</span>
+      </button>
+
+      <!-- Requests -->
+      <button onclick="navTo('7C')" class="flex flex-col items-center gap-1 py-1 text-slate-500 hover:text-slate-900 transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+        </svg>
+        <span class="text-[10px] font-medium">Requests</span>
+      </button>
+
+      <!-- Workers (Active / Selected) -->
+      <button onclick="navTo('9C')" class="flex flex-col items-center gap-1 py-1 text-[#123B5D]">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 3s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+        </svg>
+        <span class="text-[10px] font-bold">Workers</span>
+      </button>
+
+      <!-- Projects -->
+      <button onclick="navTo('12C')" class="flex flex-col items-center gap-1 py-1 text-slate-500 hover:text-slate-900 transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+        </svg>
+        <span class="text-[10px] font-medium">Projects</span>
+      </button>
+
+      <!-- More -->
+      <button onclick="navTo('18C')" class="flex flex-col items-center gap-1 py-1 text-slate-500 hover:text-slate-900 transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"/>
+        </svg>
+        <span class="text-[10px] font-medium">More</span>
+      </button>
+    </div>
+
+    <!-- Home Indicator -->
+    <div class="home-indicator"></div>
+  </div>
+
+  <script>
+    // Worker selection state: index 0 (Ramlal Kumar) selected by default
+    const selectedWorkers = [true, false, false, false];
+
+    function updateUI() {
+      let count = 0;
+      selectedWorkers.forEach((isSelected, index) => {
+        const card = document.getElementById(`worker-${index}`);
+        const checkbox = card.querySelector('.checkmark-box');
+        const checkIcon = checkbox.querySelector('svg');
+
+        if (isSelected) {
+          count++;
+          card.classList.add('selected');
+          checkbox.classList.remove('border-slate-300', 'bg-white');
+          checkbox.classList.add('border-[#087443]', 'bg-[#087443]');
+          checkIcon.classList.remove('hidden');
+        } else {
+          card.classList.remove('selected');
+          checkbox.classList.remove('border-[#087443]', 'bg-[#087443]');
+          checkbox.classList.add('border-slate-300', 'bg-white');
+          checkIcon.classList.add('hidden');
+        }
+      });
+
+      // Update counter text
+      const countEl = document.getElementById('selectionCountText');
+      countEl.innerText = `${count} of 5 workers selected`;
+
+      // Update button state
+      const assignBtn = document.getElementById('assignBtn');
+      if (count === 0) {
+        assignBtn.disabled = true;
+        assignBtn.classList.remove('bg-[#087443]', 'hover:bg-[#076239]');
+        assignBtn.classList.add('bg-slate-300', 'cursor-not-allowed', 'opacity-70');
+      } else {
+        assignBtn.disabled = false;
+        assignBtn.classList.remove('bg-slate-300', 'cursor-not-allowed', 'opacity-70');
+        assignBtn.classList.add('bg-[#087443]', 'hover:bg-[#076239]');
+      }
+    }
+
+    function toggleWorker(index) {
+      selectedWorkers[index] = !selectedWorkers[index];
+      updateUI();
+    }
+
+    function handleAssignment() {
+      const count = selectedWorkers.filter(Boolean).length;
+      if (count === 0) return;
+
+      // Hide active action panel and show success state
+      document.getElementById('actionPanel').classList.add('hidden');
+      const successCard = document.getElementById('successCard');
+      successCard.classList.remove('hidden');
+      successCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function resetAssignment() {
+      document.getElementById('actionPanel').classList.remove('hidden');
+      document.getElementById('successCard').classList.add('hidden');
+    }
+
+    function handleCancel() {
+      // Navigate back to Screen 10C (Worker Details)
+      console.log('Navigating to Screen 10C');
+      window.location.href = '#10C';
+    }
+
+    function goToProjects() {
+      // Navigate to Screen 12C (Active Projects)
+      console.log('Navigating to Screen 12C');
+      window.location.href = '#12C';
+    }
+
+    function navTo(screenId) {
+      console.log('Navigating to screen:', screenId);
+      window.location.href = '#' + screenId;
+    }
+
+    // Initialize UI on load
+    updateUI();
+  </script>
+</body>
+</html>

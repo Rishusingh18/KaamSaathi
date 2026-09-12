@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>12C — Active Projects</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Noto+Sans+Devanagari:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #0b0f17;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+      background-size: 24px 24px;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+    }
+
+    /* Master Phone Shell: Exact 390x884 iPhone 14 Pro Frame */
+    .phone-viewport {
+      width: 390px;
+      height: 884px;
+      background-color: #f8fafc;
+      border-radius: 52px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 
+        0 0 0 12px #1e293b,
+        0 0 0 13px rgba(255, 255, 255, 0.1),
+        0 25px 60px -15px rgba(0, 0, 0, 0.8),
+        0 0 40px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Dynamic Island */
+    .dynamic-island {
+      position: absolute;
+      top: 11px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 32px;
+      background-color: #000000;
+      border-radius: 20px;
+      z-index: 50;
+    }
+
+    /* Screen internal scroll container */
+    .screen-content {
+      flex: 1;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 84px;
+    }
+    .screen-content::-webkit-scrollbar {
+      display: none;
+    }
+    .screen-content {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Bottom Navigation Bar */
+    .bottom-nav {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 72px;
+      background: #ffffff;
+      border-top: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding-bottom: 12px;
+      z-index: 40;
+    }
+
+    /* Home Indicator */
+    .home-indicator {
+      position: absolute;
+      bottom: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 138px;
+      height: 5px;
+      background-color: #0f172a;
+      border-radius: 3px;
+      z-index: 50;
+    }
+
+    /* Project card interactive transition */
+    .project-card {
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+    .project-card:active {
+      transform: scale(0.99);
+    }
+  </style>
+</head>
+<body>
+<div class="phone-viewport" id="phoneContainer">
+<!-- Dynamic Island -->
+<div class="dynamic-island"></div>
+<!-- Status Bar -->
+<div class="pt-3 px-7 flex justify-between items-center text-xs font-semibold text-slate-800 z-40 select-none">
+<span class="tracking-tight">09:41</span>
+<div class="flex items-center gap-1.5 text-slate-800">
+<!-- Cellular -->
+<svg class="w-3.5 h-3.5" fill="currentColor" viewbox="0 0 24 24">
+<path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19.4c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l1.9-1.9C9.22 19.58 10.56 20 12 20c4.97 0 9-4.03 9-9s-4.03-9-9-9zm0 15c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"></path>
+</svg>
+<!-- Wifi -->
+<svg class="w-3.5 h-3.5" fill="currentColor" viewbox="0 0 24 24">
+<path d="M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98A16.88 16.88 0 0 0 12 4zm0 3.2c3.7 0 7.08 1.4 9.61 3.73L12 19.38 2.39 10.93C4.92 8.6 8.3 7.2 12 7.2z"></path>
+</svg>
+<!-- Battery -->
+<div class="w-5 h-2.5 border border-slate-700 rounded-sm p-0.5 flex items-center">
+<div class="h-full w-full bg-slate-800 rounded-2xs"></div>
+</div>
+</div>
+</div>
+<!-- Top App Header -->
+<div class="px-5 pt-3 pb-2.5 flex items-center justify-between border-b border-slate-100 bg-white/95 backdrop-blur z-30">
+<button class="flex items-center gap-1 text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors py-1 px-1 -ml-1 rounded-lg active:bg-slate-100" onclick="handleHeaderBack()">
+<svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span>Back</span>
+</button>
+<h1 class="text-base font-bold text-[#123B5D] tracking-tight">Active Projects</h1>
+<div class="flex items-center gap-1 px-2 py-1 bg-slate-100 rounded-full text-[11px] font-medium text-slate-600">
+<span class="font-bold text-[#123B5D]">EN</span>
+<span class="text-slate-300">|</span>
+<span class="text-slate-500">हिन्दी</span>
+</div>
+</div>
+<!-- Scrollable Screen Content -->
+<div class="screen-content px-4 py-3.5 space-y-3.5">
+<!-- LIST VIEW CONTAINER -->
+<div class="space-y-3.5" id="projectsListView">
+<!-- Header Subtitle and Count Badge -->
+<div class="flex items-center justify-between gap-2">
+<div>
+<p class="text-xs text-slate-500 font-medium">Track ongoing work and assigned teams.</p>
+</div>
+<span class="shrink-0 px-2.5 py-1 bg-[#123B5D]/10 text-[#123B5D] border border-[#123B5D]/20 text-[11px] font-bold rounded-full">
+        7 Active Projects
+      </span>
+</div>
+<!-- Filter Chips -->
+<div class="flex items-center gap-1.5 overflow-x-auto pb-1" id="filterChipsContainer">
+<button class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#123B5D] text-white shadow-xs transition-all shrink-0" id="filter-all" onclick="filterProjects('all')">
+        All
+      </button>
+<button class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 transition-all shrink-0" id="filter-inprogress" onclick="filterProjects('inprogress')">
+        In Progress
+      </button>
+<button class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 transition-all shrink-0" id="filter-upcoming" onclick="filterProjects('upcoming')">
+        Upcoming
+      </button>
+<button class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 transition-all shrink-0" id="filter-completed" onclick="filterProjects('completed')">
+        Completed
+      </button>
+</div>
+<!-- Projects Cards List -->
+<div class="space-y-3" id="projectsCardsList">
+<!-- Card 1: Community Hall Repair -->
+<div class="project-card bg-white rounded-2xl p-4 border border-slate-200 shadow-xs space-y-3 cursor-pointer hover:border-slate-300" data-status="upcoming" id="card-community-hall" onclick="openProjectDetails('community-hall')">
+<div class="flex items-start justify-between gap-2">
+<div>
+<span class="inline-block px-2 py-0.5 bg-slate-100 text-slate-700 text-[10px] font-medium rounded-md border border-slate-200 mb-1.5">
+              🏢 Najafgarh Community Centre
+            </span>
+<h3 class="text-sm font-bold text-[#123B5D]">Community Hall Repair</h3>
+<p class="text-xs text-slate-500 mt-0.5 flex items-center gap-1">
+<span>🗓️ Sep 18–22, 2026</span>
+<span class="text-slate-300">•</span>
+<span>5 workers assigned</span>
+</p>
+</div>
+<span class="px-2 py-0.5 bg-amber-50 text-[#D97706] border border-amber-200 text-[10px] font-bold rounded-full shrink-0" id="badge-community-hall-card">
+            Upcoming
+          </span>
+</div>
+<!-- Progress bar container (dynamically updated if started) -->
+<div class="hidden space-y-1.5" id="list-progress-community-hall">
+<div class="flex justify-between items-center text-[11px]">
+<span class="text-slate-500 font-medium">Execution Status</span>
+<span class="font-bold text-[#123B5D]" id="list-progresstext-community-hall">25% Complete</span>
+</div>
+<div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+<div class="h-full bg-[#087443] rounded-full transition-all duration-300" id="list-progressbar-community-hall" style="width: 25%"></div>
+</div>
+</div>
+<!-- Worker Avatars & View Action -->
+<div class="flex items-center justify-between pt-2 border-t border-slate-100">
+<div class="flex items-center gap-2">
+<div class="flex -space-x-2 overflow-hidden">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-[#123B5D] text-white text-[9px] font-bold ring-2 ring-white">RK</span>
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-amber-600 text-white text-[9px] font-bold ring-2 ring-white">SD</span>
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-blue-600 text-white text-[9px] font-bold ring-2 ring-white">ML</span>
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-600 text-white text-[9px] font-bold ring-2 ring-white">AD</span>
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-slate-200 text-slate-700 text-[9px] font-bold ring-2 ring-white">+1</span>
+</div>
+<span class="text-[11px] text-slate-600 font-medium">Ramlal Kumar + 4 others</span>
+</div>
+<button class="text-xs font-bold text-[#123B5D] hover:text-[#087443] flex items-center gap-0.5" onclick="event.stopPropagation(); openProjectDetails('community-hall');">
+            View Project →
+          </button>
+</div>
+</div>
+<!-- Card 2: Residential Painting -->
+<div class="project-card bg-white rounded-2xl p-4 border border-slate-200 shadow-xs space-y-3 cursor-pointer hover:border-slate-300" data-status="inprogress" id="card-residential-painting" onclick="openProjectDetails('residential-painting')">
+<div class="flex items-start justify-between gap-2">
+<div>
+<span class="inline-block px-2 py-0.5 bg-slate-100 text-slate-700 text-[10px] font-medium rounded-md border border-slate-200 mb-1.5">
+              🏠 Household • Dwarka
+            </span>
+<h3 class="text-sm font-bold text-[#123B5D]">Residential Painting</h3>
+<p class="text-xs text-slate-500 mt-0.5 flex items-center gap-1">
+<span>🗓️ Sep 12, 2026</span>
+<span class="text-slate-300">•</span>
+<span>2 workers</span>
+</p>
+</div>
+<span class="px-2 py-0.5 bg-blue-50 text-blue-700 border border-blue-200 text-[10px] font-bold rounded-full shrink-0">
+            In Progress
+          </span>
+</div>
+<!-- Progress Bar -->
+<div class="space-y-1.5">
+<div class="flex justify-between items-center text-[11px]">
+<span class="text-slate-500 font-medium">Execution Status</span>
+<span class="font-bold text-[#123B5D]">60% Complete</span>
+</div>
+<div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+<div class="h-full bg-[#087443] rounded-full transition-all duration-300" style="width: 60%"></div>
+</div>
+</div>
+<!-- Footer Actions -->
+<div class="flex items-center justify-between pt-2 border-t border-slate-100">
+<div class="flex items-center gap-1.5">
+<div class="flex -space-x-1.5 overflow-hidden">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-[#123B5D] text-white text-[9px] font-bold ring-2 ring-white">RK</span>
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-amber-600 text-white text-[9px] font-bold ring-2 ring-white">AS</span>
+</div>
+<span class="text-[11px] text-slate-600 font-medium">Ramlal, Anita</span>
+</div>
+<button class="text-xs font-bold text-[#123B5D] hover:text-[#087443] flex items-center gap-0.5" onclick="event.stopPropagation(); openProjectDetails('residential-painting');">
+            View Project →
+          </button>
+</div>
+</div>
+<!-- Card 3: Electrical Maintenance -->
+<div class="project-card bg-white rounded-2xl p-4 border border-slate-200 shadow-xs space-y-3 cursor-pointer hover:border-slate-300" data-status="inprogress" id="card-electrical-maintenance" onclick="openProjectDetails('electrical-maintenance')">
+<div class="flex items-start justify-between gap-2">
+<div>
+<span class="inline-block px-2 py-0.5 bg-slate-100 text-slate-700 text-[10px] font-medium rounded-md border border-slate-200 mb-1.5">
+              🏢 Institution • Janakpuri
+            </span>
+<h3 class="text-sm font-bold text-[#123B5D]">Electrical Maintenance</h3>
+<p class="text-xs text-slate-500 mt-0.5 flex items-center gap-1">
+<span>🗓️ Sep 10–14, 2026</span>
+<span class="text-slate-300">•</span>
+<span>3 workers</span>
+</p>
+</div>
+<span class="px-2 py-0.5 bg-blue-50 text-blue-700 border border-blue-200 text-[10px] font-bold rounded-full shrink-0">
+            In Progress
+          </span>
+</div>
+<!-- Progress Bar -->
+<div class="space-y-1.5">
+<div class="flex justify-between items-center text-[11px]">
+<span class="text-slate-500 font-medium">Execution Status</span>
+<span class="font-bold text-[#123B5D]">35% Complete</span>
+</div>
+<div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+<div class="h-full bg-[#087443] rounded-full transition-all duration-300" style="width: 35%"></div>
+</div>
+</div>
+<!-- Footer Actions -->
+<div class="flex items-center justify-between pt-2 border-t border-slate-100">
+<div class="flex items-center gap-1.5">
+<div class="flex -space-x-1.5 overflow-hidden">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-600 text-white text-[9px] font-bold ring-2 ring-white">SD</span>
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-slate-200 text-slate-700 text-[9px] font-bold ring-2 ring-white">+2</span>
+</div>
+<span class="text-[11px] text-slate-600 font-medium">Sunita Devi + 2 others</span>
+</div>
+<button class="text-xs font-bold text-[#123B5D] hover:text-[#087443] flex items-center gap-0.5" onclick="event.stopPropagation(); openProjectDetails('electrical-maintenance');">
+            View Project →
+          </button>
+</div>
+</div>
+</div>
+</div>
+<!-- PROJECT DETAIL STATE (TOGGLEABLE ON SAME SCREEN) -->
+<div class="hidden space-y-3" id="projectDetailsView">
+<!-- Back to Projects link -->
+<button class="flex items-center gap-1.5 text-xs font-bold text-[#123B5D] hover:text-[#087443] transition-colors py-1" onclick="closeProjectDetails()">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span>← Back to Projects</span>
+</button>
+<!-- Detail Header Card -->
+<div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-xs space-y-2.5">
+<div class="flex items-start justify-between gap-2">
+<div>
+<span class="inline-block px-2 py-0.5 bg-slate-100 text-slate-700 text-[10px] font-medium rounded-md border border-slate-200 mb-1" id="detail-type-badge">
+            🏢 Institution
+          </span>
+<h2 class="text-base font-bold text-[#123B5D]" id="detail-title">Community Hall Repair</h2>
+<p class="text-xs text-slate-600 font-medium mt-0.5" id="detail-client-info">
+            🏢 Najafgarh Community Centre • Sep 18–22, 2026 • 9:00 AM – 5:00 PM
+          </p>
+</div>
+<span class="px-2.5 py-1 bg-amber-50 text-[#D97706] border border-amber-200 text-[10px] font-bold rounded-full shrink-0" id="detail-status-badge">
+          Upcoming
+        </span>
+</div>
+</div>
+<!-- Section: Assigned Workers -->
+<div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-xs space-y-3">
+<div class="flex justify-between items-center">
+<h3 class="text-xs font-bold text-[#123B5D] uppercase tracking-wider">Assigned Workers (5)</h3>
+<button class="text-xs font-bold text-[#087443] hover:underline flex items-center gap-1" onclick="navTo('9C')">
+<span>View Workforce →</span>
+</button>
+</div>
+<div class="space-y-2 divide-y divide-slate-100 text-xs">
+<!-- Worker 1 -->
+<div class="flex items-center justify-between pt-1.5 first:pt-0">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded-full bg-[#123B5D] text-white text-[9px] font-bold flex items-center justify-center">RK</span>
+<div>
+<p class="font-bold text-slate-800">Ramlal Kumar</p>
+<p class="text-[10px] text-slate-500">Painting • Masonry</p>
+</div>
+</div>
+<span class="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">Confirmed</span>
+</div>
+<!-- Worker 2 -->
+<div class="flex items-center justify-between pt-2">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded-full bg-amber-600 text-white text-[9px] font-bold flex items-center justify-center">SD</span>
+<div>
+<p class="font-bold text-slate-800">Sunita Devi</p>
+<p class="text-[10px] text-slate-500">General Labour</p>
+</div>
+</div>
+<span class="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">Confirmed</span>
+</div>
+<!-- Worker 3, 4, 5 summarized -->
+<div class="pt-2 flex items-center justify-between text-slate-600">
+<div class="flex items-center gap-2">
+<div class="flex -space-x-1 overflow-hidden">
+<span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-600 text-white text-[8px] font-bold ring-2 ring-white">ML</span>
+<span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-purple-600 text-white text-[8px] font-bold ring-2 ring-white">AD</span>
+<span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-slate-600 text-white text-[8px] font-bold ring-2 ring-white">VS</span>
+</div>
+<p class="text-[11px] font-medium text-slate-700">Mohan Lal, Anita Devi, Vikram Singh</p>
+</div>
+<span class="text-[10px] text-slate-500">+3 others</span>
+</div>
+</div>
+</div>
+<!-- Section: Project Progress (4-stage Stepper Tracker) -->
+<div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-xs space-y-3">
+<div class="flex justify-between items-center">
+<h3 class="text-xs font-bold text-[#123B5D] uppercase tracking-wider">Project Progress</h3>
+<span class="text-[11px] font-semibold text-[#123B5D]" id="detail-stepper-label">Stage 1 of 4</span>
+</div>
+<!-- 4 Stages Stepper -->
+<div class="grid grid-cols-4 gap-1 relative pt-1" id="stepperContainer">
+<!-- Stage 1 -->
+<div class="flex flex-col items-center text-center" id="step-1">
+<div class="w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold border-2 bg-[#123B5D] border-[#123B5D] text-white step-circle">
+            ✓
+          </div>
+<span class="text-[10px] font-semibold text-[#123B5D] mt-1.5 leading-tight step-text">Upcoming</span>
+</div>
+<!-- Stage 2 -->
+<div class="flex flex-col items-center text-center" id="step-2">
+<div class="w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold border-2 bg-[#123B5D] border-[#123B5D] text-white step-circle">
+            ✓
+          </div>
+<span class="text-[10px] font-semibold text-[#123B5D] mt-1.5 leading-tight step-text">Worker Assigned</span>
+</div>
+<!-- Stage 3 -->
+<div class="flex flex-col items-center text-center" id="step-3">
+<div class="w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold border-2 bg-white border-slate-300 text-slate-400 step-circle">
+            ○
+          </div>
+<span class="text-[10px] font-medium text-slate-400 mt-1.5 leading-tight step-text">In Progress</span>
+</div>
+<!-- Stage 4 -->
+<div class="flex flex-col items-center text-center" id="step-4">
+<div class="w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold border-2 bg-white border-slate-300 text-slate-400 step-circle">
+            ○
+          </div>
+<span class="text-[10px] font-medium text-slate-400 mt-1.5 leading-tight step-text">Completed</span>
+</div>
+</div>
+<!-- Live progress bar representation -->
+<div class="space-y-1 pt-1">
+<div class="flex justify-between text-[11px] text-slate-500">
+<span>Overall Completion</span>
+<span class="font-bold text-[#123B5D]" id="detail-progress-percent">0%</span>
+</div>
+<div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+<div class="h-full bg-[#087443] rounded-full transition-all duration-300" id="detail-progress-bar" style="width: 0%"></div>
+</div>
+</div>
+</div>
+<!-- Section: Project Value & CRITICAL PAYMENT ACCESS BUTTON -->
+<div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-xs space-y-3">
+<div class="flex items-center justify-between">
+<h3 class="text-xs font-bold text-[#123B5D] uppercase tracking-wider">Project Value</h3>
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-50 text-[#D97706] border border-amber-200" id="detail-payment-status">
+          Payment: Pending
+        </span>
+</div>
+<div class="grid grid-cols-2 gap-2.5 py-1">
+<div class="p-2.5 bg-slate-50 rounded-xl border border-slate-100">
+<p class="text-[10px] text-slate-500 font-medium">Total Project Value</p>
+<p class="text-base font-bold text-[#123B5D] mt-0.5" id="detail-val-total">₹8,500</p>
+</div>
+<div class="p-2.5 bg-slate-50 rounded-xl border border-slate-100">
+<p class="text-[10px] text-slate-500 font-medium">Worker Payments</p>
+<p class="text-base font-bold text-[#087443] mt-0.5" id="detail-val-workers">₹6,000</p>
+</div>
+</div>
+<!-- CRITICAL PROMINENT COOPERATIVE GREEN BUTTON ROUTING TO 13C -->
+<button class="w-full py-3 px-4 bg-[#087443] hover:bg-[#065b34] text-white text-xs font-bold rounded-xl transition-all shadow-sm flex items-center justify-center gap-2 active:scale-[0.98]" id="btnViewEarnings" onclick="navTo('13C')">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span>View Earnings &amp; Payments →</span>
+</button>
+</div>
+<!-- Section: Project Actions -->
+<div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-xs space-y-3">
+<h3 class="text-xs font-bold text-[#123B5D] uppercase tracking-wider">Project Actions</h3>
+<!-- Start Project Primary Button -->
+<div id="startActionContainer">
+<button class="w-full py-2.5 px-4 bg-[#087443] hover:bg-[#065b34] text-white text-xs font-bold rounded-xl transition-all shadow-xs flex items-center justify-center gap-1.5 active:scale-[0.98]" id="btnStartProject" onclick="startProjectFlow()">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span>Start Project</span>
+</button>
+</div>
+<!-- Update Progress Option Chips -->
+<div class="space-y-1.5 pt-1">
+<p class="text-[11px] font-semibold text-slate-600">Update Progress:</p>
+<div class="grid grid-cols-4 gap-1.5">
+<button class="py-2 text-center text-xs font-bold rounded-xl border border-slate-200 hover:border-[#123B5D] bg-slate-50 hover:bg-white text-[#123B5D] transition-all" onclick="applyDirectProgress(25)">
+            25%
+          </button>
+<button class="py-2 text-center text-xs font-bold rounded-xl border border-slate-200 hover:border-[#123B5D] bg-slate-50 hover:bg-white text-[#123B5D] transition-all" onclick="applyDirectProgress(50)">
+            50%
+          </button>
+<button class="py-2 text-center text-xs font-bold rounded-xl border border-slate-200 hover:border-[#123B5D] bg-slate-50 hover:bg-white text-[#123B5D] transition-all" onclick="applyDirectProgress(75)">
+            75%
+          </button>
+<button class="py-2 text-center text-[10px] font-bold rounded-xl border-2 border-emerald-500 bg-emerald-50 text-[#087443] hover:bg-emerald-100 transition-all leading-tight" onclick="applyDirectProgress(100)">
+            100% ✓
+          </button>
+</div>
+</div>
+</div>
+<!-- Return to list secondary button -->
+<button class="w-full py-2.5 px-4 text-xs font-semibold text-slate-600 hover:text-slate-900 bg-white border border-slate-200 rounded-xl transition-colors text-center" onclick="closeProjectDetails()">
+      ← Back to Projects
+    </button>
+</div>
+</div>
+<!-- Bottom Navigation Bar -->
+<div class="bottom-nav">
+<!-- Home (routes to 6C) -->
+<button class="flex flex-col items-center gap-1 py-1 text-slate-500 hover:text-slate-900 transition-colors" onclick="navTo('6C')">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"></path>
+</svg>
+<span class="text-[10px] font-medium">Home</span>
+</button>
+<!-- Requests (routes to 7C) -->
+<button class="flex flex-col items-center gap-1 py-1 text-slate-500 hover:text-slate-900 transition-colors" onclick="navTo('7C')">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"></path>
+</svg>
+<span class="text-[10px] font-medium">Requests</span>
+</button>
+<!-- Workers (routes to 9C) -->
+<button class="flex flex-col items-center gap-1 py-1 text-slate-500 hover:text-slate-900 transition-colors" onclick="navTo('9C')">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"></path>
+</svg>
+<span class="text-[10px] font-medium">Workers</span>
+</button>
+<!-- Projects (ACTIVE / SELECTED in Navy #123B5D) -->
+<button class="flex flex-col items-center gap-1 py-1 text-[#123B5D]" onclick="navTo('12C')">
+<svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24">
+<path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+</svg>
+<span class="text-[10px] font-bold">Projects</span>
+</button>
+<!-- More (routes to 18C) -->
+<button class="flex flex-col items-center gap-1 py-1 text-slate-500 hover:text-slate-900 transition-colors" onclick="navTo('18C')">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"></path>
+</svg>
+<span class="text-[10px] font-medium">More</span>
+</button>
+</div>
+<!-- Home Indicator -->
+<div class="home-indicator"></div>
+<script>
+let currentOpenProject = 'community-hall';
+let projectStates = {
+  'community-hall': {
+    status: 'Upcoming',
+    progress: 0,
+    started: false,
+    value: '₹8,500',
+    workerPayments: '₹6,000'
+  },
+  'residential-painting': {
+    status: 'In Progress',
+    progress: 60,
+    started: true,
+    value: '₹4,200',
+    workerPayments: '₹3,000'
+  },
+  'electrical-maintenance': {
+    status: 'In Progress',
+    progress: 35,
+    started: true,
+    value: '₹5,500',
+    workerPayments: '₹3,900'
+  }
+};
+
+function openProjectDetails(projectId) {
+  currentOpenProject = projectId;
+  const listView = document.getElementById('projectsListView');
+  const detailsView = document.getElementById('projectDetailsView');
+  if (!listView || !detailsView) return;
+
+  const state = projectStates[projectId] || projectStates['community-hall'];
+
+  if (projectId === 'community-hall') {
+    document.getElementById('detail-title').textContent = 'Community Hall Repair';
+    document.getElementById('detail-type-badge').textContent = '🏢 Najafgarh Centre';
+    document.getElementById('detail-client-info').textContent = '🏢 Najafgarh Community Centre • Sep 18–22, 2026 • 9:00 AM – 5:00 PM';
+    document.getElementById('detail-val-total').textContent = state.value;
+    document.getElementById('detail-val-workers').textContent = state.workerPayments;
+  } else if (projectId === 'residential-painting') {
+    document.getElementById('detail-title').textContent = 'Residential Painting';
+    document.getElementById('detail-type-badge').textContent = '🏠 Household';
+    document.getElementById('detail-client-info').textContent = '🏠 Household • Sector 11 Dwarka • Sep 12, 2026';
+    document.getElementById('detail-val-total').textContent = state.value;
+    document.getElementById('detail-val-workers').textContent = state.workerPayments;
+  } else if (projectId === 'electrical-maintenance') {
+    document.getElementById('detail-title').textContent = 'Electrical Maintenance';
+    document.getElementById('detail-type-badge').textContent = '🏢 Institution';
+    document.getElementById('detail-client-info').textContent = '🏢 Institution • Block C Janakpuri • Sep 10–14, 2026';
+    document.getElementById('detail-val-total').textContent = state.value;
+    document.getElementById('detail-val-workers').textContent = state.workerPayments;
+  }
+
+  updateProjectDetailVisuals(state);
+
+  listView.classList.add('hidden');
+  detailsView.classList.remove('hidden');
+  const screenEl = document.querySelector('.screen-content');
+  if (screenEl) screenEl.scrollTop = 0;
+}
+
+function updateProjectDetailVisuals(state) {
+  const statusBadge = document.getElementById('detail-status-badge');
+  const paymentBadge = document.getElementById('detail-payment-status');
+  const progressBar = document.getElementById('detail-progress-bar');
+  const progressPercent = document.getElementById('detail-progress-percent');
+  const stepperLabel = document.getElementById('detail-stepper-label');
+  const startBtn = document.getElementById('btnStartProject');
+
+  statusBadge.textContent = state.status;
+  progressPercent.textContent = state.progress + '%';
+  progressBar.style.width = state.progress + '%';
+
+  // Badge colors
+  if (state.status === 'Completed') {
+    statusBadge.className = "px-2.5 py-1 bg-emerald-50 text-[#087443] border border-emerald-200 text-[10px] font-bold rounded-full shrink-0";
+    paymentBadge.textContent = "Payment: Released / Verified";
+    paymentBadge.className = "px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-[#087443] border border-emerald-200";
+    if (startBtn) {
+      startBtn.disabled = true;
+      startBtn.classList.add('opacity-50', 'cursor-not-allowed');
+      startBtn.innerHTML = '<span>Project Completed ✓</span>';
+    }
+  } else if (state.status === 'In Progress') {
+    statusBadge.className = "px-2.5 py-1 bg-blue-50 text-blue-700 border border-blue-200 text-[10px] font-bold rounded-full shrink-0";
+    paymentBadge.textContent = "Payment: Escrow Locked";
+    paymentBadge.className = "px-2 py-0.5 rounded text-[10px] font-bold bg-blue-50 text-blue-700 border border-blue-200";
+    if (startBtn) {
+      startBtn.disabled = false;
+      startBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+      startBtn.innerHTML = '<span>Work In Progress</span>';
+    }
+  } else {
+    statusBadge.className = "px-2.5 py-1 bg-amber-50 text-[#D97706] border border-amber-200 text-[10px] font-bold rounded-full shrink-0";
+    paymentBadge.textContent = "Payment: Pending";
+    paymentBadge.className = "px-2 py-0.5 rounded text-[10px] font-bold bg-amber-50 text-[#D97706] border border-amber-200";
+    if (startBtn) {
+      startBtn.disabled = false;
+      startBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+      startBtn.innerHTML = `
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+          <path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+        </svg>
+        <span>Start Project</span>`;
+    }
+  }
+
+  // Update Stepper Stages: 1: Upcoming, 2: Worker Assigned, 3: Work In Progress, 4: Completed
+  const s1 = document.getElementById('step-1');
+  const s2 = document.getElementById('step-2');
+  const s3 = document.getElementById('step-3');
+  const s4 = document.getElementById('step-4');
+
+  const setStepState = (el, icon, active, completed) => {
+    const circle = el.querySelector('.step-circle');
+    const text = el.querySelector('.step-text');
+    circle.textContent = icon;
+    if (completed) {
+      circle.className = "w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold border-2 bg-[#087443] border-[#087443] text-white step-circle";
+      text.className = "text-[10px] font-semibold text-[#087443] mt-1.5 leading-tight step-text";
+    } else if (active) {
+      circle.className = "w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold border-2 bg-[#123B5D] border-[#123B5D] text-white step-circle";
+      text.className = "text-[10px] font-bold text-[#123B5D] mt-1.5 leading-tight step-text";
+    } else {
+      circle.className = "w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold border-2 bg-white border-slate-300 text-slate-400 step-circle";
+      text.className = "text-[10px] font-medium text-slate-400 mt-1.5 leading-tight step-text";
+    }
+  };
+
+  if (state.status === 'Completed' || state.progress === 100) {
+    stepperLabel.textContent = 'Stage 4 of 4 (Completed)';
+    setStepState(s1, '✓', false, true);
+    setStepState(s2, '✓', false, true);
+    setStepState(s3, '✓', false, true);
+    setStepState(s4, '✓', true, true);
+  } else if (state.status === 'In Progress' || state.started) {
+    stepperLabel.textContent = 'Stage 3 of 4 (In Progress)';
+    setStepState(s1, '✓', false, true);
+    setStepState(s2, '✓', false, true);
+    setStepState(s3, '●', true, false);
+    setStepState(s4, '○', false, false);
+  } else {
+    stepperLabel.textContent = 'Stage 2 of 4 (Workers Assigned)';
+    setStepState(s1, '✓', false, true);
+    setStepState(s2, '●', true, false);
+    setStepState(s3, '○', false, false);
+    setStepState(s4, '○', false, false);
+  }
+}
+
+function startProjectFlow() {
+  const state = projectStates[currentOpenProject];
+  state.started = true;
+  state.status = 'In Progress';
+  if (state.progress === 0) {
+    state.progress = 25;
+  }
+  updateProjectDetailVisuals(state);
+
+  // Reflect in card if community hall
+  if (currentOpenProject === 'community-hall') {
+    const cardBadge = document.getElementById('badge-community-hall-card');
+    if (cardBadge) {
+      cardBadge.textContent = 'In Progress';
+      cardBadge.className = 'px-2 py-0.5 bg-blue-50 text-blue-700 border border-blue-200 text-[10px] font-bold rounded-full shrink-0';
+    }
+    const progContainer = document.getElementById('list-progress-community-hall');
+    if (progContainer) progContainer.classList.remove('hidden');
+    const pBar = document.getElementById('list-progressbar-community-hall');
+    const pText = document.getElementById('list-progresstext-community-hall');
+    if (pBar) pBar.style.width = state.progress + '%';
+    if (pText) pText.textContent = state.progress + '% Complete';
+    const cardEl = document.getElementById('card-community-hall');
+    if (cardEl) cardEl.setAttribute('data-status', 'inprogress');
+  }
+}
+
+function applyDirectProgress(pct) {
+  const state = projectStates[currentOpenProject];
+  state.progress = pct;
+  if (pct === 100) {
+    state.status = 'Completed';
+    state.started = true;
+  } else {
+    state.status = 'In Progress';
+    state.started = true;
+  }
+  updateProjectDetailVisuals(state);
+
+  // Sync to list card if community hall
+  if (currentOpenProject === 'community-hall') {
+    const cardBadge = document.getElementById('badge-community-hall-card');
+    const progContainer = document.getElementById('list-progress-community-hall');
+    const pBar = document.getElementById('list-progressbar-community-hall');
+    const pText = document.getElementById('list-progresstext-community-hall');
+    const cardEl = document.getElementById('card-community-hall');
+
+    if (progContainer) progContainer.classList.remove('hidden');
+    if (pBar) pBar.style.width = pct + '%';
+    if (pText) pText.textContent = pct + '% Complete';
+
+    if (pct === 100) {
+      if (cardBadge) {
+        cardBadge.textContent = 'Completed';
+        cardBadge.className = 'px-2 py-0.5 bg-emerald-50 text-[#087443] border border-emerald-200 text-[10px] font-bold rounded-full shrink-0';
+      }
+      if (cardEl) cardEl.setAttribute('data-status', 'completed');
+    } else {
+      if (cardBadge) {
+        cardBadge.textContent = 'In Progress';
+        cardBadge.className = 'px-2 py-0.5 bg-blue-50 text-blue-700 border border-blue-200 text-[10px] font-bold rounded-full shrink-0';
+      }
+      if (cardEl) cardEl.setAttribute('data-status', 'inprogress');
+    }
+  }
+}
+
+function closeProjectDetails() {
+  const listView = document.getElementById('projectsListView');
+  const detailsView = document.getElementById('projectDetailsView');
+  if (listView && detailsView) {
+    detailsView.classList.add('hidden');
+    listView.classList.remove('hidden');
+  }
+}
+
+function handleHeaderBack() {
+  const detailsView = document.getElementById('projectDetailsView');
+  if (detailsView && !detailsView.classList.contains('hidden')) {
+    closeProjectDetails();
+  } else {
+    // Top-left Back button linking to SCREEN 11C ("11C — Worker Assignment")
+    navTo('11C');
+  }
+}
+
+function filterProjects(status) {
+  const cards = document.querySelectorAll('.project-card');
+  const filterBtns = document.querySelectorAll('#filterChipsContainer button');
+  filterBtns.forEach(btn => {
+    btn.classList.remove('bg-[#123B5D]', 'text-white', 'shadow-xs');
+    btn.classList.add('bg-white', 'text-slate-600', 'border', 'border-slate-200');
+  });
+  const activeBtn = document.getElementById('filter-' + status);
+  if (activeBtn) {
+    activeBtn.classList.remove('bg-white', 'text-slate-600', 'border', 'border-slate-200');
+    activeBtn.classList.add('bg-[#123B5D]', 'text-white', 'shadow-xs');
+  }
+  cards.forEach(card => {
+    if (status === 'all' || card.getAttribute('data-status') === status) {
+      card.classList.remove('hidden');
+    } else {
+      card.classList.add('hidden');
+    }
+  });
+}
+
+function navTo(screenId) {
+  console.log('Navigating to screen:', screenId);
+  window.location.href = '#' + screenId;
+}
+</script>
+</div>
+</body></html>

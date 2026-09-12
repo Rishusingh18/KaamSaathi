@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>18C — Cooperative Profile / Settings</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Noto+Sans+Devanagari:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #0b0f17;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+      background-size: 24px 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #17212B;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    .phone-mockup {
+      width: 390px;
+      height: 884px;
+      background-color: #FFFFFF;
+      border-radius: 52px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.6), 0 0 0 12px #1E2633, 0 0 0 14px #2D3748;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .dynamic-island {
+      width: 120px;
+      height: 32px;
+      background-color: #000000;
+      border-radius: 20px;
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 50;
+    }
+
+    .status-bar {
+      height: 48px;
+      padding: 14px 26px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: #17212B;
+      z-index: 40;
+      flex-shrink: 0;
+    }
+
+    .home-indicator {
+      width: 138px;
+      height: 5px;
+      background-color: #17212B;
+      border-radius: 3px;
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 50;
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body>
+<div class="phone-mockup" id="phoneMockup">
+<!-- Dynamic Island -->
+<div class="dynamic-island"></div>
+<!-- Status Bar -->
+<div class="status-bar">
+<span>09:41</span>
+<div class="flex items-center space-x-1.5">
+<svg class="w-4 h-4 text-slate-800" fill="currentColor" viewbox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L12 22l7.03-4.39C20.26 16.07 21 14.12 21 12c0-4.97-4.03-9-9-9zm0 14c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"></path></svg>
+<svg class="w-3.5 h-3.5 text-slate-800" fill="currentColor" viewbox="0 0 24 24"><path d="M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98A16.88 16.88 0 0 0 12 4z"></path></svg>
+<svg class="w-5 h-5 text-slate-800" fill="currentColor" viewbox="0 0 24 24"><path d="M17 4h-3V2h-4v2H7v18h10V4zm-2 16H9V6h6v14z"></path></svg>
+</div>
+</div>
+<!-- App Header -->
+<div class="px-5 pt-1 pb-2.5 border-b border-slate-100 bg-white z-30"><div class="flex items-center justify-between">
+<button class="flex items-center space-x-1 text-slate-700 hover:text-slate-900 active:opacity-70 transition-opacity" onclick="goBack17C()">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span class="text-sm font-semibold">Back</span>
+</button>
+<div class="flex items-center space-x-1.5">
+<h1 class="text-base font-bold text-[#123B5D] tracking-tight">Cooperative Profile</h1>
+</div>
+<div class="text-[11px] font-semibold tracking-wide text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full border border-slate-200">
+<span class="text-[#123B5D]">EN</span> | <span class="text-slate-400">हिन्दी</span>
+</div>
+</div>
+<p class="text-xs font-medium text-slate-500 mt-1.5">Manage cooperative information, settings and verification.</p></div>
+<!-- Scrollable Main Content -->
+<div class="flex-1 overflow-y-auto no-scrollbar bg-[#F8FAFC] pb-24" id="mainContent"><div class="px-5 py-3 space-y-3.5">
+<!-- 1. Profile Card (View & Inline Edit mode) -->
+<div class="bg-white border border-[#E2E8F0] rounded-2xl p-4 shadow-sm space-y-3" id="coopProfileCard">
+<!-- View Mode -->
+<div class="space-y-3" id="profileViewMode">
+<div class="flex items-start justify-between">
+<div class="flex items-center space-x-2.5">
+<div class="w-11 h-11 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center text-xl text-[#123B5D] font-bold shadow-sm">
+          🏛️
+        </div>
+<div>
+<h2 class="text-sm font-bold text-[#17212B] leading-tight" id="displayCoopName">Nirman Shramik Cooperative</h2>
+<p class="text-[11px] text-slate-500 mt-0.5 font-mono">Reg: COOP-DL-2026-0142</p>
+</div>
+</div>
+<span class="inline-flex items-center text-[10px] font-bold text-emerald-800 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">
+        ✓ Verified
+      </span>
+</div>
+<div class="bg-slate-50 rounded-xl p-2.5 space-y-1.5 text-xs border border-slate-100">
+<div class="flex items-start justify-between">
+<span class="text-slate-500 text-[11px]">Location:</span>
+<span class="font-medium text-slate-800 text-right" id="displayLocation">Dwarka, New Delhi</span>
+</div>
+<div class="flex items-start justify-between">
+<span class="text-slate-500 text-[11px]">Service Areas:</span>
+<span class="font-medium text-slate-800 text-right max-w-[200px]" id="displayServiceAreas">Dwarka • Najafgarh • West Delhi</span>
+</div>
+</div>
+<div>
+<span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 block mb-1.5">Primary Services</span>
+<div class="flex flex-wrap gap-1.5" id="servicesBadgeContainer">
+<span class="text-[10px] font-medium bg-blue-50 text-blue-800 border border-blue-200 px-2 py-0.5 rounded-full">Construction</span>
+<span class="text-[10px] font-medium bg-blue-50 text-blue-800 border border-blue-200 px-2 py-0.5 rounded-full">Painting</span>
+<span class="text-[10px] font-medium bg-blue-50 text-blue-800 border border-blue-200 px-2 py-0.5 rounded-full">Electrical</span>
+<span class="text-[10px] font-medium bg-blue-50 text-blue-800 border border-blue-200 px-2 py-0.5 rounded-full">Plumbing</span>
+</div>
+</div>
+<div class="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+<span class="text-slate-400 text-[11px]">Profile status active</span>
+<button class="font-bold text-[#123B5D] hover:underline flex items-center space-x-0.5" onclick="openProfileEdit()" type="button">
+<span>Edit Profile</span>
+<span class="text-xs">→</span>
+</button>
+</div>
+</div>
+<!-- Inline Edit Form (Hidden by default) -->
+<div class="hidden space-y-3 pt-1" id="profileEditMode">
+<div class="flex items-center justify-between border-b border-slate-100 pb-2">
+<h3 class="text-xs font-bold uppercase tracking-wider text-[#123B5D]">Edit Cooperative Details</h3>
+<button class="text-slate-400 hover:text-slate-600 text-xs font-semibold" onclick="cancelProfileEdit()" type="button">Cancel</button>
+</div>
+<div class="space-y-2 text-xs">
+<div>
+<label class="block text-[11px] font-medium text-slate-600 mb-0.5">Location</label>
+<input class="w-full px-2.5 py-1.5 rounded-lg border border-slate-300 text-xs text-slate-800 focus:outline-none focus:border-[#123B5D] bg-white" id="inputLocation" type="text" value="Dwarka, New Delhi"/>
+</div>
+<div>
+<label class="block text-[11px] font-medium text-slate-600 mb-0.5">Service Areas (separated by • or comma)</label>
+<input class="w-full px-2.5 py-1.5 rounded-lg border border-slate-300 text-xs text-slate-800 focus:outline-none focus:border-[#123B5D] bg-white" id="inputServiceAreas" type="text" value="Dwarka • Najafgarh • West Delhi"/>
+</div>
+<div>
+<label class="block text-[11px] font-medium text-slate-600 mb-0.5">Primary Services (comma separated)</label>
+<input class="w-full px-2.5 py-1.5 rounded-lg border border-slate-300 text-xs text-slate-800 focus:outline-none focus:border-[#123B5D] bg-white" id="inputServices" type="text" value="Construction, Painting, Electrical, Plumbing"/>
+</div>
+</div>
+<div class="flex space-x-2 pt-1">
+<button class="flex-1 py-2 bg-[#087443] hover:bg-[#065e36] text-white rounded-xl text-xs font-semibold shadow-sm transition-colors" onclick="saveProfileEdit()" type="button">
+        Save Changes
+      </button>
+<button class="px-3 py-2 border border-slate-300 text-slate-600 hover:bg-slate-50 rounded-xl text-xs font-semibold transition-colors" onclick="cancelProfileEdit()" type="button">
+        Cancel
+      </button>
+</div>
+</div>
+</div>
+<!-- 2. Authorized Representative Section -->
+<div class="bg-white border border-[#E2E8F0] rounded-2xl p-4 shadow-sm space-y-2.5">
+<div class="flex items-center justify-between border-b border-slate-100 pb-2">
+<div>
+<h2 class="text-xs font-bold uppercase tracking-wider text-slate-700">Authorized Representative</h2>
+<p class="text-[10px] text-slate-400 mt-0.5">Personal details for registered cooperative account</p>
+</div>
+<span class="text-base">👤</span>
+</div>
+<div class="bg-slate-50 rounded-xl p-3 border border-slate-100 space-y-1.5 text-xs" id="adminInfoContainer">
+<div class="flex justify-between items-center">
+<span class="text-slate-500 text-[11px]">Admin Name:</span>
+<span class="font-bold text-slate-800" id="adminNameDisplay">Rajesh Kumar</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-slate-500 text-[11px]">Role:</span>
+<span class="font-medium text-[#123B5D] bg-blue-50 px-1.5 py-0.5 rounded text-[10px]" id="adminRoleDisplay">Cooperative Administrator</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-slate-500 text-[11px]">Mobile:</span>
+<span class="font-medium text-slate-700 font-mono text-[11px]" id="adminMobileDisplay">+91 XXXXXXX3210</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-slate-500 text-[11px]">Email:</span>
+<span class="font-medium text-slate-700 text-[11px]" id="adminEmailDisplay">admin@nirman.coop</span>
+</div>
+</div>
+<button class="w-full py-2 px-3 border border-slate-300 text-slate-700 hover:bg-slate-50 active:opacity-70 rounded-xl text-xs font-semibold flex items-center justify-center space-x-1.5 transition-colors" onclick="toggleAdminModal()" type="button">
+<svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span>Edit Admin Details</span>
+</button>
+</div>
+<!-- 3. Cooperative Settings Section -->
+<div class="bg-white border border-[#E2E8F0] rounded-2xl p-4 shadow-sm space-y-3">
+<div class="flex items-center justify-between border-b border-slate-100 pb-2">
+<h2 class="text-xs font-bold uppercase tracking-wider text-slate-700">Cooperative Settings</h2>
+<span class="text-[10px] text-slate-400 font-medium">Preferences</span>
+</div>
+<div class="space-y-1.5">
+<!-- Setting 1: Notifications -->
+<div class="border border-slate-100 rounded-xl overflow-hidden">
+<button class="w-full flex items-center justify-between p-2.5 bg-slate-50 hover:bg-slate-100 transition-colors text-left" onclick="toggleSettingAccordion('notifications')" type="button">
+<div class="flex items-center space-x-2.5">
+<span class="text-base">🔔</span>
+<div>
+<div class="text-xs font-bold text-slate-800">Notifications</div>
+<div class="text-[10px] text-slate-500">Request and payment updates</div>
+</div>
+</div>
+<span class="text-slate-400 text-xs font-bold" id="arrow-notifications">→</span>
+</button>
+<div class="hidden p-3 bg-white border-t border-slate-100 text-xs space-y-2" id="content-notifications">
+<div class="flex items-center justify-between py-1">
+<span class="text-slate-700 text-[11px]">Push Alerts for New Requests</span>
+<span class="text-emerald-700 font-bold text-[11px] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Enabled</span>
+</div>
+<div class="flex items-center justify-between py-1 border-t border-slate-100">
+<span class="text-slate-700 text-[11px]">Payment Receipt SMS</span>
+<span class="text-emerald-700 font-bold text-[11px] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Enabled</span>
+</div>
+<div class="flex items-center justify-between py-1 border-t border-slate-100">
+<span class="text-slate-700 text-[11px]">Worker Safety Incident Alerts</span>
+<span class="text-emerald-700 font-bold text-[11px] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Instant Priority</span>
+</div>
+</div>
+</div>
+<!-- Setting 2: Service Areas -->
+<div class="border border-slate-100 rounded-xl overflow-hidden">
+<button class="w-full flex items-center justify-between p-2.5 bg-slate-50 hover:bg-slate-100 transition-colors text-left" onclick="toggleSettingAccordion('areas')" type="button">
+<div class="flex items-center space-x-2.5">
+<span class="text-base">📍</span>
+<div>
+<div class="text-xs font-bold text-slate-800">Service Areas</div>
+<div class="text-[10px] text-slate-500">Manage locations served</div>
+</div>
+</div>
+<span class="text-slate-400 text-xs font-bold" id="arrow-areas">→</span>
+</button>
+<div class="hidden p-3 bg-white border-t border-slate-100 text-xs space-y-2" id="content-areas">
+<p class="text-[11px] text-slate-600">Designated dispatch zones for cooperative work teams:</p>
+<div class="flex flex-wrap gap-1.5 pt-1">
+<span class="text-[10px] bg-slate-100 text-slate-700 px-2 py-1 rounded border border-slate-200">Sector 1 - 24, Dwarka</span>
+<span class="text-[10px] bg-slate-100 text-slate-700 px-2 py-1 rounded border border-slate-200">Najafgarh Zone</span>
+<span class="text-[10px] bg-slate-100 text-slate-700 px-2 py-1 rounded border border-slate-200">Janakpuri &amp; Uttam Nagar</span>
+</div>
+<p class="text-[10px] text-slate-400 pt-1">Coverage radius: 15 km from central depot</p>
+</div>
+</div>
+<!-- Setting 3: Workforce Preferences -->
+<div class="border border-slate-100 rounded-xl overflow-hidden">
+<button class="w-full flex items-center justify-between p-2.5 bg-slate-50 hover:bg-slate-100 transition-colors text-left" onclick="toggleSettingAccordion('workforce')" type="button">
+<div class="flex items-center space-x-2.5">
+<span class="text-base">👷</span>
+<div>
+<div class="text-xs font-bold text-slate-800">Workforce Preferences</div>
+<div class="text-[10px] text-slate-500">Skills and availability settings</div>
+</div>
+</div>
+<span class="text-slate-400 text-xs font-bold" id="arrow-workforce">→</span>
+</button>
+<div class="hidden p-3 bg-white border-t border-slate-100 text-xs space-y-2" id="content-workforce">
+<div class="flex justify-between items-center text-[11px]">
+<span class="text-slate-600">Active Shift Type:</span>
+<span class="font-semibold text-slate-800">Day Shifts (08:00 - 18:00)</span>
+</div>
+<div class="flex justify-between items-center text-[11px] border-t border-slate-100 pt-1.5">
+<span class="text-slate-600">Automatic Assignment:</span>
+<span class="font-semibold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded">Enabled</span>
+</div>
+<div class="flex justify-between items-center text-[11px] border-t border-slate-100 pt-1.5">
+<span class="text-slate-600">Minimum Rest Between Shifts:</span>
+<span class="font-semibold text-slate-800">12 Hours</span>
+</div>
+</div>
+</div>
+<!-- Setting 4: Privacy & Security -->
+<div class="border border-slate-100 rounded-xl overflow-hidden">
+<button class="w-full flex items-center justify-between p-2.5 bg-slate-50 hover:bg-slate-100 transition-colors text-left" onclick="toggleSettingAccordion('security')" type="button">
+<div class="flex items-center space-x-2.5">
+<span class="text-base">🔐</span>
+<div>
+<div class="text-xs font-bold text-slate-800">Privacy &amp; Security</div>
+<div class="text-[10px] text-slate-500">Account and access controls</div>
+</div>
+</div>
+<span class="text-slate-400 text-xs font-bold" id="arrow-security">→</span>
+</button>
+<div class="hidden p-3 bg-white border-t border-slate-100 text-xs space-y-2" id="content-security">
+<div class="flex justify-between items-center text-[11px]">
+<span class="text-slate-600">Two-Factor Authentication:</span>
+<span class="font-semibold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">SMS OTP Active</span>
+</div>
+<div class="flex justify-between items-center text-[11px] border-t border-slate-100 pt-1.5">
+<span class="text-slate-600">Data Encryption:</span>
+<span class="font-semibold text-slate-800">AES-256 Enabled</span>
+</div>
+<div class="flex justify-between items-center text-[11px] border-t border-slate-100 pt-1.5">
+<span class="text-slate-600">Active Devices:</span>
+<span class="font-semibold text-[#123B5D]">1 Mobile Device</span>
+</div>
+</div>
+</div>
+<!-- Setting 5: Language -->
+<div class="border border-slate-100 rounded-xl overflow-hidden">
+<button class="w-full flex items-center justify-between p-2.5 bg-slate-50 hover:bg-slate-100 transition-colors text-left" onclick="toggleSettingAccordion('lang')" type="button">
+<div class="flex items-center space-x-2.5">
+<span class="text-base">🌐</span>
+<div>
+<div class="text-xs font-bold text-slate-800">Language</div>
+<div class="text-[10px] text-slate-500">English (हिन्दी available)</div>
+</div>
+</div>
+<span class="text-slate-400 text-xs font-bold" id="arrow-lang">→</span>
+</button>
+<div class="hidden p-3 bg-white border-t border-slate-100 text-xs space-y-2" id="content-lang">
+<div class="flex space-x-2">
+<button class="flex-1 py-1.5 px-2 rounded-lg bg-[#123B5D] text-white text-[11px] font-semibold text-center" type="button">English (Active)</button>
+<button class="flex-1 py-1.5 px-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-[11px] font-semibold text-center" onclick="alert('Switched language preference to हिन्दी')" type="button">हिन्दी</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 4. Cooperative Verification Section -->
+<div class="bg-white border border-[#E2E8F0] rounded-2xl p-4 shadow-sm space-y-2.5">
+<div class="flex items-center justify-between border-b border-slate-100 pb-2">
+<div>
+<h2 class="text-xs font-bold uppercase tracking-wider text-slate-700">Cooperative Verification</h2>
+<p class="text-[10px] text-slate-400 mt-0.5">Government of NCT Delhi Compliance</p>
+</div>
+<span class="text-xs font-bold text-emerald-800 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">Approved</span>
+</div>
+<div class="space-y-1.5 pt-1">
+<div class="flex items-center justify-between text-xs">
+<div class="flex items-center space-x-1.5">
+<span class="text-emerald-700 font-bold">✓</span>
+<span class="text-slate-700">Mobile Number Verified</span>
+</div>
+<span class="text-[10px] text-slate-400 font-mono">Aug 2026</span>
+</div>
+<div class="flex items-center justify-between text-xs">
+<div class="flex items-center space-x-1.5">
+<span class="text-emerald-700 font-bold">✓</span>
+<span class="text-slate-700">Registration Details Submitted</span>
+</div>
+<span class="text-[10px] text-slate-400 font-mono">Aug 2026</span>
+</div>
+<div class="flex items-center justify-between text-xs">
+<div class="flex items-center space-x-1.5">
+<span class="text-emerald-700 font-bold">✓</span>
+<span class="text-slate-700">Cooperative Society Verified</span>
+</div>
+<span class="text-[10px] text-slate-400 font-mono">Sep 2026</span>
+</div>
+</div>
+<button class="w-full mt-2 py-2 px-3 bg-slate-50 hover:bg-slate-100 border border-slate-200 text-[#123B5D] rounded-xl text-xs font-semibold flex items-center justify-center space-x-1 transition-colors" onclick="toggleVerificationDetails()" type="button">
+<span id="verificationButtonText">View Verification Certificate &amp; Details</span>
+<span class="text-xs" id="verificationButtonArrow">↓</span>
+</button>
+<!-- Expanded Verification Audit Info -->
+<div class="hidden bg-blue-50 border border-blue-200 rounded-xl p-3 text-xs space-y-2 mt-2" id="verificationDetailsPanel">
+<div class="flex items-center space-x-1.5 text-[#123B5D] font-bold text-xs">
+<span>🛡️</span>
+<span>Verified Cooperative Certificate</span>
+</div>
+<div class="space-y-1 text-[11px] text-slate-700 leading-snug">
+<div class="flex justify-between"><span class="text-slate-500">Registration No:</span><span class="font-mono font-semibold">COOP-DL-2026-0142</span></div>
+<div class="flex justify-between"><span class="text-slate-500">Registration Date:</span><span class="font-semibold">14 January 2024</span></div>
+<div class="flex justify-between"><span class="text-slate-500">Audited By:</span><span class="font-semibold text-right">Registrar of Co-operative Societies, Govt of NCT of Delhi</span></div>
+<div class="flex justify-between"><span class="text-slate-500">Next Audit Due:</span><span class="font-semibold">31 March 2027</span></div>
+</div>
+<p class="text-[10px] text-slate-500 pt-1 border-t border-blue-200">Valid verification token digital hash: #DL-SAHYOG-9921-2026</p>
+</div>
+</div>
+<!-- 5. Log Out Action Button -->
+<div class="pt-1 pb-4">
+<button class="w-full py-2.5 px-4 rounded-xl border border-rose-200 text-rose-700 bg-rose-50 hover:bg-white active:opacity-70 font-semibold text-xs flex items-center justify-center space-x-2 transition-colors shadow-sm" onclick="openLogoutModal()" type="button">
+<svg class="w-4 h-4 text-rose-700" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span>Log Out</span>
+</button>
+</div>
+</div>
+<!-- Edit Admin In-Place Modal -->
+<div class="hidden bg-white border-2 border-blue-200 rounded-2xl p-4 shadow-md space-y-3 mx-5 mb-5" id="adminEditModal">
+<div class="flex items-center justify-between border-b border-slate-100 pb-2">
+<div class="flex items-center space-x-1.5">
+<span class="text-sm">✏️</span>
+<h3 class="text-xs font-bold uppercase tracking-wider text-slate-800">Edit Admin Representative</h3>
+</div>
+<button class="text-slate-400 hover:text-slate-600 text-sm font-bold" onclick="toggleAdminModal()" type="button">✕</button>
+</div>
+<div class="space-y-2 text-xs">
+<div>
+<label class="block text-[11px] font-medium text-slate-600 mb-0.5">Administrator Name</label>
+<input class="w-full px-2.5 py-1.5 rounded-lg border border-slate-300 text-xs text-slate-800 focus:outline-none focus:border-[#123B5D] bg-white" id="inputAdminName" type="text" value="Rajesh Kumar"/>
+</div>
+<div>
+<label class="block text-[11px] font-medium text-slate-600 mb-0.5">Mobile Number</label>
+<input class="w-full px-2.5 py-1.5 rounded-lg border border-slate-300 text-xs text-slate-800 focus:outline-none focus:border-[#123B5D] bg-white" id="inputAdminMobile" type="text" value="+91 XXXXXXX3210"/>
+</div>
+<div>
+<label class="block text-[11px] font-medium text-slate-600 mb-0.5">Official Email</label>
+<input class="w-full px-2.5 py-1.5 rounded-lg border border-slate-300 text-xs text-slate-800 focus:outline-none focus:border-[#123B5D] bg-white" id="inputAdminEmail" type="email" value="admin@nirman.coop"/>
+</div>
+</div>
+<div class="flex space-x-2 pt-1">
+<button class="flex-1 py-2 bg-[#123B5D] hover:bg-[#002541] text-white rounded-xl text-xs font-semibold shadow-sm transition-colors" onclick="saveAdminDetails()" type="button">
+      Save Details
+    </button>
+<button class="px-3 py-2 border border-slate-300 text-slate-600 hover:bg-slate-50 rounded-xl text-xs font-semibold transition-colors" onclick="toggleAdminModal()" type="button">
+      Cancel
+    </button>
+</div>
+</div>
+<!-- In-Place Modal: Log Out Confirmation Dialog -->
+<div class="hidden fixed inset-0 z-50 flex items-center justify-center px-4 bg-slate-900/60 backdrop-blur-sm" id="logoutModalBackdrop">
+<div class="bg-white w-[320px] rounded-2xl p-4 shadow-xl space-y-3 border border-slate-200">
+<div class="flex items-center space-x-2.5">
+<div class="w-9 h-9 rounded-full bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-700 text-lg">
+        ⚠️
+      </div>
+<div>
+<h3 class="text-sm font-bold text-[#17212B]">Log out of SAHYOG?</h3>
+<span class="text-[10px] text-slate-400 font-medium">Security confirmation</span>
+</div>
+</div>
+<p class="text-xs text-slate-600 leading-snug">
+      Are you sure you want to sign out of Nirman Shramik Cooperative administrator account?
+    </p>
+<div class="flex items-center space-x-2 pt-2">
+<button class="flex-1 py-2 px-3 border border-slate-300 text-slate-700 hover:bg-slate-50 active:opacity-70 rounded-xl text-xs font-semibold transition-colors" onclick="closeLogoutModal()" type="button">
+        Cancel
+      </button>
+<button class="flex-1 py-2 px-3 bg-[#DC2626] hover:bg-rose-700 text-white active:opacity-70 rounded-xl text-xs font-semibold transition-colors shadow-sm" onclick="confirmLogout()" type="button">
+        Log Out
+      </button>
+</div>
+</div>
+</div></div>
+<!-- 7. Cooperative Persistent Bottom Navigation -->
+<div class="absolute bottom-0 left-0 right-0 bg-white border-t border-slate-200 px-3 pt-2 pb-6 z-40">
+<div class="grid grid-cols-5 gap-1 text-center">
+<!-- Home -->
+<button class="flex flex-col items-center justify-center text-slate-500 hover:text-slate-900 active:opacity-70 transition-colors" onclick="navTo('6C')">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span class="text-[10px] font-medium mt-1">Home</span>
+</button>
+<!-- Requests -->
+<button class="flex flex-col items-center justify-center text-slate-500 hover:text-slate-900 active:opacity-70 transition-colors" onclick="navTo('7C')">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span class="text-[10px] font-medium mt-1">Requests</span>
+</button>
+<!-- Workers -->
+<button class="flex flex-col items-center justify-center text-slate-500 hover:text-slate-900 active:opacity-70 transition-colors" onclick="navTo('9C')">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span class="text-[10px] font-medium mt-1">Workers</span>
+</button>
+<!-- Projects -->
+<button class="flex flex-col items-center justify-center text-slate-500 hover:text-slate-900 active:opacity-70 transition-colors" onclick="navTo('12C')">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span class="text-[10px] font-medium mt-1">Projects</span>
+</button>
+<!-- More (Selected / Active) -->
+<button class="flex flex-col items-center justify-center text-[#123B5D]">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span class="text-[10px] font-bold mt-1 text-[#123B5D]">More</span>
+</button>
+</div>
+</div>
+<!-- Home Indicator -->
+<div class="home-indicator"></div>
+</div>
+<script>
+    function goBack16C() {
+      alert("Navigating back to SCREEN 16C — Reports & Work History");
+    }
+
+    function navTo(screen) {
+      alert("Navigating to SCREEN " + screen);
+    }
+
+    function toggleSupportSection(section) {
+      if (section === 'safety') {
+        const el = document.getElementById('supportSectionSafety');
+        const arrow = document.getElementById('arrowSafety');
+        const isHidden = el.classList.toggle('hidden');
+        arrow.textContent = isHidden ? '↓' : '↑';
+      } else if (section === 'assistance') {
+        const el = document.getElementById('supportSectionAssistance');
+        const arrow = document.getElementById('arrowAssistance');
+        const isHidden = el.classList.toggle('hidden');
+        arrow.textContent = isHidden ? '↓' : '↑';
+      } else if (section === 'payments') {
+        const el = document.getElementById('supportSectionPayments');
+        const arrow = document.getElementById('arrowPayments');
+        const isHidden = el.classList.toggle('hidden');
+        arrow.textContent = isHidden ? '↓' : '↑';
+      }
+    }
+
+    function openSafetyDetail() {
+      document.getElementById('safetyDetailModal').classList.remove('hidden');
+      document.getElementById('paymentDetailModal').classList.add('hidden');
+      document.getElementById('safetyDetailModal').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function closeSafetyDetail() {
+      document.getElementById('safetyDetailModal').classList.add('hidden');
+    }
+
+    function resolveSafetyIssue() {
+      document.getElementById('safetyActionControls').classList.add('hidden');
+      document.getElementById('safetySuccessMsg').classList.remove('hidden');
+      
+      const badge = document.getElementById('safetyBadgeTag');
+      badge.textContent = 'Resolved';
+      badge.className = 'text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded-full';
+      
+      document.getElementById('welfareStatusText').textContent = 'Good — 2 items need attention';
+    }
+
+    function openPaymentDetail() {
+      document.getElementById('paymentDetailModal').classList.remove('hidden');
+      document.getElementById('safetyDetailModal').classList.add('hidden');
+      document.getElementById('paymentDetailModal').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function closePaymentDetail() {
+      document.getElementById('paymentDetailModal').classList.add('hidden');
+    }
+
+    function processPayment() {
+      document.getElementById('paymentActionControls').classList.add('hidden');
+      document.getElementById('paymentSuccessMsg').classList.remove('hidden');
+      
+      document.getElementById('modalPaymentStatus').textContent = 'Processing';
+      document.getElementById('modalPaymentStatus').className = 'font-bold text-emerald-700';
+
+      const tag = document.getElementById('paymentBadgeTag');
+      tag.textContent = 'Processing';
+      tag.className = 'text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded-full';
+    }
+
+    function contactWorkerAlert(worker) {
+      alert("Dialing contact for " + worker + " via Cooperative Support Line.");
+    }
+  </script>
+</body></html>

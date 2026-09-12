@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>4A</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Noto+Sans+Devanagari:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#123B5D',
+            coopGreen: '#087443',
+            saffron: '#F59B18',
+            surfaceBg: '#F8FAFC',
+            textPrimary: '#17212B',
+            textSecondary: '#64748B',
+            borderMuted: '#E2E8F0',
+            successGreen: '#16A34A',
+            dangerRed: '#DC2626'
+          },
+          fontFamily: {
+            sans: ['Inter', 'Noto Sans Devanagari', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    /* Dark dotted backdrop matching approved master frame */
+    body {
+      background-color: #0b0f17;
+      background-image: radial-gradient(#1e293b 1.5px, transparent 1.5px);
+      background-size: 24px 24px;
+      font-family: 'Inter', 'Noto Sans Devanagari', sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Locked 390x884 iPhone Device Shell */
+    .phone-wrapper {
+      width: 390px;
+      height: 884px;
+      position: relative;
+      background: #FFFFFF;
+      border-radius: 54px;
+      box-shadow: 0 25px 65px -15px rgba(0, 0, 0, 0.75), 0 0 0 12px #1e2530, 0 0 0 14px #0f141c;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+
+    /* Dynamic Island */
+    .dynamic-island {
+      position: absolute;
+      top: 11px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 125px;
+      height: 35px;
+      background: #000000;
+      border-radius: 20px;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 12px;
+      box-sizing: border-box;
+    }
+
+    .island-camera {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: #0d1627;
+      border: 1px solid #1c2638;
+    }
+
+    .island-sensor {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #080f1d;
+    }
+
+    /* Home Indicator */
+    .home-indicator {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 138px;
+      height: 5px;
+      background-color: #0f172a;
+      border-radius: 9999px;
+      z-index: 50;
+    }
+
+    /* OTP Slot styling & active focus pulse */
+    .otp-box {
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .otp-box.active {
+      border-color: #123B5D;
+      background-color: #FFFFFF;
+      box-shadow: 0 0 0 3.5px rgba(18, 59, 93, 0.15);
+      transform: translateY(-1px);
+    }
+    .otp-box.filled {
+      border-color: #CBD5E1;
+      background-color: #FFFFFF;
+      color: #123B5D;
+    }
+    .otp-box.error {
+      border-color: #DC2626 !important;
+      background-color: #FEF2F2 !important;
+      box-shadow: 0 0 0 3.5px rgba(220, 38, 38, 0.15) !important;
+    }
+
+    /* Subtle cursor blink */
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    .cursor-blink {
+      animation: blink 1s infinite;
+    }
+
+    /* Hide native scrollbar while retaining scroll */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Shake animation on invalid OTP */
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+    .animate-shake {
+      animation: shake 0.4s ease-in-out;
+    }
+  </style>
+</head>
+<body>
+<!-- PHONE CONTAINER (390 x 884) -->
+<div class="phone-wrapper select-none">
+<!-- DYNAMIC ISLAND -->
+<div class="dynamic-island">
+<div class="island-camera"></div>
+<div class="island-sensor"></div>
+</div>
+<!-- STATUS BAR -->
+<header class="w-full pt-3 px-7 pb-1 flex justify-between items-center z-40 bg-white text-textPrimary text-xs font-semibold tracking-tight">
+<span class="tracking-tight">09:41</span>
+<div class="flex items-center space-x-2 text-textPrimary">
+<!-- Cellular Signal -->
+<svg class="w-4 h-3 fill-current" viewbox="0 0 17 12">
+<rect height="4" rx="0.5" width="2.5" x="0" y="8"></rect>
+<rect height="6.5" rx="0.5" width="2.5" x="4" y="5.5"></rect>
+<rect height="9" rx="0.5" width="2.5" x="8" y="3"></rect>
+<rect height="11.5" rx="0.5" width="2.5" x="12" y="0.5"></rect>
+</svg>
+<!-- Wi-Fi -->
+<svg class="w-4 h-3.5 fill-current" viewbox="0 0 16 12">
+<path d="M8 12a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm-4.243-3.243a6 6 0 0 1 8.486 0 .75.75 0 1 0 1.06-1.06 7.5 7.5 0 0 0-10.606 0 .75.75 0 1 0 1.06 1.06zm-2.828-2.828a10 10 0 0 1 14.142 0 .75.75 0 1 0 1.061-1.06 11.5 11.5 0 0 0-16.264 0 .75.75 0 1 0 1.061 1.06z"></path>
+</svg>
+<!-- Battery -->
+<div class="flex items-center">
+<div class="w-5 h-2.5 border border-slate-700 rounded-sm p-0.5 flex items-center">
+<div class="h-full w-3.5 bg-slate-800 rounded-2xs"></div>
+</div>
+<div class="w-0.5 h-1 bg-slate-700 rounded-r-xs ml-0.5"></div>
+</div>
+</div>
+</header>
+<!-- TOP APP BAR -->
+<div class="w-full px-5 py-2.5 flex items-center justify-between z-30 bg-white border-b border-slate-100">
+<!-- Back button -> SCREEN NAME: 3A -->
+<button class="flex items-center space-x-1.5 text-textPrimary hover:text-primary transition-colors py-1 px-1 -ml-1 active:scale-95 rounded-lg focus:outline-none" id="btnBack" onclick="handleNavigation('3A')">
+<svg class="w-4 h-4 stroke-[2.2]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span class="text-xs font-semibold tracking-tight">Back</span>
+</button>
+<!-- Language pill -->
+<button class="flex items-center bg-slate-50 border border-slate-200 px-2.5 py-1 rounded-full text-[11px] font-medium text-slate-700 hover:bg-slate-100 active:scale-95 transition-all" onclick="toggleLang()">
+<span class="font-bold text-primary mr-1">EN</span>
+<span class="text-slate-400 mr-1">|</span>
+<span class="text-slate-600">हिन्दी</span>
+</button>
+</div>
+<!-- MAIN SCROLLABLE BODY -->
+<main class="flex-1 overflow-y-auto no-scrollbar px-6 pt-3 pb-8 flex flex-col justify-between bg-[#F8FAFC]">
+<div>
+<!-- BRAND LOGO & TRICOLOR -->
+<div class="flex flex-col items-center justify-center pt-1 mb-3">
+<div class="w-14 h-14 rounded-xl flex items-center justify-center overflow-hidden mb-1.5 shadow-sm bg-white border border-slate-100 p-1">
+<img alt="SAHYOG" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7PU6zu1WOCqvfV0KrcpTJyayU51pma74fUs3B5dLvKy9htSPVnmaaWsFcYl9RhXYnXHJgaXYUuEZ-djI5R4MnZC3zcMHoNrvEQwUd-3V7T51gytUJ0Gx0EEpPNJ0o_SWDy94LY6UTlksBh8yizDx1p7YWmbwfpkAKnOW6EApOpD92drRW-MADuGcL13YGCz1xvb9wdQEvhx2e1EsZF1A9HDZfVimNYZh6bqPXyn_KNa8f5TcaucuDAI2ECDr9OuaH2Q"/>
+</div>
+<div class="flex space-x-1 mt-0.5">
+<div class="w-2.5 h-0.5 bg-[#F59B18] rounded-full"></div>
+<div class="w-2.5 h-0.5 bg-slate-300 rounded-full"></div>
+<div class="w-2.5 h-0.5 bg-[#087443] rounded-full"></div>
+</div>
+</div>
+<!-- ROLE BADGE -->
+<div class="flex justify-center mb-3">
+<span class="inline-flex items-center space-x-1.5 px-3 py-1 bg-amber-50/90 border border-amber-200/80 rounded-full text-[11px] font-semibold text-amber-900 shadow-2xs">
+<span class="text-xs">🏠</span>
+<span>HOUSEHOLD VERIFICATION • नागरिक सत्यापन</span>
+</span>
+</div>
+<!-- HEADINGS -->
+<div class="text-center mb-5">
+<h1 class="text-[21px] font-bold text-textPrimary tracking-tight leading-snug">
+            Verify your mobile number
+          </h1>
+<p class="text-xs text-textSecondary mt-1 leading-relaxed">
+            Enter the 6-digit OTP sent to <br/>
+<span class="font-semibold text-textPrimary inline-flex items-center space-x-1 bg-slate-100 px-2 py-0.5 rounded mt-1">
+<span>+91 XXXXXXX3210</span>
+<button class="text-primary hover:text-coopGreen ml-0.5" onclick="handleNavigation('3A')" title="Change Number">
+<svg class="w-3 h-3" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+</span>
+</p>
+</div>
+<!-- INTERACTIVE VERIFICATION CARD -->
+<div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm transition-all duration-200" id="otpCard">
+<div class="flex items-center justify-between mb-3.5">
+<span class="text-xs font-semibold text-textPrimary">Enter 6-digit code</span>
+<span class="text-[11px] font-medium text-textSecondary" id="digitCounter">0 / 6 entered</span>
+</div>
+<!-- UNIFIED OTP INPUT SYSTEM -->
+<!-- Continuous numeric input overlaying the 6 visual slots -->
+<div class="relative w-full cursor-text" onclick="focusOtpInput()">
+<!-- Native Input -->
+<input aria-label="Enter 6-digit OTP" autocomplete="one-time-code" autofocus="" class="absolute inset-0 w-full h-full opacity-0 z-20 cursor-pointer text-transparent caret-transparent" id="otpInput" inputmode="numeric" maxlength="6" pattern="[0-9]*" type="tel"/>
+<!-- 6 Visual Slots -->
+<div class="grid grid-cols-6 gap-2 w-full py-1" id="otpSlotsContainer">
+<!-- Slot 1 -->
+<div class="otp-box active h-13 w-full bg-slate-50/80 border-2 border-slate-200 rounded-xl flex items-center justify-center text-lg font-bold text-textPrimary">
+<span class="slot-text hidden"></span>
+<div class="cursor-line w-0.5 h-5 bg-primary cursor-blink"></div>
+</div>
+<!-- Slot 2 -->
+<div class="otp-box h-13 w-full bg-slate-50/80 border-2 border-slate-200 rounded-xl flex items-center justify-center text-lg font-bold text-textPrimary">
+<span class="slot-text hidden"></span>
+<div class="cursor-line w-0.5 h-5 bg-primary cursor-blink hidden"></div>
+</div>
+<!-- Slot 3 -->
+<div class="otp-box h-13 w-full bg-slate-50/80 border-2 border-slate-200 rounded-xl flex items-center justify-center text-lg font-bold text-textPrimary">
+<span class="slot-text hidden"></span>
+<div class="cursor-line w-0.5 h-5 bg-primary cursor-blink hidden"></div>
+</div>
+<!-- Slot 4 -->
+<div class="otp-box h-13 w-full bg-slate-50/80 border-2 border-slate-200 rounded-xl flex items-center justify-center text-lg font-bold text-textPrimary">
+<span class="slot-text hidden"></span>
+<div class="cursor-line w-0.5 h-5 bg-primary cursor-blink hidden"></div>
+</div>
+<!-- Slot 5 -->
+<div class="otp-box h-13 w-full bg-slate-50/80 border-2 border-slate-200 rounded-xl flex items-center justify-center text-lg font-bold text-textPrimary">
+<span class="slot-text hidden"></span>
+<div class="cursor-line w-0.5 h-5 bg-primary cursor-blink hidden"></div>
+</div>
+<!-- Slot 6 -->
+<div class="otp-box h-13 w-full bg-slate-50/80 border-2 border-slate-200 rounded-xl flex items-center justify-center text-lg font-bold text-textPrimary">
+<span class="slot-text hidden"></span>
+<div class="cursor-line w-0.5 h-5 bg-primary cursor-blink hidden"></div>
+</div>
+</div>
+</div>
+<!-- INLINE ERROR MESSAGE -->
+<div class="hidden mt-3 flex items-center space-x-1.5 text-xs text-dangerRed font-medium bg-red-50 p-2.5 rounded-lg border border-red-200" id="inlineError">
+<svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span>Incorrect OTP. Please try again.</span>
+</div>
+<!-- HELPER DEMO AUTOFILL SHORTCUT -->
+<div class="mt-3 flex justify-between items-center text-[11px] text-slate-500 pt-1 border-t border-slate-100">
+<span>Demo Quick Fill:</span>
+<div class="space-x-1.5">
+<button class="text-primary hover:underline font-semibold" onclick="fillTestOtp('794258')" type="button">Valid (794258)</button>
+<span class="text-slate-300">•</span>
+<button class="text-slate-500 hover:text-dangerRed" onclick="fillTestOtp('000000')" type="button">Invalid</button>
+</div>
+</div>
+<!-- PRIMARY ACTION BUTTON (EXPLICIT USER CLICK REQUIRED) -->
+<button class="w-full mt-4 py-3 bg-slate-200 text-slate-400 font-semibold text-xs rounded-xl flex items-center justify-center space-x-2 transition-all cursor-not-allowed shadow-none" disabled="" id="btnVerify" onclick="handleVerify()">
+<span id="btnVerifyText">Verify &amp; Continue</span>
+<svg class="w-3.5 h-3.5" fill="none" id="btnVerifyIcon" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+<!-- RESEND TIMER SECTION -->
+<div class="mt-4 pt-3 border-t border-slate-100 flex flex-col items-center justify-center text-xs">
+<p class="text-textSecondary mb-1">Didn’t receive the OTP?</p>
+<div class="flex items-center space-x-1 text-slate-500 font-medium" id="resendContainer">
+<span>Resend OTP in</span>
+<span class="font-bold text-primary" id="countdownTimer">00:30</span>
+</div>
+<button class="hidden text-xs font-semibold text-primary hover:text-coopGreen underline active:scale-95 transition-transform" id="btnResend" onclick="triggerResend()">
+              Resend OTP
+            </button>
+</div>
+</div>
+<!-- TRUST & SECURITY NOTICE (SAHYOG CIVIC-TECH) -->
+<div class="mt-4 bg-[#F0FDF4] border border-[#DCFCE7] rounded-xl p-3.5 flex items-start space-x-2.5">
+<div class="w-5 h-5 rounded-full bg-coopGreen/15 text-coopGreen flex items-center justify-center flex-shrink-0 mt-0.5">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path>
+</svg>
+</div>
+<p class="text-[11px] leading-relaxed text-slate-700">
+<strong class="font-semibold text-slate-900">Direct Citizen Security:</strong>
+            OTP authentication protects your household address and service requests. We never share your phone number with unverified third parties.
+          </p>
+</div>
+</div>
+<!-- FOOTER BRAND SLOGAN -->
+<footer class="text-center pt-3">
+<p class="text-[10px] tracking-widest text-slate-400 font-semibold uppercase">
+          Cooperate. Empower. Grow.
+        </p>
+<p class="text-[9px] text-slate-400 mt-0.5">साथ मिलकर, समृद्धि की ओर</p>
+</footer>
+</main>
+<!-- RESEND TOAST -->
+<div class="absolute top-20 left-1/2 transform -translate-x-1/2 bg-slate-900/90 text-white text-[11px] font-medium px-4 py-2 rounded-full shadow-lg opacity-0 pointer-events-none transition-all duration-300 z-50 flex items-center space-x-1.5" id="resendToast">
+<span class="w-2 h-2 rounded-full bg-coopGreen"></span>
+<span>New 6-digit OTP code sent via SMS</span>
+</div>
+<!-- HOME INDICATOR -->
+<div class="home-indicator"></div>
+</div>
+<script>
+    // State Variables
+    let otpValue = '';
+    let resendSeconds = 30;
+    let timerInterval = null;
+
+    const otpInput = document.getElementById('otpInput');
+    const otpBoxes = document.querySelectorAll('.otp-box');
+    const btnVerify = document.getElementById('btnVerify');
+    const btnVerifyText = document.getElementById('btnVerifyText');
+    const btnVerifyIcon = document.getElementById('btnVerifyIcon');
+    const inlineError = document.getElementById('inlineError');
+    const digitCounter = document.getElementById('digitCounter');
+    const resendContainer = document.getElementById('resendContainer');
+    const countdownTimer = document.getElementById('countdownTimer');
+    const btnResend = document.getElementById('btnResend');
+    const otpCard = document.getElementById('otpCard');
+    const resendToast = document.getElementById('resendToast');
+
+    // Focus input on initial load and click
+    function focusOtpInput() {
+      otpInput.focus();
+      updateSlotVisuals();
+    }
+
+    // Initialize continuous input event listeners
+    otpInput.addEventListener('input', function(e) {
+      // Filter non-digit characters
+      let cleaned = this.value.replace(/[^0-9]/g, '');
+      if (cleaned.length > 6) cleaned = cleaned.slice(0, 6);
+      this.value = cleaned;
+      otpValue = cleaned;
+
+      // Reset inline error state on user typing
+      hideError();
+
+      updateSlotVisuals();
+
+      // Only enable or disable the verify button - NO auto-triggering popup
+      if (otpValue.length === 6) {
+        enableVerifyBtn(true);
+      } else {
+        enableVerifyBtn(false);
+      }
+    });
+
+    otpInput.addEventListener('focus', updateSlotVisuals);
+    otpInput.addEventListener('blur', () => {
+      // Keep active cursor hidden on blur
+      otpBoxes.forEach(box => {
+        box.classList.remove('active');
+        const cursor = box.querySelector('.cursor-line');
+        if (cursor) cursor.classList.add('hidden');
+      });
+    });
+
+    // Update visual slots based on real input length
+    function updateSlotVisuals() {
+      const len = otpValue.length;
+      digitCounter.textContent = `${len} / 6 entered`;
+
+      otpBoxes.forEach((box, index) => {
+        const textSpan = box.querySelector('.slot-text');
+        const cursorLine = box.querySelector('.cursor-line');
+
+        if (index < len) {
+          // Filled slot
+          textSpan.textContent = otpValue[index];
+          textSpan.classList.remove('hidden');
+          cursorLine.classList.add('hidden');
+          box.classList.add('filled');
+          box.classList.remove('active');
+        } else if (index === len) {
+          // Current active slot
+          textSpan.textContent = '';
+          textSpan.classList.add('hidden');
+          cursorLine.classList.remove('hidden');
+          box.classList.add('active');
+          box.classList.remove('filled');
+        } else {
+          // Empty inactive slot
+          textSpan.textContent = '';
+          textSpan.classList.add('hidden');
+          cursorLine.classList.add('hidden');
+          box.classList.remove('active', 'filled');
+        }
+      });
+    }
+
+    // Enable/Disable Verify Button
+    function enableVerifyBtn(enabled) {
+      if (enabled) {
+        btnVerify.disabled = false;
+        btnVerify.className = "w-full mt-4 py-3 bg-primary text-white font-semibold text-xs rounded-xl flex items-center justify-center space-x-2 transition-all cursor-pointer shadow-sm hover:bg-[#0e2f4a] active:scale-[0.98]";
+      } else {
+        btnVerify.disabled = true;
+        btnVerify.className = "w-full mt-4 py-3 bg-slate-200 text-slate-400 font-semibold text-xs rounded-xl flex items-center justify-center space-x-2 transition-all cursor-not-allowed shadow-none";
+      }
+    }
+
+    // Verification Logic - Executed ONLY when user explicitly clicks Verify & Continue
+    function handleVerify() {
+      if (otpValue.length < 6) return;
+
+      // Check if code is invalid test code
+      if (otpValue === '000000') {
+        showError("Incorrect OTP. Please try again.");
+      } else {
+        // Valid code entered -> Provide clean button feedback and route cleanly to Screen 5A
+        hideError();
+        btnVerify.disabled = true;
+        btnVerify.className = "w-full mt-4 py-3 bg-coopGreen text-white font-semibold text-xs rounded-xl flex items-center justify-center space-x-2 transition-all shadow-sm";
+        btnVerifyText.textContent = "Verifying...";
+        btnVerifyIcon.innerHTML = `
+          <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+        `;
+
+        setTimeout(() => {
+          btnVerifyText.textContent = "Verified ✓";
+          btnVerifyIcon.innerHTML = `
+            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+            </svg>
+          `;
+
+          // Direct smooth transition to SCREEN NAME: 5A (Household Dashboard)
+          setTimeout(() => {
+            handleNavigation('5A');
+          }, 450);
+        }, 600);
+      }
+    }
+
+    // Inline Error Handling
+    function showError(msg) {
+      inlineError.querySelector('span').textContent = msg;
+      inlineError.classList.remove('hidden');
+      otpBoxes.forEach(b => b.classList.add('error'));
+      otpCard.classList.add('animate-shake');
+
+      setTimeout(() => {
+        otpCard.classList.remove('animate-shake');
+      }, 450);
+    }
+
+    function hideError() {
+      inlineError.classList.add('hidden');
+      otpBoxes.forEach(b => b.classList.remove('error'));
+    }
+
+    // Resend Countdown Timer
+    function startResendTimer() {
+      resendSeconds = 30;
+      btnResend.classList.add('hidden');
+      resendContainer.classList.remove('hidden');
+      countdownTimer.textContent = `00:${resendSeconds < 10 ? '0' : ''}${resendSeconds}`;
+
+      if (timerInterval) clearInterval(timerInterval);
+
+      timerInterval = setInterval(() => {
+        resendSeconds--;
+        if (resendSeconds <= 0) {
+          clearInterval(timerInterval);
+          resendContainer.classList.add('hidden');
+          btnResend.classList.remove('hidden');
+        } else {
+          countdownTimer.textContent = `00:${resendSeconds < 10 ? '0' : ''}${resendSeconds}`;
+        }
+      }, 1000);
+    }
+
+    // Trigger Resend OTP
+    function triggerResend() {
+      // Clear inputs
+      otpInput.value = '';
+      otpValue = '';
+      hideError();
+      updateSlotVisuals();
+      enableVerifyBtn(false);
+
+      // Show toast
+      resendToast.classList.remove('opacity-0', 'pointer-events-none');
+      resendToast.classList.add('opacity-100', 'translate-y-2');
+      setTimeout(() => {
+        resendToast.classList.add('opacity-0', 'pointer-events-none');
+        resendToast.classList.remove('translate-y-2');
+      }, 2500);
+
+      // Reset timer
+      startResendTimer();
+      focusOtpInput();
+    }
+
+    // Quick fill helper for demo - populates OTP and enables button WITHOUT auto-submitting
+    function fillTestOtp(code) {
+      otpInput.value = code;
+      otpValue = code;
+      hideError();
+      updateSlotVisuals();
+      enableVerifyBtn(true);
+    }
+
+    // Navigation placeholder
+    function handleNavigation(target) {
+      if (target === '3A') {
+        // Back to Screen 3A: Household Registration
+        console.log("Navigating back to SCREEN NAME: 3A (Household Registration)");
+        alert("Navigating back to SCREEN NAME: 3A (Household Registration)");
+      } else if (target === '5A') {
+        console.log("Routing directly to SCREEN NAME: 5A (Household Dashboard)");
+        alert("Navigating to SCREEN NAME: 5A (Household Dashboard)");
+      }
+    }
+
+    function toggleLang() {
+      alert("Language toggle: English / हिन्दी");
+    }
+
+    // Start on boot
+    window.addEventListener('DOMContentLoaded', () => {
+      startResendTimer();
+      focusOtpInput();
+    });
+  </script>
+</body></html>

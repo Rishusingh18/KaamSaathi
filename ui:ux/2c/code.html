@@ -1,0 +1,251 @@
+<!DOCTYPE html><html lang="en" data-lt-installed="true"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>2C</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Noto+Sans+Devanagari:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              navy: '#123B5D',
+              green: '#087443',
+              saffron: '#F59B18',
+              bg: '#F8FAFC',
+              text: '#17212B',
+              muted: '#64748B',
+              border: '#E2E8F0',
+              success: '#16A34A',
+              card: '#FFFFFF'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'Noto Sans Devanagari', 'sans-serif'],
+            devanagari: ['Noto Sans Devanagari', 'Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #0b0f17;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+      background-size: 24px 24px;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* EXACT Master Phone Mockup 390 x 884 */
+    .phone-wrapper {
+      width: 390px;
+      height: 884px;
+      background: #000000;
+      border-radius: 54px;
+      padding: 10px;
+      box-shadow: 
+        0 0 0 2px #262a33,
+        0 25px 60px -12px rgba(0, 0, 0, 0.7),
+        0 0 40px rgba(18, 59, 93, 0.2);
+      position: relative;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .phone-screen {
+      width: 100%;
+      height: 100%;
+      background: #F8FAFC;
+      border-radius: 46px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+    }
+
+    /* Dynamic Island */
+    .dynamic-island {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 32px;
+      background: #000000;
+      border-radius: 20px;
+      z-index: 50;
+    }
+
+    /* Home Indicator */
+    .home-indicator-bar {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 134px;
+      height: 5px;
+      background: #17212B;
+      opacity: 0.25;
+      border-radius: 3px;
+      z-index: 40;
+    }
+
+    /* Hide scrollbar */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Interactive Feedback */
+    .tap-scale {
+      transition: transform 0.15s ease, opacity 0.15s ease, background-color 0.15s ease;
+    }
+    .tap-scale:active {
+      transform: scale(0.97);
+    }
+  </style>
+</head>
+<body>
+<div class="phone-wrapper">
+<div class="phone-screen">
+<!-- Dynamic Island -->
+<div class="dynamic-island"></div>
+<!-- iOS Status Bar -->
+<div class="w-full px-7 pt-3.5 pb-2 flex justify-between items-center text-[14px] font-semibold text-[#17212B] z-40 select-none">
+<span class="tracking-tight">09:41</span>
+<div class="flex items-center gap-1.5">
+<!-- Cellular -->
+<svg class="w-4 h-3.5" fill="currentColor" viewBox="0 0 17 12">
+<rect height="3" rx="0.6" width="2.5" x="0.5" y="8.5"></rect>
+<rect height="5.5" rx="0.6" width="2.5" x="4.5" y="6"></rect>
+<rect height="8" rx="0.6" width="2.5" x="8.5" y="3.5"></rect>
+<rect height="11" rx="0.6" width="2.5" x="12.5" y="0.5"></rect>
+</svg>
+<!-- Wifi -->
+<svg class="w-4 h-3.5" fill="currentColor" viewBox="0 0 16 12">
+<path d="M8 11.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm-3.5-3a5 5 0 017 0 .75.75 0 101.06-1.06 6.5 6.5 0 00-9.12 0 .75.75 0 101.06 1.06zm-2.5-2.5a8.5 8.5 0 0112 0 .75.75 0 101.06-1.06 10 10 0 00-14.12 0 .75.75 0 101.06 1.06z"></path>
+</svg>
+<!-- Battery -->
+<div class="w-6 h-3 border border-[#17212B] rounded-[4px] p-0.5 flex items-center">
+<div class="h-full w-full bg-[#17212B] rounded-[1.5px]"></div>
+</div>
+</div>
+</div>
+<!-- Scrollable App Content Container -->
+<div class="flex-1 overflow-y-auto no-scrollbar px-6 pt-1 pb-10 flex flex-col justify-between">
+<div>
+<!-- Top Nav Bar: Back & Language pill -->
+<div class="flex items-center justify-between py-2 mb-2">
+<button class="tap-scale flex items-center gap-1.5 text-brand-navy hover:text-opacity-80 py-1.5 px-2 -ml-2 rounded-lg" id="btn-back" onclick="navigateBack()" title="Back to 1C">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+<path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span class="text-sm font-semibold tracking-tight">Back</span>
+</button>
+<!-- Language Switcher Indicator -->
+<button class="tap-scale flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white border border-brand-border text-xs font-semibold text-brand-navy shadow-sm" onclick="toggleLang()">
+<span class="text-brand-navy font-bold">EN</span>
+<span class="text-slate-300">|</span>
+<span class="text-slate-500 font-devanagari">हिन्दी</span>
+</button>
+</div>
+<!-- Brand Header: SAHYOG Logo & Tricolor -->
+<div class="flex flex-col items-center justify-center text-center mt-1 mb-4"><img alt="SAHYOG Logo" class="h-16 w-auto object-contain mb-2 drop-shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdC2k0Fg3YcXBhaKO4zmOYvQ5o75WPiYcY5dIrLbbhh7WswvK8xbBdd6T_UncJT5ry1ehJK8XKyWe_nIhOUMaGQ5xCjg-38uMIQzGZ_oQNZ2iIv5qtgItZRQojJqkKGCw-mNd-7KokG3VkgvfySU36BqmdNjGRfdlf2rSqDkMn8cjVS9BGvKAE-R6tO7ZIFoJXmDFQVR9EqeUmvx45GN79jCQq7P3kG0Xe-EF_iEFkVPAwUiIa-ytk-1AkjrN8aFUjmg"><div class="flex h-[3px] w-14 rounded-full overflow-hidden mb-3"><div class="bg-[#F59B18] w-1/3"></div><div class="bg-[#FFFFFF] border-y border-slate-200 w-1/3"></div><div class="bg-[#087443] w-1/3"></div></div><h1 class="text-2xl font-bold text-brand-navy tracking-tight">Welcome Back</h1><p class="text-xs text-brand-muted mt-1 max-w-[280px]">Login to manage your cooperative and workforce</p><div class="mt-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-[#087443] shadow-xs"><span class="text-xs">🏢</span><span class="text-xs font-semibold tracking-tight">COOPERATIVE ADMIN / सहकारी संस्था एडमिन</span></div></div>
+<!-- Main Input Card -->
+<div class="bg-white rounded-2xl border border-brand-border p-4 shadow-sm"><div id="mobile-login-view"> <div class="flex items-center justify-between mb-2"> <label class="text-xs font-semibold text-brand-navy tracking-tight" for="mobile-input">      Admin Mobile Number <span class="font-devanagari font-normal text-brand-muted">/ एडमिन मोबाइल नंबर</span> </label> <span class="text-[11px] font-semibold text-brand-green bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">      OTP Login    </span> </div> <div class="relative flex items-center rounded-xl border border-brand-border bg-slate-50/70 focus-within:bg-white focus-within:border-brand-navy focus-within:ring-2 focus-within:ring-brand-navy/15 transition-all p-1"> <div class="flex items-center gap-1.5 pl-3 pr-2 py-2 border-r border-slate-200 text-brand-navy font-semibold text-sm select-none"> <span class="text-sm">🇮🇳</span> <span class="">+91</span> </div> <input class="w-full bg-transparent px-3 py-2 text-sm font-semibold text-brand-navy placeholder:text-slate-400 placeholder:font-normal focus:outline-none tracking-wide" id="mobile-input" maxlength="10" oninput="handleInputChange(this)" placeholder="Enter admin mobile number" type="tel" value="9876543210"> <div class="pr-3 text-brand-green flex items-center" id="valid-check" style="display: none;"> <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"> <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </div> </div> <div class="flex items-center justify-between mt-2.5 px-0.5 text-[11px] text-brand-muted"> <span class="flex items-center gap-1"> <svg class="w-3.5 h-3.5 text-blue-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"> <circle cx="12" cy="12" r="9"></circle> <line x1="12" x2="12" y1="8" y2="12"></line> <line x1="12" x2="12.01" y1="16" y2="16"></line> </svg> <span class="">We'll send a one-time password (OTP) to the authorized representative.</span> </span> <span class="font-medium text-brand-navy font-mono" id="char-count">0/10</span> </div> <button class="tap-scale mt-4 w-full py-3.5 px-4 bg-brand-navy hover:bg-[#0e2f4b] text-white text-sm font-semibold rounded-xl shadow-sm flex items-center justify-center gap-2 transition-colors cursor-pointer opacity-60" id="btn-send-otp" onclick="handleSendOTP()"> <span class="">Send OTP</span> <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"> <path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> <div class="relative my-4"> <div class="absolute inset-0 flex items-center"> <div class="w-full border-t border-slate-200"></div> </div> <div class="relative flex justify-center text-[11px] uppercase tracking-wider font-semibold"> <span class="bg-white px-2 text-slate-400">OR</span> </div> </div> <button class="tap-scale w-full py-2.5 px-3 rounded-xl border border-slate-200 hover:border-slate-300 bg-slate-50/50 hover:bg-slate-100/60 flex items-center justify-center gap-2 text-xs font-semibold text-brand-navy transition-all" onclick="toggleCoopIdView(true)"> <div class="w-5 h-5 rounded-full bg-[#087443]/10 flex items-center justify-center text-[#087443] text-xs">      🏢    </div> <span class="">Continue with Cooperative ID</span> </button> <p class="text-[10px] text-center text-slate-400 mt-2 px-2">Use your registered cooperative credentials.</p></div><div class="hidden" id="coop-id-view"> <div class="flex items-center justify-between mb-3 pb-2 border-b border-slate-100"> <div class="flex items-center gap-2"> <span class="text-base">🏢</span> <span class="text-xs font-bold text-brand-navy tracking-tight">Cooperative ID Login</span> </div> <button class="text-[11px] font-semibold text-brand-green hover:underline" onclick="toggleCoopIdView(false)">      Back to Mobile    </button> </div> <div class="space-y-3"> <div> <label class="block text-[11px] font-semibold text-brand-navy mb-1">Registration / Cooperative ID</label> <input class="w-full bg-slate-50/70 rounded-xl border border-brand-border px-3 py-2 text-xs font-semibold text-brand-navy focus:bg-white focus:outline-none focus:border-brand-navy tracking-wide" id="coop-id-input" placeholder="e.g. COP-DL-2024-8842" type="text" value="COP-DL-2024-8842"> </div> <div> <label class="block text-[11px] font-semibold text-brand-navy mb-1">Authorized Signatory PIN / Password</label> <input class="w-full bg-slate-50/70 rounded-xl border border-brand-border px-3 py-2 text-xs font-semibold text-brand-navy focus:bg-white focus:outline-none focus:border-brand-navy tracking-widest" id="coop-pin-input" placeholder="Enter 6-digit Admin PIN" type="password" value="••••••"> </div> </div> <button class="tap-scale mt-4 w-full py-3 px-4 bg-brand-navy hover:bg-[#0e2f4b] text-white text-xs font-semibold rounded-xl shadow-sm flex items-center justify-center gap-2 transition-colors cursor-pointer" onclick="handleCoopIdLogin()"> <span class="">Verify &amp; Login</span> <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"> <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> <p class="text-[10px] text-center text-slate-400 mt-2.5 px-2">For registered state federations and cooperative societies under MSCS Act.</p></div></div>
+<!-- Household Trust Banner -->
+<div class="mt-4 p-3 bg-emerald-50/70 border border-emerald-200/80 rounded-xl flex items-start gap-2.5"><div class="w-5 h-5 rounded-full bg-brand-green text-white flex items-center justify-center shrink-0 mt-0.5"><svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"></path></svg></div><div class="text-[11px] text-emerald-950 leading-relaxed"><span class="font-semibold text-brand-green">Authorized Representative Access:</span><span class=""> Secure authentication for registered cooperatives under SAHYOG DPI network. Authorized administrators can allocate jobs, verify payouts, and manage collective workforce.</span></div></div>
+</div>
+<!-- Bottom Area: Register Link & Footer Slogan -->
+<div class="mt-6 flex flex-col items-center text-center"><p class="text-xs text-brand-muted">Don't have a cooperative account? <button class="tap-scale font-semibold text-brand-green hover:underline ml-1" onclick="navigateToRegister()">Create Cooperative Account</button></p><p class="text-[10px] tracking-widest text-slate-400 font-bold uppercase mt-4">COOPERATE. EMPOWER. GROW. / साथ मिलकर, समृद्धि की ओर</p></div>
+</div>
+<!-- Home Indicator -->
+<div class="home-indicator-bar"></div>
+<!-- Interactive Toast / Feedback Overlay -->
+<div class="absolute top-14 left-4 right-4 bg-brand-navy text-white text-xs font-semibold py-3 px-4 rounded-xl shadow-xl flex items-center justify-between transform -translate-y-24 opacity-0 transition-all duration-300 pointer-events-none z-50" id="toast-overlay">
+<div class="flex items-center gap-2">
+<span class="text-brand-saffron text-sm">✓</span>
+<span id="toast-text" class="">OTP sent to +91 9876543210</span>
+</div>
+<span class="text-[10px] text-slate-300 font-normal">Next: 4A</span>
+</div><script>window.toggleCoopIdView = function(showCoop) {  const mobileView = document.getElementById('mobile-login-view');  const coopView = document.getElementById('coop-id-view');  if (showCoop) {    mobileView.classList.add('hidden');    coopView.classList.remove('hidden');  } else {    coopView.classList.add('hidden');    mobileView.classList.remove('hidden');  }};window.handleCoopIdLogin = function() {  const cid = document.getElementById('coop-id-input').value || 'COP-DL-2024-8842';  showToast(`Cooperative ID verified: ${cid} → Routing to SCREEN NAME: 6C (Dashboard)`);};window.handleSendOTP = function() {  const val = document.getElementById('mobile-input').value;  if (val.length === 10) {    showToast(`OTP 847291 sent to Admin +91 ${val} → Routing to SCREEN NAME: 4C (Cooperative OTP)`);  } else {    showToast('Please enter a valid 10-digit mobile number');  }};window.navigateBack = function() {  showToast('Navigating back to SCREEN NAME: 1C (Cooperative Introduction)');};window.navigateToRegister = function() {  showToast('Navigating to SCREEN NAME: 3C (Cooperative Registration)');};</script>
+</div>
+</div>
+<script>
+    // Interactivity Logic
+    function handleInputChange(input) {
+      const val = input.value.replace(/\D/g, '');
+      input.value = val;
+      const countEl = document.getElementById('char-count');
+      const checkEl = document.getElementById('valid-check');
+      const btnOtp = document.getElementById('btn-send-otp');
+      
+      countEl.innerText = `${val.length}/10`;
+      
+      if (val.length === 10) {
+        checkEl.style.display = 'flex';
+        btnOtp.classList.remove('opacity-60');
+        btnOtp.classList.add('hover:bg-[#0e2f4b]');
+      } else {
+        checkEl.style.display = 'none';
+        btnOtp.classList.add('opacity-60');
+      }
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast-overlay');
+      const text = document.getElementById('toast-text');
+      text.innerText = msg;
+      toast.classList.remove('-translate-y-24', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('-translate-y-24', 'opacity-0');
+      }, 3000);
+    }
+
+    function handleSendOTP() {
+      const val = document.getElementById('mobile-input').value;
+      if (val.length === 10) {
+        showToast(`OTP 794258 sent to +91 ${val} → Routing to 4A (Household OTP)`);
+      } else {
+        showToast('Please enter a valid 10-digit mobile number');
+      }
+    }
+
+    function handleGovLogin() {
+      showToast('Opening National Single Sign-On (MeriPehchaan)...');
+    }
+
+    function navigateBack() {
+      showToast('Navigating back to SCREEN NAME: 1A (Household Introduction)');
+    }
+
+    function navigateToRegister() {
+      showToast('Navigating to SCREEN NAME: 3A (Household Registration)');
+    }
+
+    function toggleLang() {
+      showToast('Language toggle: English ⇋ हिन्दी');
+    }
+  </script>
+
+
+
+
+</body></html>
