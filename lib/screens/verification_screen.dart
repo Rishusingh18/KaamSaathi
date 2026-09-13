@@ -55,8 +55,8 @@ class _VerificationScreenState extends State<VerificationScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               // Header Image
-              Image.network(
-                'https://lh3.googleusercontent.com/aida-public/AB6AXuBvEU727K-jCzkx-4qPFJ3_pE23PizeksHuu19v4PJYaKysJVV99G6NGOARJBG-Lw-dE4iAPZaHZBVmX1eMgTskEaJi7zjoMMWt0izLJlPVthRoXgUyrqnf3rYD2Jt-jfe18QUszfDVCrpSJ2FhBSMBoFobXcggmeBVX6uyrKVlWTixb7EjD1m_u5gv2lBbQdxJVKyzwY5r5Ij5Uof3745kzxiH1lAvYmyKAklNrsCvDsOeXiRYq_VRCG3JrQ4zXRa7zg',
+              Image.asset(
+                'assets/images/logo.png',
                 height: 56,
                 errorBuilder: (context, error, stackTrace) => 
                     const Icon(Icons.verified_user, size: 56, color: AppColors.primaryContainer),

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import '../theme/colors.dart';
 import '../widgets/custom_buttons.dart';
+import '../utils/localization.dart';
 import 'otp_screen.dart';
 import 'main_layout.dart';
 
 class LoginOptionsScreen extends StatefulWidget {
-  const LoginOptionsScreen({Key? key}) : super(key: key);
+  final String role;
+  const LoginOptionsScreen({Key? key, this.role = 'Cooperative'}) : super(key: key);
 
   @override
   State<LoginOptionsScreen> createState() => _LoginOptionsScreenState();
@@ -30,7 +32,7 @@ class _LoginOptionsScreenState extends State<LoginOptionsScreen> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => OtpScreen(mobileNumber: _mobileController.text),
+          builder: (context) => OtpScreen(mobileNumber: _mobileController.text, role: widget.role),
         ),
       );
     } else {
@@ -53,11 +55,14 @@ class _LoginOptionsScreenState extends State<LoginOptionsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.surfaceCanvas,
-      body: SafeArea(
-        child: Column(
-          children: [
+    return ValueListenableBuilder<String>(
+      valueListenable: AppLocalization.currentLang,
+      builder: (context, lang, child) {
+        return Scaffold(
+          backgroundColor: AppColors.surfaceCanvas,
+          body: SafeArea(
+            child: Column(
+              children: [
             // Top Nav Bar
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -67,26 +72,29 @@ class _LoginOptionsScreenState extends State<LoginOptionsScreen> {
                   TextButton.icon(
                     onPressed: () => Navigator.pop(context),
                     icon: const Icon(Icons.arrow_back_ios_new, size: 16, color: AppColors.primaryContainer),
-                    label: const Text('Back', style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
+                    label: Text(AppLocalization.get('Back'), style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
                     style: TextButton.styleFrom(padding: EdgeInsets.zero),
                   ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(color: AppColors.borderSubtle),
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: const [
-                        Text('EN', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: AppColors.primaryContainer)),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 4.0),
-                          child: Text('|', style: TextStyle(color: Colors.black26)),
-                        ),
-                        Text('हिन्दी', style: TextStyle(fontSize: 12, color: Colors.black54)),
-                      ],
+                  GestureDetector(
+                    onTap: AppLocalization.toggleLanguage,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(color: AppColors.borderSubtle),
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text('EN', style: TextStyle(fontWeight: lang == 'EN' ? FontWeight.bold : FontWeight.normal, fontSize: 12, color: lang == 'EN' ? AppColors.primaryContainer : Colors.black54)),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 4.0),
+                            child: Text('|', style: TextStyle(color: Colors.black26)),
+                          ),
+                          Text('हिन्दी', style: TextStyle(fontWeight: lang == 'HI' ? FontWeight.bold : FontWeight.normal, fontSize: 12, color: lang == 'HI' ? AppColors.primaryContainer : Colors.black54)),
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -101,8 +109,8 @@ class _LoginOptionsScreenState extends State<LoginOptionsScreen> {
                   child: Column(
                     children: [
                     // Brand Header
-                    Image.network(
-                      'https://lh3.googleusercontent.com/aida-public/AB6AXuCdC2k0Fg3YcXBhaKO4zmOYvQ5o75WPiYcY5dIrLbbhh7WswvK8xbBdd6T_UncJT5ry1ehJK8XKyWe_nIhOUMaGQ5xCjg-38uMIQzGZ_oQNZ2iIv5qtgItZRQojJqkKGCw-mNd-7KokG3VkgvfySU36BqmdNjGRfdlf2rSqDkMn8cjVS9BGvKAE-R6tO7ZIFoJXmDFQVR9EqeUmvx45GN79jCQq7P3kG0Xe-EF_iEFkVPAwUiIa-ytk-1AkjrN8aFUjmg',
+                    Image.asset(
+                'assets/images/logo.png',
                       height: 64,
                       errorBuilder: (context, error, stackTrace) => 
                           const Text('SAHYOG', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
@@ -117,14 +125,14 @@ class _LoginOptionsScreenState extends State<LoginOptionsScreen> {
                       ],
                     ),
                     const SizedBox(height: 12),
-                    const Text(
-                      'Welcome Back',
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.primaryContainer),
+                    Text(
+                      AppLocalization.get('Welcome Back'),
+                      style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.primaryContainer),
                     ),
                     const SizedBox(height: 4),
-                    const Text(
-                      'Login to manage your cooperative and workforce',
-                      style: TextStyle(fontSize: 12, color: AppColors.textSecondary),
+                    Text(
+                      AppLocalization.get(widget.role == 'Worker' ? 'Find work, manage skills & track earnings' : 'Login to manage your cooperative and workforce'),
+                      style: const TextStyle(fontSize: 12, color: AppColors.textSecondary),
                     ),
                     const SizedBox(height: 12),
                     Container(
@@ -136,10 +144,10 @@ class _LoginOptionsScreenState extends State<LoginOptionsScreen> {
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
-                        children: const [
-                          Text('🏢', style: TextStyle(fontSize: 12)),
-                          SizedBox(width: 6),
-                          Text('COOPERATIVE ADMIN', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.cooperativeGreen)),
+                        children: [
+                          Text(widget.role == 'Worker' ? '👷' : '🏢', style: const TextStyle(fontSize: 12)),
+                          const SizedBox(width: 6),
+                          Text(AppLocalization.get(widget.role == 'Worker' ? 'WORKER • कामगार' : 'COOPERATIVE ADMIN'), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.cooperativeGreen)),
                         ],
                       ),
                     ),
@@ -153,42 +161,43 @@ class _LoginOptionsScreenState extends State<LoginOptionsScreen> {
                         borderRadius: BorderRadius.circular(16),
                         border: Border.all(color: AppColors.borderSubtle),
                       ),
-                      child: _showCoopIdView ? _buildCoopIdView() : _buildMobileView(),
+                      child: widget.role == 'Worker' ? _buildMobileView() : (_showCoopIdView ? _buildCoopIdView() : _buildMobileView()),
                     ),
 
                     const SizedBox(height: 16),
 
-                    // Household Trust Banner
-                    Container(
-                      padding: const EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFECFDF5),
-                        border: Border.all(color: const Color(0xFFD1FAE5)),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.only(top: 2, right: 8),
-                            decoration: const BoxDecoration(shape: BoxShape.circle, color: AppColors.cooperativeGreen),
-                            padding: const EdgeInsets.all(2),
-                            child: const Icon(Icons.check, size: 12, color: Colors.white),
-                          ),
-                          const Expanded(
-                            child: Text.rich(
-                              TextSpan(
-                                children: [
-                                  TextSpan(text: 'Authorized Representative Access: ', style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.cooperativeGreen)),
-                                  TextSpan(text: 'Secure authentication for registered cooperatives under SAHYOG DPI network.', style: TextStyle(color: Color(0xFF022C22))),
-                                ],
-                              ),
-                              style: TextStyle(fontSize: 11, height: 1.4),
+                    if (widget.role != 'Worker')
+                      // Household Trust Banner
+                      Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFECFDF5),
+                          border: Border.all(color: const Color(0xFFD1FAE5)),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(top: 2, right: 8),
+                              decoration: const BoxDecoration(shape: BoxShape.circle, color: AppColors.cooperativeGreen),
+                              padding: const EdgeInsets.all(2),
+                              child: const Icon(Icons.check, size: 12, color: Colors.white),
                             ),
-                          ),
-                        ],
+                            const Expanded(
+                              child: Text.rich(
+                                TextSpan(
+                                  children: [
+                                    TextSpan(text: 'Authorized Representative Access: ', style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.cooperativeGreen)),
+                                    TextSpan(text: 'Secure authentication for registered cooperatives under SAHYOG DPI network.', style: TextStyle(color: Color(0xFF022C22))),
+                                  ],
+                                ),
+                                style: TextStyle(fontSize: 11, height: 1.4),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
                     const SizedBox(height: 24),
                   ],
                 ),
@@ -199,6 +208,8 @@ class _LoginOptionsScreenState extends State<LoginOptionsScreen> {
         ),
       ),
     );
+      }
+    );
   }
 
   Widget _buildMobileView() {
@@ -208,7 +219,7 @@ class _LoginOptionsScreenState extends State<LoginOptionsScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text('Admin Mobile Number', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
+            Text(AppLocalization.get(widget.role == 'Worker' ? 'Mobile Number' : 'Admin Mobile Number'), style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
               decoration: BoxDecoration(
@@ -216,7 +227,7 @@ class _LoginOptionsScreenState extends State<LoginOptionsScreen> {
                 border: Border.all(color: const Color(0xFFD1FAE5)),
                 borderRadius: BorderRadius.circular(6),
               ),
-              child: const Text('OTP Login', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.cooperativeGreen)),
+              child: Text(AppLocalization.get('OTP Login'), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.cooperativeGreen)),
             ),
           ],
         ),
@@ -231,7 +242,7 @@ class _LoginOptionsScreenState extends State<LoginOptionsScreen> {
             filled: true,
             fillColor: Colors.grey.shade50,
             contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
-            hintText: 'Enter admin mobile number',
+            hintText: AppLocalization.get(widget.role == 'Worker' ? 'Enter 10-digit mobile' : 'Enter admin mobile number'),
             hintStyle: const TextStyle(color: Colors.black38, fontSize: 14),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
@@ -273,10 +284,10 @@ class _LoginOptionsScreenState extends State<LoginOptionsScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Expanded(
+            Expanded(
               child: Text(
-                "We'll send a one-time password (OTP) to the authorized representative.",
-                style: TextStyle(fontSize: 11, color: AppColors.textSecondary),
+                AppLocalization.get("We'll send a one-time password (OTP) to the authorized representative."),
+                style: const TextStyle(fontSize: 11, color: AppColors.textSecondary),
               ),
             ),
             Text('${_mobileController.text.length}/10', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
@@ -284,36 +295,51 @@ class _LoginOptionsScreenState extends State<LoginOptionsScreen> {
         ),
         const SizedBox(height: 16),
         PrimaryButton(
-          text: 'Send OTP',
+          text: AppLocalization.get('Send OTP'),
           onPressed: _mobileController.text.length == 10 ? _handleSendOTP : null,
         ),
-        const Padding(
-          padding: EdgeInsets.symmetric(vertical: 16.0),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16.0),
           child: Row(
             children: [
-              Expanded(child: Divider(color: AppColors.borderSubtle)),
+              const Expanded(child: Divider(color: AppColors.borderSubtle)),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8.0),
-                child: Text('OR', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Colors.black38)),
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Text(AppLocalization.get('OR'), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Colors.black38)),
               ),
-              Expanded(child: Divider(color: AppColors.borderSubtle)),
+              const Expanded(child: Divider(color: AppColors.borderSubtle)),
             ],
           ),
         ),
-        SizedBox(
-          width: double.infinity,
-          child: OutlinedButton.icon(
-            onPressed: () => setState(() => _showCoopIdView = true),
-            icon: const Text('🏢', style: TextStyle(fontSize: 14)),
-            label: const Text('Continue with Cooperative ID', style: TextStyle(color: AppColors.primaryContainer, fontWeight: FontWeight.bold, fontSize: 12)),
-            style: OutlinedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(vertical: 12),
-              side: const BorderSide(color: AppColors.borderSubtle),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-              backgroundColor: Colors.grey.shade50,
+        if (widget.role != 'Worker') ...[
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16.0),
+            child: Row(
+              children: [
+                const Expanded(child: Divider(color: AppColors.borderSubtle)),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Text(AppLocalization.get('OR'), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Colors.black38)),
+                ),
+                const Expanded(child: Divider(color: AppColors.borderSubtle)),
+              ],
             ),
           ),
-        ),
+          SizedBox(
+            width: double.infinity,
+            child: OutlinedButton.icon(
+              onPressed: () => setState(() => _showCoopIdView = true),
+              icon: const Text('🏢', style: TextStyle(fontSize: 14)),
+              label: Text(AppLocalization.get('Continue with Cooperative ID'), style: const TextStyle(color: AppColors.primaryContainer, fontWeight: FontWeight.bold, fontSize: 12)),
+              style: OutlinedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                side: const BorderSide(color: AppColors.borderSubtle),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                backgroundColor: Colors.grey.shade50,
+              ),
+            ),
+          ),
+        ],
       ],
     );
   }
@@ -326,15 +352,15 @@ class _LoginOptionsScreenState extends State<LoginOptionsScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
-              children: const [
-                Text('🏢', style: TextStyle(fontSize: 16)),
-                SizedBox(width: 8),
-                Text('Cooperative ID Login', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
+              children: [
+                const Text('🏢', style: TextStyle(fontSize: 16)),
+                const SizedBox(width: 8),
+                Text(AppLocalization.get('Cooperative ID Login'), style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
               ],
             ),
             GestureDetector(
               onTap: () => setState(() => _showCoopIdView = false),
-              child: const Text('Back to Mobile', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.cooperativeGreen)),
+              child: Text(AppLocalization.get('Back to Mobile'), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.cooperativeGreen)),
             ),
           ],
         ),
@@ -342,7 +368,7 @@ class _LoginOptionsScreenState extends State<LoginOptionsScreen> {
           padding: EdgeInsets.symmetric(vertical: 12.0),
           child: Divider(color: AppColors.borderSubtle, height: 1),
         ),
-        const Text('Registration / Cooperative ID', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
+        Text(AppLocalization.get('Registration / Cooperative ID'), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
         const SizedBox(height: 4),
         TextField(
           controller: _coopIdController,
@@ -357,7 +383,7 @@ class _LoginOptionsScreenState extends State<LoginOptionsScreen> {
           style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.primaryContainer, fontSize: 12),
         ),
         const SizedBox(height: 12),
-        const Text('Authorized Signatory PIN / Password', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
+        Text(AppLocalization.get('Authorized Signatory PIN / Password'), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
         const SizedBox(height: 4),
         TextField(
           controller: _pinController,
@@ -374,14 +400,14 @@ class _LoginOptionsScreenState extends State<LoginOptionsScreen> {
         ),
         const SizedBox(height: 16),
         PrimaryButton(
-          text: 'Verify & Login',
+          text: AppLocalization.get('Verify & Login'),
           onPressed: _handleCoopLogin,
         ),
         const SizedBox(height: 12),
-        const Center(
+        Center(
           child: Text(
-            'For registered state federations and cooperative societies under MSCS Act.',
-            style: TextStyle(fontSize: 10, color: Colors.black38),
+            AppLocalization.get('For registered state federations and cooperative societies under MSCS Act.'),
+            style: const TextStyle(fontSize: 10, color: Colors.black38),
             textAlign: TextAlign.center,
           ),
         ),

@@ -2,17 +2,25 @@ import 'package:flutter/material.dart';
 import '../theme/colors.dart';
 import '../widgets/custom_buttons.dart';
 import '../widgets/action_card.dart';
+import '../utils/localization.dart';
 import 'login_options_screen.dart';
 import 'register_screen.dart';
+import 'worker_registration_screen.dart';
+import 'language_selection_screen.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  final String role;
+  
+  const HomeScreen({Key? key, this.role = 'Cooperative'}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.surfaceCanvas,
-      body: SafeArea(
+    return ValueListenableBuilder<String>(
+      valueListenable: AppLocalization.currentLang,
+      builder: (context, lang, child) {
+        return Scaffold(
+          backgroundColor: AppColors.surfaceCanvas,
+          body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
           child: Column(
@@ -29,7 +37,9 @@ class HomeScreen extends StatelessWidget {
                       child: IconButton(
                         icon: const Icon(Icons.arrow_back_ios_new, size: 20),
                         color: AppColors.primaryContainer,
-                        onPressed: () {}, // Navigate back
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
                       ),
                     ),
                     Row(
@@ -47,8 +57,8 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(height: 16),
               
               // Brand Logo Placeholder
-              Image.network(
-                'https://lh3.googleusercontent.com/aida-public/AB6AXuDIjwWBv2hHnWGgrPlZfTi1xlnKzgZqwory7H4dc-QxNiDBsM-DopItaUtFEtcK9I3dHxAsDvvWLINE9O6HaQRcew1uKiU0VdB_oP4AoGEeziFO9sIzJP_beAYG923r9x9hLwuPXneY7JnxGxq2feP24tkgsNTZPQQvy2jJ0zs5UmXI0hsKBfHZV4P2qx5Ohod5C372xVlKBXug7cfzyZfjRLFjp4p7juLlGWREtWxfsJkLWOA4bdBMprrluk6sxM3fyA',
+              Image.asset(
+                'assets/images/logo.png',
                 height: 56,
                 errorBuilder: (context, error, stackTrace) => 
                     const Text('SAHYOG', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
@@ -56,7 +66,7 @@ class HomeScreen extends StatelessWidget {
               
               const SizedBox(height: 16),
               
-              // Hero Cooperative Illustration & Role Badge
+              // Hero Illustration & Role Badge
               Container(
                 width: 124,
                 height: 124,
@@ -67,10 +77,14 @@ class HomeScreen extends StatelessWidget {
                   border: Border.all(color: const Color(0xFFD1FAE5), width: 2),
                 ),
                 child: ClipOval(
-                  child: Image.network(
-                    'https://lh3.googleusercontent.com/aida-public/AB6AXuCsJvnS-AET6WhEJeBy3_9kqmpFgDlVa0LxbFAC-JlzzCqvpXRn5aQoA0sLeJHEFqYB74KSE5374cmpPdxflW1KUn_b0Se6CCJlw7eQ6NT8W-452gnlyVPU97nTs2ZiMhL6Jl5_0WZeEi8Ohxbj8JEKUqbJkDz3jQpv269y-FdstcnXCbUsjo2lOhSwsd61D4HDa-o9FEZ0Oaopn1a3rGRLnEy68IlOq9qWedj98a4y1aRgbLGp6nNT',
+                  child: Image.asset(
+                    role == 'Worker' ? 'assets/images/worker_logo.png' : 'assets/images/logo.png',
                     fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) => const Icon(Icons.business, size: 64, color: AppColors.cooperativeGreen),
+                    errorBuilder: (context, error, stackTrace) => Icon(
+                      role == 'Worker' ? Icons.engineering : Icons.business, 
+                      size: 64, 
+                      color: AppColors.cooperativeGreen
+                    ),
                   ),
                 ),
               ),
@@ -81,21 +95,23 @@ class HomeScreen extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFECFDF5),
+                  color: role == 'Worker' ? AppColors.cooperativeGreen : const Color(0xFFECFDF5),
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: const Color(0xFFD1FAE5)),
+                  border: Border.all(color: role == 'Worker' ? AppColors.cooperativeGreen : const Color(0xFFD1FAE5)),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
-                  children: const [
-                    Text('🏢', style: TextStyle(fontSize: 12)),
-                    SizedBox(width: 6),
+                  children: [
+                    if (role != 'Worker') const Text('🏢', style: TextStyle(fontSize: 12)),
+                    if (role != 'Worker') const SizedBox(width: 6),
                     Text(
-                      'COOPERATIVE / सहकारी संस्था',
+                      role == 'Worker' 
+                          ? AppLocalization.get('WORKER • कामगार') 
+                          : AppLocalization.get('COOPERATIVE / सहकारी संस्था'),
                       style: TextStyle(
                         fontSize: 11,
                         fontWeight: FontWeight.bold,
-                        color: AppColors.primaryContainer,
+                        color: role == 'Worker' ? Colors.white : AppColors.primaryContainer,
                         letterSpacing: 0.5,
                       ),
                     ),
@@ -106,9 +122,11 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(height: 16),
               
               // Title & Subheadings
-              const Text(
-                'Welcome to SAHYOG',
-                style: TextStyle(
+              Text(
+                role == 'Worker' 
+                    ? AppLocalization.get('Welcome, Worker')
+                    : AppLocalization.get('Welcome to SAHYOG'),
+                style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                   color: AppColors.primaryContainer,
@@ -116,9 +134,11 @@ class HomeScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 4),
-              const Text(
-                'Connect your cooperative with more work opportunities.',
-                style: TextStyle(
+              Text(
+                role == 'Worker'
+                    ? AppLocalization.get('Create your profile. Get better work opportunities.')
+                    : AppLocalization.get('Connect your cooperative with more work opportunities.'),
+                style: const TextStyle(
                   fontSize: 14.5,
                   fontWeight: FontWeight.w500,
                   color: AppColors.saffron,
@@ -126,9 +146,11 @@ class HomeScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 8),
-              const Text(
-                'Manage your workforce, receive service requests, assign workers, discover new opportunities, and track earnings — all in one place.',
-                style: TextStyle(
+              Text(
+                role == 'Worker'
+                    ? AppLocalization.get('Find the right work opportunities, show your skills, manage your work and see your earnings — all in one place.')
+                    : AppLocalization.get('Manage your workforce, receive service requests, assign workers, discover new opportunities, and track earnings — all in one place.'),
+                style: const TextStyle(
                   fontSize: 12.5,
                   color: AppColors.textSecondary,
                   height: 1.5,
@@ -154,9 +176,11 @@ class HomeScreen extends StatelessWidget {
                           child: const Icon(Icons.check, size: 14, color: AppColors.cooperativeGreen),
                         ),
                         const SizedBox(width: 8),
-                        const Text(
-                          'With SAHYOG, your cooperative can',
-                          style: TextStyle(
+                        Text(
+                          role == 'Worker' 
+                              ? AppLocalization.get('With SAHYOG you')
+                              : AppLocalization.get('With SAHYOG, your cooperative can'),
+                          style: const TextStyle(
                             fontSize: 13.5,
                             fontWeight: FontWeight.w600,
                             color: AppColors.textPrimary,
@@ -168,11 +192,19 @@ class HomeScreen extends StatelessWidget {
                       padding: EdgeInsets.symmetric(vertical: 8.0),
                       child: Divider(color: AppColors.borderSubtle),
                     ),
-                    _buildFeatureItem('Manage your workers and their availability'),
-                    _buildFeatureItem('Receive household and institution service requests'),
-                    _buildFeatureItem('Match the right workers to each job'),
-                    _buildFeatureItem('Discover opportunities through Cooperative Exchange'),
-                    _buildFeatureItem('Track projects, payments and workforce performance'),
+                    if (role == 'Worker') ...[
+                      _buildFeatureItem(AppLocalization.get('Create your Skill Passport')),
+                      _buildFeatureItem(AppLocalization.get('Find the right work opportunities for yourself')),
+                      _buildFeatureItem(AppLocalization.get('Set your availability')),
+                      _buildFeatureItem(AppLocalization.get('View earnings and payment history')),
+                      _buildFeatureItem(AppLocalization.get('Connect with your cooperative')),
+                    ] else ...[
+                      _buildFeatureItem(AppLocalization.get('Manage your workers and their availability')),
+                      _buildFeatureItem(AppLocalization.get('Receive household and institution service requests')),
+                      _buildFeatureItem(AppLocalization.get('Match the right workers to each job')),
+                      _buildFeatureItem(AppLocalization.get('Discover opportunities through Cooperative Exchange')),
+                      _buildFeatureItem(AppLocalization.get('Track projects, payments and workforce performance')),
+                    ],
                   ],
                 ),
               ),
@@ -182,12 +214,14 @@ class HomeScreen extends StatelessWidget {
               // Trust Note
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(Icons.shield, size: 16, color: AppColors.cooperativeGreen),
-                  SizedBox(width: 8),
+                children: [
+                  const Icon(Icons.shield, size: 16, color: AppColors.cooperativeGreen),
+                  const SizedBox(width: 8),
                   Text(
-                    'Empower workers. Build opportunities. Grow together.',
-                    style: TextStyle(
+                    role == 'Worker'
+                        ? AppLocalization.get('Your information is secure and used with your permission.')
+                        : AppLocalization.get('Empower workers. Build opportunities. Grow together.'),
+                    style: const TextStyle(
                       fontSize: 11.5,
                       fontWeight: FontWeight.w500,
                       color: AppColors.cooperativeGreen,
@@ -200,31 +234,53 @@ class HomeScreen extends StatelessWidget {
               
               // Action CTAs
               PrimaryButton(
-                text: 'Login →',
+                text: role == 'Worker' ? AppLocalization.get('Log in →') : AppLocalization.get('Login →'),
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const LoginOptionsScreen()),
+                    MaterialPageRoute(builder: (context) => LoginOptionsScreen(role: role)),
                   );
                 },
               ),
               const SizedBox(height: 12),
               SecondaryButton(
-                text: '+ Create Cooperative Account',
+                text: role == 'Worker' ? AppLocalization.get('+ Create Account') : AppLocalization.get('+ Create Cooperative Account'),
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const RegisterScreen()),
+                    MaterialPageRoute(
+                      builder: (context) => role == 'Worker' 
+                          ? const WorkerRegistrationScreen() 
+                          : const RegisterScreen()
+                    ),
                   );
                 },
               ),
               
+              if (role == 'Worker') ...[
+                const SizedBox(height: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      AppLocalization.get('New to cooperatives?'),
+                      style: const TextStyle(fontSize: 12, color: AppColors.textSecondary),
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      AppLocalization.get('Start in 2 mins'),
+                      style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.cooperativeGreen),
+                    ),
+                  ],
+                ),
+              ],
+              
               const SizedBox(height: 24),
               
               // Footer Brand Motto
-              const Text(
-                'COOPERATE. EMPOWER. GROW. / साथ मिलकर, समृद्धि की ओर',
-                style: TextStyle(
+              Text(
+                AppLocalization.get('COOPERATE. EMPOWER. GROW. / साथ मिलकर, समृद्धि की ओर'),
+                style: const TextStyle(
                   fontSize: 11,
                   fontWeight: FontWeight.w600,
                   letterSpacing: 1.0,
@@ -237,6 +293,8 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+    }
     );
   }
 

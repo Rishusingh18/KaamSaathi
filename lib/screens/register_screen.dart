@@ -220,8 +220,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: Column(
                     children: [
                       // Header
-                      Image.network(
-                        'https://lh3.googleusercontent.com/aida-public/AB6AXuDI8AI-rJt8VYRpWLESn0NVtPnA3Yu6TYZ0s09Hl06QkQCC2ALFfnBZW1fnJxZltXTg-ZuEev9sliapubmAzuAzap7YIqq8xrO1YiTDrmb_woRf_MjSII8IQVZ3GEaqNl-6bbes5ZLbSBzk5gLlvPFLS96RJFgQwKCx3X7_Kav91whkYilzKmNZVHZaQtCw8vECeRT1v6xg4DnBg57csCs64tbGFBjXmTtPcaHhiWQQC7Job9wG31MaXdgAsz4e-yvteA',
+                      Image.asset(
+                'assets/images/logo.png',
                         height: 64,
                         errorBuilder: (context, error, stackTrace) => 
                             const Text('SAHYOG', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),

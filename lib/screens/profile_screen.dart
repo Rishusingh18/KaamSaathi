@@ -1,57 +1,66 @@
 import 'package:flutter/material.dart';
 import '../theme/colors.dart';
+import '../utils/localization.dart';
+import 'reports_screen.dart';
+import 'worker_welfare_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.surfaceCanvas,
-      appBar: AppBar(
-        backgroundColor: AppColors.surfaceCanvas,
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Text(
-              'Cooperative Profile',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: AppColors.primaryContainer,
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-              decoration: BoxDecoration(
-                color: Colors.grey.shade100,
-                border: Border.all(color: AppColors.borderSubtle),
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Row(
-                children: const [
-                  Text('EN', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 4.0),
-                    child: Text('|', style: TextStyle(fontSize: 11, color: Colors.grey)),
+    return ValueListenableBuilder<String>(
+      valueListenable: AppLocalization.currentLang,
+      builder: (context, lang, child) {
+        return Scaffold(
+          backgroundColor: AppColors.surfaceCanvas,
+          appBar: AppBar(
+            backgroundColor: AppColors.surfaceCanvas,
+            elevation: 0,
+            automaticallyImplyLeading: false,
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  AppLocalization.get('Cooperative Profile'),
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.primaryContainer,
                   ),
-                  Text('हिन्दी', style: TextStyle(fontSize: 11, color: Colors.grey)),
-                ],
-              ),
+                ),
+                GestureDetector(
+                  onTap: AppLocalization.toggleLanguage,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade100,
+                      border: Border.all(color: AppColors.borderSubtle),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Row(
+                      children: [
+                        Text('EN', style: TextStyle(fontSize: 11, fontWeight: lang == 'EN' ? FontWeight.bold : FontWeight.normal, color: lang == 'EN' ? AppColors.primaryContainer : Colors.grey)),
+                        const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 4.0),
+                          child: Text('|', style: TextStyle(fontSize: 11, color: Colors.grey)),
+                        ),
+                        Text('हिन्दी', style: TextStyle(fontSize: 11, fontWeight: lang == 'HI' ? FontWeight.bold : FontWeight.normal, color: lang == 'HI' ? AppColors.primaryContainer : Colors.grey)),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
-      body: SingleChildScrollView(
+          ),
+          body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Manage cooperative information, settings and verification.',
-              style: TextStyle(fontSize: 13, color: AppColors.textSecondary),
+            Text(
+              AppLocalization.get('Manage cooperative information, settings and verification.'),
+              style: const TextStyle(fontSize: 13, color: AppColors.textSecondary),
             ),
             const SizedBox(height: 16),
             
@@ -79,15 +88,15 @@ class ProfileScreen extends StatelessWidget {
                           const SizedBox(width: 12),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
+                            children: [
                               Text(
-                                'Nirman Shramik Cooperative',
-                                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                                AppLocalization.get('Nirman Shramik Cooperative'),
+                                style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
                               ),
-                              SizedBox(height: 2),
+                              const SizedBox(height: 2),
                               Text(
-                                'Reg: COOP-DL-2026-0142',
-                                style: TextStyle(fontSize: 11, fontFamily: 'monospace', color: AppColors.textSecondary),
+                                AppLocalization.get('Reg: COOP-DL-2026-0142'),
+                                style: const TextStyle(fontSize: 11, fontFamily: 'monospace', color: AppColors.textSecondary),
                               ),
                             ],
                           ),
@@ -100,9 +109,9 @@ class ProfileScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(color: AppColors.cooperativeGreen.withOpacity(0.3)),
                         ),
-                        child: const Text(
-                          '✓ Verified',
-                          style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: AppColors.cooperativeGreen),
+                        child: Text(
+                          AppLocalization.get('✓ Verified'),
+                          style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: AppColors.cooperativeGreen),
                         ),
                       ),
                     ],
@@ -117,19 +126,19 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
-                        _buildInfoRow('Location:', 'Dwarka, New Delhi'),
+                        _buildInfoRow(AppLocalization.get('Location:'), AppLocalization.get('Dwarka, New Delhi')),
                         const SizedBox(height: 8),
-                        _buildInfoRow('Service Areas:', 'Dwarka • Najafgarh • West Delhi'),
+                        _buildInfoRow(AppLocalization.get('Service Areas:'), AppLocalization.get('Dwarka • Najafgarh • West Delhi')),
                       ],
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const Text('PRIMARY SERVICES', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: AppColors.textSecondary)),
+                  Text(AppLocalization.get('PRIMARY SERVICES'), style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: AppColors.textSecondary)),
                   const SizedBox(height: 8),
                   Wrap(
                     spacing: 8,
                     runSpacing: 8,
-                    children: ['Construction', 'Painting', 'Electrical', 'Plumbing'].map((service) {
+                    children: [AppLocalization.get('Construction'), AppLocalization.get('Painting'), AppLocalization.get('Electrical'), AppLocalization.get('Plumbing')].map((service) {
                       return Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                         decoration: BoxDecoration(
@@ -150,16 +159,16 @@ class ProfileScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('Profile status active', style: TextStyle(fontSize: 11, color: AppColors.textSecondary)),
+                      Text(AppLocalization.get('Profile status active'), style: const TextStyle(fontSize: 11, color: AppColors.textSecondary)),
                       InkWell(
                         onTap: () {},
                         child: Row(
-                          children: const [
+                          children: [
                             Text(
-                              'Edit Profile',
-                              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.primaryContainer),
+                              AppLocalization.get('Edit Profile'),
+                              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.primaryContainer),
                             ),
-                            Icon(Icons.arrow_forward, size: 14, color: AppColors.primaryContainer),
+                            const Icon(Icons.arrow_forward, size: 14, color: AppColors.primaryContainer),
                           ],
                         ),
                       ),
@@ -181,10 +190,10 @@ class ProfileScreen extends StatelessWidget {
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Text('AUTHORIZED REPRESENTATIVE', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
-                          SizedBox(height: 2),
-                          Text('Personal details for registered cooperative account', style: TextStyle(fontSize: 10, color: AppColors.textSecondary)),
+                        children: [
+                          Text(AppLocalization.get('AUTHORIZED REPRESENTATIVE'), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                          const SizedBox(height: 2),
+                          Text(AppLocalization.get('Personal details for registered cooperative account'), style: const TextStyle(fontSize: 10, color: AppColors.textSecondary)),
                         ],
                       ),
                       const Text('👤', style: TextStyle(fontSize: 18)),
@@ -200,13 +209,13 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
-                        _buildInfoRow('Admin Name:', 'Rajesh Kumar', isBold: true),
+                        _buildInfoRow(AppLocalization.get('Admin Name:'), AppLocalization.get('Rajesh Kumar'), isBold: true),
                         const SizedBox(height: 8),
-                        _buildInfoRow('Role:', 'Cooperative Administrator'),
+                        _buildInfoRow(AppLocalization.get('Role:'), AppLocalization.get('Cooperative Administrator')),
                         const SizedBox(height: 8),
-                        _buildInfoRow('Mobile:', '+91 XXXXXXX3210'),
+                        _buildInfoRow(AppLocalization.get('Mobile:'), '+91 XXXXXXX3210'),
                         const SizedBox(height: 8),
-                        _buildInfoRow('Email:', 'admin@nirman.coop'),
+                        _buildInfoRow(AppLocalization.get('Email:'), 'admin@nirman.coop'),
                       ],
                     ),
                   ),
@@ -216,7 +225,7 @@ class ProfileScreen extends StatelessWidget {
                     child: OutlinedButton.icon(
                       onPressed: () {},
                       icon: const Icon(Icons.edit, size: 16),
-                      label: const Text('Edit Admin Details', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+                      label: Text(AppLocalization.get('Edit Admin Details'), style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
                       style: OutlinedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 12),
                         side: const BorderSide(color: AppColors.borderSubtle),
@@ -237,21 +246,25 @@ class ProfileScreen extends StatelessWidget {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      Text('COOPERATIVE SETTINGS', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
-                      Text('Preferences', style: TextStyle(fontSize: 10, color: AppColors.textSecondary)),
+                    children: [
+                      Text(AppLocalization.get('COOPERATIVE SETTINGS'), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                      Text(AppLocalization.get('Preferences'), style: const TextStyle(fontSize: 10, color: AppColors.textSecondary)),
                     ],
                   ),
                   const SizedBox(height: 12),
-                  _buildSettingItem(icon: '🔔', title: 'Notifications', subtitle: 'Request and payment updates'),
+                  _buildSettingItem(icon: '🔔', title: AppLocalization.get('Notifications'), subtitle: AppLocalization.get('Request and payment updates'), onTap: () {}),
                   const SizedBox(height: 8),
-                  _buildSettingItem(icon: '📍', title: 'Service Areas', subtitle: 'Manage locations served'),
+                  _buildSettingItem(icon: '📍', title: AppLocalization.get('Service Areas'), subtitle: AppLocalization.get('Manage locations served'), onTap: () {}),
                   const SizedBox(height: 8),
-                  _buildSettingItem(icon: '👷', title: 'Workforce Preferences', subtitle: 'Skills and availability settings'),
+                  _buildSettingItem(icon: '👷', title: AppLocalization.get('Worker Welfare'), subtitle: AppLocalization.get('Safety issues and assistance'), onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const WorkerWelfareScreen()));
+                  }),
                   const SizedBox(height: 8),
-                  _buildSettingItem(icon: '🔐', title: 'Privacy & Security', subtitle: 'Account and access controls'),
+                  _buildSettingItem(icon: '📊', title: AppLocalization.get('Reports & Work History'), subtitle: AppLocalization.get('Review cooperative performance'), onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const ReportsScreen()));
+                  }),
                   const SizedBox(height: 8),
-                  _buildSettingItem(icon: '🌐', title: 'Language', subtitle: 'English (हिन्दी available)'),
+                  _buildSettingItem(icon: '🌐', title: AppLocalization.get('Language'), subtitle: lang == 'HI' ? 'हिन्दी (Tap for English)' : 'English (Tap for हिन्दी)', onTap: AppLocalization.toggleLanguage),
                 ],
               ),
             ),
@@ -268,10 +281,10 @@ class ProfileScreen extends StatelessWidget {
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Text('COOPERATIVE VERIFICATION', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
-                          SizedBox(height: 2),
-                          Text('Government of NCT Delhi Compliance', style: TextStyle(fontSize: 10, color: AppColors.textSecondary)),
+                        children: [
+                          Text(AppLocalization.get('COOPERATIVE VERIFICATION'), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                          const SizedBox(height: 2),
+                          Text(AppLocalization.get('Government of NCT Delhi Compliance'), style: const TextStyle(fontSize: 10, color: AppColors.textSecondary)),
                         ],
                       ),
                       Container(
@@ -281,19 +294,19 @@ class ProfileScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(color: AppColors.cooperativeGreen.withOpacity(0.3)),
                         ),
-                        child: const Text(
-                          'Approved',
-                          style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: AppColors.cooperativeGreen),
+                        child: Text(
+                          AppLocalization.get('Approved'),
+                          style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: AppColors.cooperativeGreen),
                         ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 16),
-                  _buildVerificationRow('Mobile Number Verified', 'Aug 2026'),
+                  _buildVerificationRow(AppLocalization.get('Mobile Number Verified'), AppLocalization.get('Aug 2026')),
                   const SizedBox(height: 8),
-                  _buildVerificationRow('Registration Details Submitted', 'Aug 2026'),
+                  _buildVerificationRow(AppLocalization.get('Registration Details Submitted'), AppLocalization.get('Aug 2026')),
                   const SizedBox(height: 8),
-                  _buildVerificationRow('Cooperative Society Verified', 'Sep 2026'),
+                  _buildVerificationRow(AppLocalization.get('Cooperative Society Verified'), AppLocalization.get('Sep 2026')),
                   const SizedBox(height: 16),
                   SizedBox(
                     width: double.infinity,
@@ -305,9 +318,9 @@ class ProfileScreen extends StatelessWidget {
                         side: const BorderSide(color: AppColors.borderSubtle),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                       ),
-                      child: const Text(
-                        'View Verification Certificate & Details ↓',
-                        style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.primaryContainer),
+                      child: Text(
+                        AppLocalization.get('View Verification Certificate & Details ↓'),
+                        style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.primaryContainer),
                       ),
                     ),
                   ),
@@ -323,7 +336,7 @@ class ProfileScreen extends StatelessWidget {
               child: OutlinedButton.icon(
                 onPressed: () {},
                 icon: const Icon(Icons.logout, size: 16, color: Colors.red),
-                label: const Text('Log Out', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.red)),
+                label: Text(AppLocalization.get('Log Out'), style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.red)),
                 style: OutlinedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 14),
                   backgroundColor: Colors.red.shade50,
@@ -336,6 +349,8 @@ class ProfileScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+    }
     );
   }
 
@@ -380,12 +395,12 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSettingItem({required String icon, required String title, required String subtitle}) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.grey.shade50,
+  Widget _buildSettingItem({required String icon, required String title, required String subtitle, required VoidCallback onTap}) {
+    return Material(
+      color: Colors.grey.shade50,
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.borderSubtle),
+        side: const BorderSide(color: AppColors.borderSubtle),
       ),
       child: ListTile(
         leading: Text(icon, style: const TextStyle(fontSize: 20)),
@@ -394,7 +409,7 @@ class ProfileScreen extends StatelessWidget {
         trailing: const Icon(Icons.arrow_forward, size: 14, color: Colors.grey),
         dense: true,
         contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
-        onTap: () {},
+        onTap: onTap,
       ),
     );
   }

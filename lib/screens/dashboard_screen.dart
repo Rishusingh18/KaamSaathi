@@ -1,74 +1,88 @@
 import 'package:flutter/material.dart';
 import '../theme/colors.dart';
 import '../widgets/action_card.dart';
+import '../utils/localization.dart';
+import 'earnings_screen.dart';
+import 'ai_insights_screen.dart';
+import 'cooperative_exchange_screen.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.surfaceCanvas,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: AppColors.surfaceCanvas,
-        elevation: 0,
-        title: Image.network(
-          'https://lh3.googleusercontent.com/aida-public/AB6AXuD_UyVozWvrDUswepAXXC3-xKyH3z9ka8adb3AdzVz1IXgotOhg6zX9gRUXZjHu7mdtyzQrZYzsY3wvEfkgh45iWMUJ2b4_PmmN1lwX8AWIemXw7ZHHGxKlCJGJaH9rBZ32jshadl-hH7dK6XNilAUMg4USotyIqsw8_RSLQihSeF7VlfSQ3vWOKfyibvZt40AkPu3-TeCYeG0Ums-mbFPOLuHJseJPbVlomlTAqJtHLiowKxwIuUJ9PzpdjeX-i46MXA',
-          height: 36,
-          errorBuilder: (context, error, stackTrace) => 
-              const Text('SAHYOG', style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
-        ),
-        actions: [
-          IconButton(
-            icon: Stack(
-              children: [
-                const Icon(Icons.notifications_none, color: AppColors.textPrimary),
-                Positioned(
-                  right: 0,
-                  top: 0,
-                  child: Container(
-                    padding: const EdgeInsets.all(2),
-                    decoration: const BoxDecoration(color: Colors.red, shape: BoxShape.circle),
-                    constraints: const BoxConstraints(minWidth: 14, minHeight: 14),
-                    child: const Text('3', style: TextStyle(color: Colors.white, fontSize: 8, fontWeight: FontWeight.bold), textAlign: TextAlign.center),
-                  ),
-                )
-              ],
+    return ValueListenableBuilder<String>(
+      valueListenable: AppLocalization.currentLang,
+      builder: (context, lang, child) {
+        return Scaffold(
+          backgroundColor: AppColors.surfaceCanvas,
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            backgroundColor: AppColors.surfaceCanvas,
+            elevation: 0,
+            title: Image.asset(
+                'assets/images/logo.png',
+              height: 36,
+              errorBuilder: (context, error, stackTrace) => 
+                  const Text('SAHYOG', style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
             ),
-            onPressed: () {},
-          ),
-          Container(
-            margin: const EdgeInsets.only(right: 16, top: 12, bottom: 12, left: 4),
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-            decoration: BoxDecoration(
-              color: Colors.grey[100],
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: Colors.grey[300]!),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: const [
-                Text('EN', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 4.0),
-                  child: Text('|', style: TextStyle(fontSize: 10, color: Colors.grey)),
+            actions: [
+              IconButton(
+                icon: Stack(
+                  children: [
+                    const Icon(Icons.notifications_none, color: AppColors.textPrimary),
+                    Positioned(
+                      right: 0,
+                      top: 0,
+                      child: Container(
+                        padding: const EdgeInsets.all(2),
+                        decoration: const BoxDecoration(color: Colors.red, shape: BoxShape.circle),
+                        constraints: const BoxConstraints(minWidth: 14, minHeight: 14),
+                        child: const Text('3', style: TextStyle(color: Colors.white, fontSize: 8, fontWeight: FontWeight.bold), textAlign: TextAlign.center),
+                      ),
+                    )
+                  ],
                 ),
-                Text('हिन्दी', style: TextStyle(fontSize: 10, color: Colors.grey)),
-              ],
-            ),
-          )
-        ],
-      ),
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(AppLocalization.get('Coming soon: Notifications'))),
+                  );
+                },
+              ),
+              GestureDetector(
+                onTap: AppLocalization.toggleLanguage,
+                child: Container(
+                  margin: const EdgeInsets.only(right: 16, top: 12, bottom: 12, left: 4),
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[100],
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: Colors.grey[300]!),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text('EN', style: TextStyle(fontSize: 10, fontWeight: lang == 'EN' ? FontWeight.bold : FontWeight.normal, color: lang == 'EN' ? AppColors.primaryContainer : Colors.grey)),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 4.0),
+                        child: Text('|', style: TextStyle(fontSize: 10, color: Colors.grey)),
+                      ),
+                      Text('हिन्दी', style: TextStyle(fontSize: 10, fontWeight: lang == 'HI' ? FontWeight.bold : FontWeight.normal, color: lang == 'HI' ? AppColors.primaryContainer : Colors.grey)),
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Greeting & Verification Badge
-            const Text('Good morning, Nirman Shramik 👋', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+            Text(AppLocalization.get('Good morning, Nirman Shramik 👋'), style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
             const SizedBox(height: 4),
-            const Text('Manage your workforce, requests and opportunities.', style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+            Text(AppLocalization.get('Manage your workforce, requests and opportunities.'), style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
             const SizedBox(height: 8),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
@@ -79,10 +93,10 @@ class DashboardScreen extends StatelessWidget {
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
-                children: const [
-                  Icon(Icons.check, size: 12, color: AppColors.cooperativeGreen),
-                  SizedBox(width: 4),
-                  Text('Cooperative Verified', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: AppColors.cooperativeGreen)),
+                children: [
+                  const Icon(Icons.check, size: 12, color: AppColors.cooperativeGreen),
+                  const SizedBox(width: 4),
+                  Text(AppLocalization.get('Cooperative Verified'), style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: AppColors.cooperativeGreen)),
                 ],
               ),
             ),
@@ -98,10 +112,12 @@ class DashboardScreen extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               childAspectRatio: 1.6,
               children: [
-                _buildMetricCard('👷 Workers', '42', '28 Available', AppColors.cooperativeGreen),
-                _buildMetricCard('📋 Active Jobs', '7', '5 Pending Requests', Colors.orange[700]!),
-                _buildMetricCard('💰 Earnings', '₹48,600', 'This Month', AppColors.textSecondary, isDot: false),
-                _buildMetricCard('📊 Workforce Utilization', '78%', 'This Month', AppColors.cooperativeGreen, isDot: false),
+                _buildMetricCard(context, AppLocalization.get('👷 Workers'), '42', AppLocalization.get('28 Available'), AppColors.cooperativeGreen),
+                _buildMetricCard(context, AppLocalization.get('📋 Active Jobs'), '7', AppLocalization.get('5 Pending Requests'), Colors.orange[700]!),
+                _buildMetricCard(context, AppLocalization.get('💰 Earnings'), '₹48,600', AppLocalization.get('This Month'), AppColors.textSecondary, isDot: false, onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const EarningsScreen()));
+                }),
+                _buildMetricCard(context, AppLocalization.get('📊 Workforce Utilization'), '78%', AppLocalization.get('This Month'), AppColors.cooperativeGreen, isDot: false),
               ],
             ),
             
@@ -111,14 +127,14 @@ class DashboardScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text('Incoming Requests', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
-                Text('View All Requests →', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
+                Text(AppLocalization.get('Incoming Requests'), style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                Text(AppLocalization.get('View All Requests →'), style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
               ],
             ),
             const SizedBox(height: 12),
-            _buildRequestCard('Residential Painting', 'Dwarka • Household', 'New', 'Sep 12 • 2 workers', Colors.blue),
+            _buildRequestCard(AppLocalization.get('Residential Painting'), AppLocalization.get('Dwarka • Household'), AppLocalization.get('New'), AppLocalization.get('Sep 12 • 2 workers'), Colors.blue),
             const SizedBox(height: 10),
-            _buildRequestCard('Community Hall Repair', 'Najafgarh • Institution', 'Urgent', 'Sep 18–22 • 5 workers', Colors.orange),
+            _buildRequestCard(AppLocalization.get('Community Hall Repair'), AppLocalization.get('Najafgarh • Institution'), AppLocalization.get('Urgent'), AppLocalization.get('Sep 18–22 • 5 workers'), Colors.orange),
             
             const SizedBox(height: 24),
             
@@ -136,24 +152,24 @@ class DashboardScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('Workforce Overview', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
-                      Text('Manage Workers →', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
+                      Text(AppLocalization.get('Workforce Overview'), style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                      Text(AppLocalization.get('Manage Workers →'), style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
                     ],
                   ),
                   const SizedBox(height: 16),
                   Row(
                     children: [
-                      Expanded(child: _buildWorkforcePill('Available', '28', Colors.green)),
+                      Expanded(child: _buildWorkforcePill(AppLocalization.get('Available'), '28', Colors.green)),
                       const SizedBox(width: 8),
-                      Expanded(child: _buildWorkforcePill('Working', '7', Colors.blue)),
+                      Expanded(child: _buildWorkforcePill(AppLocalization.get('Working'), '7', Colors.blue)),
                     ],
                   ),
                   const SizedBox(height: 8),
                   Row(
                     children: [
-                      Expanded(child: _buildWorkforcePill('Assigned', '5', Colors.orange)),
+                      Expanded(child: _buildWorkforcePill(AppLocalization.get('Assigned'), '5', Colors.orange)),
                       const SizedBox(width: 8),
-                      Expanded(child: _buildWorkforcePill('Unavailable', '2', Colors.grey)),
+                      Expanded(child: _buildWorkforcePill(AppLocalization.get('Unavailable'), '2', Colors.grey)),
                     ],
                   ),
                 ],
@@ -184,32 +200,34 @@ class DashboardScreen extends StatelessWidget {
                             child: const Icon(Icons.insights, size: 14, color: AppColors.primaryContainer),
                           ),
                           const SizedBox(width: 8),
-                          const Text('WORKFORCE INSIGHT', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textSecondary, letterSpacing: 1)),
+                          Text(AppLocalization.get('WORKFORCE INSIGHT'), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textSecondary, letterSpacing: 1)),
                         ],
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                         decoration: BoxDecoration(color: Colors.grey[100], borderRadius: BorderRadius.circular(4)),
-                        child: const Text('Confidence: 82%', style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold, color: AppColors.textSecondary)),
+                        child: Text(AppLocalization.get('Confidence: 82%'), style: const TextStyle(fontSize: 9, fontWeight: FontWeight.bold, color: AppColors.textSecondary)),
                       )
                     ],
                   ),
                   const SizedBox(height: 12),
-                  const Text('Painting demand is expected to increase by 24% next week.', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                  Text(AppLocalization.get('Painting demand is expected to increase by 24% next week.'), style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
                   const SizedBox(height: 4),
-                  const Text('Consider adding 4–6 painting workers to your available pool.', style: TextStyle(fontSize: 11, color: AppColors.textSecondary)),
+                  Text(AppLocalization.get('Consider adding 4–6 painting workers to your available pool.'), style: const TextStyle(fontSize: 11, color: AppColors.textSecondary)),
                   const SizedBox(height: 12),
                   SizedBox(
                     width: double.infinity,
                     child: OutlinedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const AiInsightsScreen()));
+                      },
                       style: OutlinedButton.styleFrom(
                         foregroundColor: AppColors.primaryContainer,
                         side: BorderSide(color: Colors.grey[200]!),
                         backgroundColor: Colors.grey[50],
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                       ),
-                      child: const Text('View Insights →', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+                      child: Text(AppLocalization.get('View Insights →'), style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
                     ),
                   )
                 ],
@@ -230,26 +248,28 @@ class DashboardScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
-                    children: const [
-                      Text('🤝', style: TextStyle(fontSize: 14)),
-                      SizedBox(width: 8),
-                      Text('Cooperative Exchange', style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: AppColors.cooperativeGreen)),
+                    children: [
+                      const Text('🤝', style: TextStyle(fontSize: 14)),
+                      const SizedBox(width: 8),
+                      Text(AppLocalization.get('Cooperative Exchange'), style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: AppColors.cooperativeGreen)),
                     ],
                   ),
                   const SizedBox(height: 8),
-                  const Text('Find nearby work opportunities, workforce support and shared equipment.', style: TextStyle(fontSize: 11, color: AppColors.textSecondary)),
+                  Text(AppLocalization.get('Find nearby work opportunities, workforce support and shared equipment.'), style: const TextStyle(fontSize: 11, color: AppColors.textSecondary)),
                   const SizedBox(height: 12),
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const CooperativeExchangeScreen()));
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.cooperativeGreen,
                         foregroundColor: Colors.white,
                         elevation: 0,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                       ),
-                      child: const Text('Explore Exchange →', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+                      child: Text(AppLocalization.get('Explore Exchange →'), style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
                     ),
                   )
                 ],
@@ -261,10 +281,14 @@ class DashboardScreen extends StatelessWidget {
         ),
       ),
     );
+    }
+    );
   }
 
-  Widget _buildMetricCard(String title, String value, String subtitle, Color subtitleColor, {bool isDot = true}) {
-    return Container(
+  Widget _buildMetricCard(BuildContext context, String title, String value, String subtitle, Color subtitleColor, {bool isDot = true, VoidCallback? onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -290,6 +314,7 @@ class DashboardScreen extends StatelessWidget {
           )
         ],
       ),
+    ),
     );
   }
 
@@ -349,7 +374,7 @@ class DashboardScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(color: Colors.grey[200]!),
                 ),
-                child: const Text('View Request →', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
+                child: Text(AppLocalization.get('View Request →'), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
               )
             ],
           )

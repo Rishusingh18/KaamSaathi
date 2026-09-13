@@ -1,0 +1,510 @@
+
+--- ui:ux/13c/code.html ---
+13C — Earnings & Worker Payments
+09:41
+Back
+Earnings & Payments
+EN
+|
+हिन्दी
+Track project earnings and worker payments.
+Payments Processed ✓
+Pending worker payments have been marked for processing.
+Total
+₹48,600
+This Month
+Worker Paid
+₹32,400
+Paid
+Pending
+₹6,200
+To be processed
+Recent Project Earnings
+3 Projects
+Community Hall Repair
+Najafgarh Community Centre
+Upcoming
+Total:
+₹8,500
+Worker payments:
+₹6,000
+Residential Painting
+Dwarka
+Completed
+Total:
+₹3,250
+Worker payments:
+₹2,400
+Electrical Maintenance
+Janakpuri
+In Progress
+Total:
+₹5,800
+Worker payments:
+₹4,500
+Worker Payment Status
+3 records
+RK
+Ramlal Kumar
+Community Hall Repair
+₹1,200
+Pending
+SD
+Sunita Devi
+Electrical Maintenance
+₹1,500
+Pending
+ML
+Mohan Lal
+Residential Painting
+₹1,200
+Paid
+Transparent Payment Flow
+1
+Household / Institution
+↓
+2
+Cooperative receives project payment
+↓
+3
+Cooperative processes worker payments
+↓
+4
+SAHYOG records payment status
+ℹ️ SAHYOG records and displays payment status. Actual bank transfers are handled through the cooperative's payment process.
+View Payment History
+View Payment History →
+Home
+Requests
+Workers
+Projects
+More
+
+--- ui:ux/14c/code.html ---
+14C
+09:41
+Back
+Cooperative Exchange
+EN
+|
+हिन्दी
+Share resources. Find opportunities. Grow together.
+Work Opps
+Workforce
+Equipment
+Available Opportunities
+3 Open
+Community Park Maintenance
+Open
+🏢 Municipal Institution
+•
+Najafgarh
+SCHEDULE
+Sep 20–25
+WORKFORCE REQ.
+8 workers
+Skills:
+Gardening
+General Labour
+View Opportunity
+→
+School Building Painting
+Open
+🏢 Local Institution
+•
+Dwarka
+SCHEDULE
+Sep 22–28
+WORKFORCE REQ.
+6 workers
+Skills:
+Painting
+Masonry
+View Opportunity
+→
+Community Centre Electrical Work
+Open
+🏢 Community Organisation
+•
+Janakpuri
+SCHEDULE
+Sep 24–26
+WORKFORCE REQ.
+3 workers
+Skills:
+Electrical
+View Opportunity
+→
+ℹ️
+Cooperative Exchange:
+Institutional and inter-cooperative work opportunities posted through SAHYOG's public cooperative network.
+Workforce Support
+Need additional workers for a project?
+🎨
+4 Painting Workers Available
+From Janakpuri Shramik Co-op
+Ready
+⚡
+2 Electricians Available
+From Najafgarh Guild Co-op
+Ready
+🧱
+3 General Labour Workers Available
+From Dwarka Ekta Co-op
+Ready
+Request Workforce Support
+→
+Support Request Broadcasted ✓
+Nearby cooperatives within 10 km have received your workforce request.
+ℹ️
+Connect with nearby cooperatives when your own workforce is unavailable.
+Shared Equipment
+Borrow tools from fellow cooperatives at affordable day rates.
+1. Paint Sprayer
+Available from nearby cooperative
+₹500
+/day
+Request Equipment
+2. Concrete Mixer
+Available (Najafgarh Sector 3)
+₹1,200
+/day
+Request Equipment
+3. Electric Drill Set
+Available (Heavy duty kit)
+₹300
+/day
+Request Equipment
+ℹ️
+Cooperatives can share underused equipment and reduce project costs.
+← Back to Opportunities
+Open Opportunity
+Community Park Maintenance
+Organisation:
+🏢 Municipal Institution
+Location:
+Najafgarh, Delhi
+Dates:
+Sep 20–25, 2026
+Workers Required:
+8 workers
+Required Skills:
+Gardening • General Labour
+Estimated Project Value:
+₹36,000
+Express Interest
+Interest Submitted ✓
+Your cooperative has been added to the opportunity. The requesting organisation will review your cooperative profile and available workforce.
+Home
+Requests
+Workers
+Projects
+More
+
+--- ui:ux/15c/code.html ---
+14C
+09:41
+Back
+AI Workforce Insights
+AI-Assisted
+EN
+|
+हिन्दी
+Use demand trends to plan your workforce.
+Demand Forecast
+Next 7 Days
+Expected Service Demand
+Weekly Outlook
+Mon
+Tue
+Wed
+Thu
+Fri
+Sat
+Sun
+🎨 Painting
++24% next week
+⚡ Electrical
++12% next week
+🧱 Masonry
++8% next week
+Forecast based on recent service requests and historical demand.
+Forecast Confidence
+82%
+Higher confidence means stronger agreement between recent demand patterns and the forecast.
+Prototype decision support model
+Validated weekly
+Recommended Action
+💡
+Painting demand is expected to increase next week.
+Consider adding 4–6 painting workers to your available workforce to meet incoming opportunities.
+Find Workforce
+→
+Workforce Gap
+Next 7 Days
+🎨 Painting
+⚠️ Gap: 5 workers
+Required:
+12
+Available:
+7
+⚡ Electrical
+⚠️ Gap: 2 workers
+Required:
+8
+Available:
+6
+🧱 Masonry
+ℹ️ Gap: 1 worker
+Required:
+10
+Available:
+9
+ℹ️
+How this helps
+SAHYOG compares expected service demand with available cooperative workers to highlight potential workforce gaps before projects begin.
+Decision support — final workforce decisions remain with the cooperative.
+🤝
+Open Cooperative Exchange
+Routing to Screen 14C to request support from nearby cooperatives for 4–6 painting workers.
+Proceed to Cooperative Exchange
+Dismiss
+Home
+Requests
+Workers
+Projects
+More
+
+--- ui:ux/16c/code.html ---
+16C
+09:41
+Back
+Reports & Work History
+EN
+|
+हिन्दी
+Review completed work and cooperative performance.
+24
+Completed
+This Year
+42
+Workers
+Total
+₹4.82L
+Project Value
+This Year
+All
+Completed
+In Progress
+This Month
+Recent Projects
+Showing 3 of 24
+Residential Painting
+Completed
+🏠 Household • Dwarka
+₹3,250
+Total Value
+Sep 10, 2026 • 2 workers
+View Details
+→
+Workers Assigned
+Ramlal K., Rajesh S.
+Verified Completion
+Sep 10, 2026
+Client Rating
+5.0 ★ (Verified)
+Invoice & Receipt
+Settled (#INV-8821)
+Community Hall Repair
+Completed
+🏢 Institution • Najafgarh
+₹7,800
+Total Value
+Sep 5, 2026 • 4 workers
+View Details
+→
+Workers Assigned
+Mohan L., Amit P. +2
+Verified Completion
+Sep 5, 2026
+Client Rating
+4.9 ★ (Verified)
+Invoice & Receipt
+Settled (#INV-8794)
+Electrical Maintenance
+Completed
+🏢 Institution • Janakpuri
+₹5,800
+Total Value
+Aug 28, 2026 • 3 workers
+View Details
+→
+Workers Assigned
+Sunita D., Vikas K., Manoj
+Verified Completion
+Aug 28, 2026
+Client Rating
+5.0 ★ (Verified)
+Invoice & Receipt
+Settled (#INV-8742)
+Workforce Performance
+Top Tier
+Jobs Completed
+24
+Avg Worker Rating
+4.7
+★
+Workforce Utilization
+78%
+On-time Completion
+92%
+Recent Payments
+Sep 2026
+Ramlal Kumar
+Residential Painting
+₹1,200
+Paid • Sep 10
+Sunita Devi
+Electrical Maintenance
+₹1,500
+Paid • Sep 8
+Mohan Lal
+Community Hall Repair
+₹1,200
+Paid • Sep 5
+Rajesh Sharma
+Residential Painting
+₹1,150
+Paid • Sep 4
+Amit Pal
+Masonry Repair
+₹1,400
+Paid • Aug 31
+View All Payments →
+Worker Welfare & Issues
+✓
+Report Ready
+PDF • 1.4 MB
+Your cooperative performance report has been generated.
+Download Report
+Home
+Requests
+Workers
+Projects
+More
+
+--- ui:ux/17c/code.html ---
+17C — Worker Welfare & Issues
+09:41
+Back
+Worker Welfare & Issues
+EN
+|
+हिन्दी
+Support worker wellbeing, safety and timely assistance.
+3
+Pending Payments
+Need attention
+1
+Safety Issues
+Open
+2
+Assistance Requests
+Pending
+Needs Attention
+2 Active
+⚠ Safety Issue
+Open
+Sunita Devi
+🏢 Electrical Maintenance
+Safety equipment required before next assignment.
+Reported Sep 10, 2026
+View Issue
+→
+💰 Pending Payment
+Pending
+Ramlal Kumar
+₹1,200
+Amount Due
+Payment pending for Residential Painting.
+Completed Sep 10, 2026
+Review Payment
+→
+⚠
+Safety Issue Detail
+✕
+Worker
+Sunita Devi
+Project
+Electrical Maintenance
+Reported
+Sep 10, 2026
+Issue Description:
+Safety equipment required before assignment.
+Mark Resolved
+📞 Contact Worker
+✓ Issue Resolved
+This welfare issue has been marked as resolved.
+💰
+Payment Concern
+✕
+Worker
+Ramlal Kumar
+Project
+Residential Painting
+Amount
+₹1,200
+Current Status
+Pending
+Mark for Processing
+📞 Contact Worker
+✓ Payment Marked for Processing
+SAHYOG has recorded this status for cooperative payroll review (no automatic bank transfer initiated).
+Worker Support
+Quick Actions
+🦺
+Safety & Equipment
+Track safety requirements and equipment needs.
+↓
+Insulated Gloves (Sunita D.)
+Ordered
+Hard Hat Kits (Site #4)
+Available
+Manage Equipment Inventory →
+💬
+Assistance Requests
+Review requests for worker support.
+↓
+Vikas Kumar
+Sep 9
+Transit stipend inquiry for Najafgarh project.
+Mohan Lal
+Sep 7
+Health insurance renewal query submitted.
+View All Support Tickets →
+💰
+Payment Concerns
+Review delayed or disputed worker payments.
+↓
+Rajesh Sharma • ₹1,150
+Batch clearance pending verification
+Queued
+Amit Pal • ₹1,400
+Bank account details re-verification
+Action Req
+Open Payment Ledger →
+Workforce Welfare
+Active
+Safety Training
+38 / 42 workers
+Safety Equipment
+40 / 42 workers
+Payments On Time
+92%
+Overall Welfare Status:
+Good — 3 items need attention
+Home
+Requests
+Workers
+Projects
+More
