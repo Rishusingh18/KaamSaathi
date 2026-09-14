@@ -4,7 +4,7 @@ import '../utils/localization.dart';
 import 'role_selection_screen.dart';
 
 class LanguageSelectionScreen extends StatefulWidget {
-  const LanguageSelectionScreen({Key? key}) : super(key: key);
+  const LanguageSelectionScreen({super.key});
 
   @override
   State<LanguageSelectionScreen> createState() => _LanguageSelectionScreenState();
@@ -29,76 +29,81 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
         return Scaffold(
           backgroundColor: Colors.white,
           body: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 20.0),
+            bottom: false,
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 12),
                   
                   // SAHYOG Logo
                   Image.asset(
-                'assets/images/logo.png',
-                    height: 120,
+                    'assets/images/logo.png',
+                    height: 88,
                     errorBuilder: (context, error, stackTrace) => 
-                        const Text('SAHYOG', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
+                        const Text('SAHYOG', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
                   ),
                   
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 16),
                   
                   // Hindi title
                   const Text(
                     'साथ मिलकर, समृद्धि की ओर',
                     style: TextStyle(
-                      fontSize: 22,
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: AppColors.primaryContainer,
                     ),
+                    textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 6),
                   
                   // Subtitle
                   const Text(
                     'India\'s Cooperative Workforce Network',
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 13,
                       fontWeight: FontWeight.w600,
                       color: AppColors.textSecondary,
                     ),
+                    textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 10),
                   
                   // Tri-color accent
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Container(width: 24, height: 3, color: AppColors.saffron),
-                      Container(width: 24, height: 3, color: Colors.grey.shade200),
+                      Container(width: 24, height: 3, color: Colors.grey.shade300),
                       Container(width: 24, height: 3, color: AppColors.cooperativeGreen),
                     ],
                   ),
                   
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 24),
                   
                   // Choose Language Text
                   const Text(
                     'अपनी पसंदीदा भाषा चुनें',
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 17,
                       fontWeight: FontWeight.bold,
                       color: AppColors.textPrimary,
                     ),
                   ),
                   const SizedBox(height: 4),
-                  Text(AppLocalization.get('Choose your preferred language'),
-                    style: TextStyle(
-                      fontSize: 14,
+                  Text(
+                    AppLocalization.get('Choose your preferred language'),
+                    style: const TextStyle(
+                      fontSize: 13,
                       fontWeight: FontWeight.w600,
                       color: AppColors.textSecondary,
                     ),
                   ),
                   
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 18),
                   
                   // Hindi Option
                   _buildLanguageOption(
@@ -110,7 +115,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
                     subtitle: 'Hindi',
                   ),
                   
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 12),
                   
                   // English Option
                   _buildLanguageOption(
@@ -122,17 +127,17 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
                     subtitle: 'English',
                   ),
                   
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 18),
                   
                   // Info text
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.info_outline, size: 14, color: AppColors.textSecondary),
-                      SizedBox(width: 6),
+                      const Icon(Icons.info_outline, size: 14, color: AppColors.textSecondary),
+                      const SizedBox(width: 6),
                       Text(
                         'आप भाषा बाद में कभी भी बदल सकते हैं',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
                           color: AppColors.textSecondary,
@@ -141,8 +146,18 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
                     ],
                   ),
                   
-                  const Spacer(),
-                  
+                  const SizedBox(height: 16),
+                ],
+              ),
+            ),
+          ),
+          bottomNavigationBar: SafeArea(
+            child: Container(
+              color: Colors.white,
+              padding: const EdgeInsets.fromLTRB(24, 6, 24, 12),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
                   // Continue Button
                   SizedBox(
                     width: double.infinity,
@@ -156,10 +171,11 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.primaryContainer,
                         foregroundColor: Colors.white,
-                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        padding: const EdgeInsets.symmetric(vertical: 14),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
+                        elevation: 0,
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -175,19 +191,18 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
                     ),
                   ),
                   
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 8),
                   
                   // Footer Text
                   const Text(
                     'COOPERATE. EMPOWER. GROW.',
                     style: TextStyle(
-                      fontSize: 10,
+                      fontSize: 9.5,
                       fontWeight: FontWeight.bold,
                       letterSpacing: 1.2,
                       color: AppColors.textSecondary,
                     ),
                   ),
-                  const SizedBox(height: 8),
                 ],
               ),
             ),
