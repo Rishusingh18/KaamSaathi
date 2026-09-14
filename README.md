@@ -5,7 +5,7 @@
 
 [![Flutter](https://img.shields.io/badge/Flutter-3.x-02569B?style=for-the-badge&logo=flutter&logoColor=white)](https://flutter.dev)
 [![Dart](https://img.shields.io/badge/Dart-3.x-0175C2?style=for-the-badge&logo=dart&logoColor=white)](https://dart.dev)
-[![Platform](https://img.shields.io/badge/Platform-Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://github.com/Rishusingh18/KaamSaathi/releases)
+[![Platform](https://img.shields.io/badge/Platform-Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://github.com/Rishusingh18/sahyog/releases)
 [![Languages](https://img.shields.io/badge/Languages-11%20Indian%20Languages-FF9933?style=for-the-badge)](lib/utils/localization.dart)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 
@@ -15,7 +15,7 @@
 
 You can download the ready-to-install Android Release APK directly from the GitHub Releases:
 
-👉 **[Download Latest SAHYOG Release APK (v1.0.0)](https://github.com/Rishusingh18/KaamSaathi/releases/latest)**
+👉 **[Download Latest SAHYOG Release APK (v1.0.0)](https://github.com/Rishusingh18/sahyog/releases/latest)**
 
 ### How to Install:
 1. Download `app-release.apk` to your Android device from the link above.
@@ -185,7 +185,7 @@ lib/
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/Rishusingh18/KaamSaathi.git
+   git clone https://github.com/Rishusingh18/sahyog.git
    cd KaamSaathi
    ```
 
