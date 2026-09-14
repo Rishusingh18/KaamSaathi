@@ -4,6 +4,7 @@ import '../widgets/custom_buttons.dart';
 import '../utils/localization.dart';
 import 'verification_screen.dart';
 import 'worker_verification_screen.dart';
+import 'household_dashboard_screen.dart';
 
 class OtpScreen extends StatefulWidget {
   final String mobileNumber;
@@ -47,13 +48,17 @@ class _OtpScreenState extends State<OtpScreen> {
   void _handleVerify() {
     final otp = _getOtp();
     if (otp == '794258') {
+      Widget destination;
+      if (widget.role == 'Worker') {
+        destination = const WorkerVerificationScreen();
+      } else if (widget.role == 'Household') {
+        destination = const HouseholdDashboardScreen();
+      } else {
+        destination = const VerificationScreen();
+      }
       Navigator.push(
         context,
-        MaterialPageRoute(
-          builder: (context) => widget.role == 'Worker' 
-              ? const WorkerVerificationScreen() 
-              : const VerificationScreen()
-        ),
+        MaterialPageRoute(builder: (context) => destination),
       );
     } else {
       setState(() {
@@ -110,8 +115,7 @@ class _OtpScreenState extends State<OtpScreen> {
               children: [
                 GestureDetector(
                   onTap: () => AppLocalization.setLanguage('EN'),
-                  child: Text(
-                    'EN', 
+                  child: Text(AppLocalization.get('EN'), 
                     style: TextStyle(
                       fontWeight: AppLocalization.currentLang.value == 'EN' ? FontWeight.bold : FontWeight.normal, 
                       fontSize: 11, 
@@ -125,8 +129,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 ),
                 GestureDetector(
                   onTap: () => AppLocalization.setLanguage('HI'),
-                  child: Text(
-                    'हिन्दी', 
+                  child: Text(AppLocalization.get('हिन्दी'), 
                     style: TextStyle(
                       fontWeight: AppLocalization.currentLang.value == 'HI' ? FontWeight.bold : FontWeight.normal, 
                       fontSize: 11, 
@@ -165,10 +168,14 @@ class _OtpScreenState extends State<OtpScreen> {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(widget.role == 'Worker' ? '👷' : '🏢', style: const TextStyle(fontSize: 12)),
+                    Text(widget.role == 'Worker' ? '👷' : (widget.role == 'Household' ? '🏠' : '🏢'), style: const TextStyle(fontSize: 12)),
                     const SizedBox(width: 6),
                     Text(
-                      widget.role == 'Worker' ? AppLocalization.get('WORKER • ओटीपी सत्यापन') : AppLocalization.get('COOPERATIVE ADMIN • ओटीपी सत्यापन'),
+                      widget.role == 'Worker'
+                          ? AppLocalization.get('WORKER • ओटीपी सत्यापन')
+                          : (widget.role == 'Household'
+                              ? AppLocalization.get('HOUSEHOLD • ओटीपी सत्यापन')
+                              : AppLocalization.get('COOPERATIVE ADMIN • ओटीपी सत्यापन')),
                       style: const TextStyle(
                         fontSize: 11,
                         fontWeight: FontWeight.bold,
@@ -360,6 +367,9 @@ class _OtpScreenState extends State<OtpScreen> {
                           children: widget.role == 'Worker' ? [
                             TextSpan(text: AppLocalization.get('Worker Mobile Verification\n'), style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.cooperativeGreen)),
                             TextSpan(text: AppLocalization.get('This OTP verifies your mobile number. Your profile and skills will be verified on the next step.'), style: const TextStyle(color: Color(0xFF022C22))),
+                          ] : widget.role == 'Household' ? [
+                            TextSpan(text: AppLocalization.get('Household Mobile Verification\n'), style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.cooperativeGreen)),
+                            TextSpan(text: AppLocalization.get('This OTP verifies your mobile number for booking trusted local services under SAHYOG.'), style: const TextStyle(color: Color(0xFF022C22))),
                           ] : [
                             TextSpan(text: AppLocalization.get('Authorized Representative Verification\n'), style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.cooperativeGreen)),
                             TextSpan(text: AppLocalization.get('This OTP verifies the registered administrator mobile number under SAHYOG Digital Public Infrastructure. Cooperative entity verification occurs on the next step.'), style: const TextStyle(color: Color(0xFF022C22))),

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>14C</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Noto+Sans+Devanagari:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #0b0f17;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+      background-size: 24px 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #17212B;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    .phone-mockup {
+      width: 390px;
+      height: 884px;
+      background-color: #FFFFFF;
+      border-radius: 52px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.6), 0 0 0 12px #1E2633, 0 0 0 14px #2D3748;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .dynamic-island {
+      width: 120px;
+      height: 32px;
+      background-color: #000000;
+      border-radius: 20px;
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 50;
+    }
+
+    .status-bar {
+      height: 48px;
+      padding: 14px 26px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: #17212B;
+      z-index: 40;
+      flex-shrink: 0;
+    }
+
+    .home-indicator {
+      width: 138px;
+      height: 5px;
+      background-color: #17212B;
+      border-radius: 3px;
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 50;
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .tab-btn.active {
+      background-color: #123B5D;
+      color: #FFFFFF;
+      font-weight: 600;
+    }
+    .tab-btn:not(.active) {
+      background-color: #F1F5F9;
+      color: #64748B;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+<div class="phone-mockup" id="phoneMockup">
+<!-- Dynamic Island -->
+<div class="dynamic-island"></div>
+<!-- Status Bar -->
+<div class="status-bar">
+<span>09:41</span>
+<div class="flex items-center space-x-1.5">
+<svg class="w-4 h-4 text-slate-800" fill="currentColor" viewbox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L12 22l7.03-4.39C20.26 16.07 21 14.12 21 12c0-4.97-4.03-9-9-9zm0 14c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"></path></svg>
+<svg class="w-3.5 h-3.5 text-slate-800" fill="currentColor" viewbox="0 0 24 24"><path d="M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98A16.88 16.88 0 0 0 12 4z"></path></svg>
+<svg class="w-5 h-5 text-slate-800" fill="currentColor" viewbox="0 0 24 24"><path d="M17 4h-3V2h-4v2H7v18h10V4zm-2 16H9V6h6v14z"></path></svg>
+</div>
+</div>
+<!-- App Header -->
+<div class="px-5 pt-1 pb-2.5 border-b border-slate-100 bg-white z-30"><div class="flex items-center justify-between"><button class="flex items-center space-x-1 text-slate-700 hover:text-slate-900 active:opacity-70 transition-opacity" onclick="goBack14C()"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="text-sm font-semibold">Back</span></button><div class="flex items-center space-x-1.5"><h1 class="text-base font-bold text-[#123B5D] tracking-tight">AI Workforce Insights</h1><span class="text-[10px] font-semibold bg-blue-50 text-[#123B5D] px-1.5 py-0.5 rounded border border-blue-200">AI-Assisted</span></div><div class="text-[11px] font-semibold tracking-wide text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full border border-slate-200"><span class="text-[#123B5D]">EN</span> | <span class="text-slate-400">हिन्दी</span></div></div><p class="text-xs font-medium text-slate-500 mt-1.5">Use demand trends to plan your workforce.</p></div>
+<!-- Scrollable Main Content -->
+<div class="flex-1 overflow-y-auto no-scrollbar bg-[#F8FAFC] pb-24" id="mainContent"><div class="px-5 py-3 space-y-3.5"><div class="bg-white border border-[#E2E8F0] rounded-2xl p-4 shadow-sm space-y-3"><div class="flex items-center justify-between"><h2 class="text-sm font-bold text-[#17212B]">Demand Forecast</h2><span class="text-[11px] font-medium text-slate-500">Next 7 Days</span></div><div class="flex items-center justify-between text-xs text-slate-600"><span class="font-semibold text-slate-700">Expected Service Demand</span><span class="text-[10px] text-slate-400 font-medium">Weekly Outlook</span></div><div class="bg-slate-50 border border-slate-100 rounded-xl p-3"><div class="flex items-end justify-between h-24 pt-4 px-1 gap-2"><div class="flex-1 flex flex-col items-center gap-1"><div class="w-full bg-[#123B5D] rounded-t-sm h-12"></div><span class="text-[10px] font-medium text-slate-500">Mon</span></div><div class="flex-1 flex flex-col items-center gap-1"><div class="w-full bg-[#123B5D] rounded-t-sm h-14"></div><span class="text-[10px] font-medium text-slate-500">Tue</span></div><div class="flex-1 flex flex-col items-center gap-1"><div class="w-full bg-[#087443] rounded-t-sm h-20"></div><span class="text-[10px] font-bold text-[#087443]">Wed</span></div><div class="flex-1 flex flex-col items-center gap-1"><div class="w-full bg-[#087443] rounded-t-sm h-22"></div><span class="text-[10px] font-bold text-[#087443]">Thu</span></div><div class="flex-1 flex flex-col items-center gap-1"><div class="w-full bg-[#087443] rounded-t-sm h-18"></div><span class="text-[10px] font-bold text-[#087443]">Fri</span></div><div class="flex-1 flex flex-col items-center gap-1"><div class="w-full bg-[#123B5D] rounded-t-sm h-10"></div><span class="text-[10px] font-medium text-slate-500">Sat</span></div><div class="flex-1 flex flex-col items-center gap-1"><div class="w-full bg-slate-300 rounded-t-sm h-8"></div><span class="text-[10px] font-medium text-slate-500">Sun</span></div></div></div><div class="space-y-1.5 pt-1"><div class="flex items-center justify-between text-xs py-1 border-b border-slate-100"><span class="font-medium text-slate-700">🎨 Painting</span><span class="text-[11px] font-bold text-[#087443] bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">+24% next week</span></div><div class="flex items-center justify-between text-xs py-1 border-b border-slate-100"><span class="font-medium text-slate-700">⚡ Electrical</span><span class="text-[11px] font-semibold text-blue-700 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-full">+12% next week</span></div><div class="flex items-center justify-between text-xs py-1"><span class="font-medium text-slate-700">🧱 Masonry</span><span class="text-[11px] font-semibold text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full">+8% next week</span></div></div><p class="text-[10px] text-slate-400 leading-normal">Forecast based on recent service requests and historical demand.</p></div><div class="bg-white border border-[#E2E8F0] rounded-2xl p-4 shadow-sm space-y-2.5"><div class="flex items-center justify-between"><span class="text-xs font-bold text-slate-800">Forecast Confidence</span><span class="text-xs font-bold text-[#087443]">82%</span></div><div class="w-full bg-slate-200/80 rounded-full h-2 overflow-hidden"><div class="bg-[#087443] h-2 rounded-full" style="width: 82%"></div></div><p class="text-[11px] text-slate-600 leading-relaxed">Higher confidence means stronger agreement between recent demand patterns and the forecast.</p><div class="flex items-center justify-between pt-1 text-[10px] text-slate-400"><span class="bg-slate-100 px-2 py-0.5 rounded text-slate-500 font-medium">Prototype decision support model</span><span>Validated weekly</span></div></div><div class="bg-white border border-[#087443] rounded-2xl p-4 shadow-sm space-y-3 relative overflow-hidden"><div class="flex items-center justify-between"><span class="text-[10px] font-bold uppercase tracking-wider text-[#087443] bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">Recommended Action</span><span class="text-xs">💡</span></div><div><h3 class="text-sm font-bold text-[#17212B] leading-snug">Painting demand is expected to increase next week.</h3><p class="text-xs text-slate-600 mt-1 leading-relaxed">Consider adding 4–6 painting workers to your available workforce to meet incoming opportunities.</p></div><button class="w-full py-2.5 px-4 bg-[#087443] hover:bg-[#065e36] text-white rounded-xl text-xs font-semibold flex items-center justify-center space-x-1 transition-colors shadow-sm" onclick="openFindWorkforceModal()"><span>Find Workforce</span><span>→</span></button></div><div class="bg-white border border-[#E2E8F0] rounded-2xl p-4 shadow-sm space-y-3"><div class="flex items-center justify-between border-b border-slate-100 pb-2"><h3 class="text-xs font-bold uppercase tracking-wider text-slate-700">Workforce Gap</h3><span class="text-[10px] text-slate-400 font-medium">Next 7 Days</span></div><div class="space-y-2.5"><div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100 space-y-1.5"><div class="flex items-center justify-between text-xs"><span class="font-bold text-slate-800">🎨 Painting</span><span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200">⚠️ Gap: 5 workers</span></div><div class="grid grid-cols-2 gap-2 text-[11px] text-slate-600"><div class="flex justify-between bg-white px-2 py-1 rounded border border-slate-100"><span>Required:</span><span class="font-bold text-slate-800">12</span></div><div class="flex justify-between bg-white px-2 py-1 rounded border border-slate-100"><span>Available:</span><span class="font-bold text-slate-800">7</span></div></div></div><div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100 space-y-1.5"><div class="flex items-center justify-between text-xs"><span class="font-bold text-slate-800">⚡ Electrical</span><span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200">⚠️ Gap: 2 workers</span></div><div class="grid grid-cols-2 gap-2 text-[11px] text-slate-600"><div class="flex justify-between bg-white px-2 py-1 rounded border border-slate-100"><span>Required:</span><span class="font-bold text-slate-800">8</span></div><div class="flex justify-between bg-white px-2 py-1 rounded border border-slate-100"><span>Available:</span><span class="font-bold text-slate-800">6</span></div></div></div><div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100 space-y-1.5"><div class="flex items-center justify-between text-xs"><span class="font-bold text-slate-800">🧱 Masonry</span><span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">ℹ️ Gap: 1 worker</span></div><div class="grid grid-cols-2 gap-2 text-[11px] text-slate-600"><div class="flex justify-between bg-white px-2 py-1 rounded border border-slate-100"><span>Required:</span><span class="font-bold text-slate-800">10</span></div><div class="flex justify-between bg-white px-2 py-1 rounded border border-slate-100"><span>Available:</span><span class="font-bold text-slate-800">9</span></div></div></div></div></div><div class="p-3.5 bg-blue-50/70 border border-blue-100 rounded-xl space-y-1.5"><div class="flex items-center space-x-2"><span class="text-blue-600 text-xs">ℹ️</span><h4 class="text-xs font-bold text-blue-900">How this helps</h4></div><p class="text-[11px] text-blue-900/90 leading-relaxed">SAHYOG compares expected service demand with available cooperative workers to highlight potential workforce gaps before projects begin.</p><p class="text-[10px] text-slate-500 font-medium pt-1 border-t border-blue-100">Decision support — final workforce decisions remain with the cooperative.</p></div></div><div class="hidden fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/40" id="workforceRoutingModal"><div class="bg-white w-full rounded-2xl p-5 shadow-xl space-y-3 max-w-xs border border-slate-200"><div class="w-10 h-10 rounded-full bg-emerald-50 text-[#087443] flex items-center justify-center font-bold text-base mx-auto">🤝</div><h3 class="text-sm font-bold text-[#17212B] text-center">Open Cooperative Exchange</h3><p class="text-xs text-slate-600 text-center leading-relaxed">Routing to Screen 14C to request support from nearby cooperatives for 4–6 painting workers.</p><div class="space-y-2 pt-1"><button class="w-full py-2.5 px-3 bg-[#087443] text-white rounded-xl text-xs font-semibold hover:bg-[#065e36] transition-colors" onclick="confirmRouteToExchange()">Proceed to Cooperative Exchange</button><button class="w-full py-2 px-3 bg-slate-100 text-slate-700 rounded-xl text-xs font-semibold hover:bg-slate-200 transition-colors" onclick="closeWorkforceModal()">Dismiss</button></div></div></div></div>
+<!-- Cooperative Persistent Bottom Navigation -->
+<div class="absolute bottom-0 left-0 right-0 bg-white border-t border-slate-200 px-3 pt-2 pb-6 z-40">
+<div class="grid grid-cols-5 gap-1 text-center">
+<!-- Home -->
+<button class="flex flex-col items-center justify-center text-slate-500 hover:text-slate-900 active:opacity-70 transition-colors" onclick="navTo('6C')">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span class="text-[10px] font-medium mt-1">Home</span>
+</button>
+<!-- Requests -->
+<button class="flex flex-col items-center justify-center text-slate-500 hover:text-slate-900 active:opacity-70 transition-colors" onclick="navTo('7C')">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span class="text-[10px] font-medium mt-1">Requests</span>
+</button>
+<!-- Workers -->
+<button class="flex flex-col items-center justify-center text-slate-500 hover:text-slate-900 active:opacity-70 transition-colors" onclick="navTo('9C')">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span class="text-[10px] font-medium mt-1">Workers</span>
+</button>
+<!-- Projects -->
+<button class="flex flex-col items-center justify-center text-slate-500 hover:text-slate-900 active:opacity-70 transition-colors" onclick="navTo('12C')">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span class="text-[10px] font-medium mt-1">Projects</span>
+</button>
+<!-- More (Active) -->
+<button class="flex flex-col items-center justify-center text-[#123B5D]">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span class="text-[10px] font-bold mt-1 text-[#123B5D]">More</span>
+</button>
+</div>
+</div>
+<!-- Home Indicator -->
+<div class="home-indicator"></div>
+</div>
+<script>
+    function goBack14C() {
+      navTo('14C');
+    }
+
+    function openFindWorkforceModal() {
+      const modal = document.getElementById('workforceRoutingModal');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeWorkforceModal() {
+      const modal = document.getElementById('workforceRoutingModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function confirmRouteToExchange() {
+      closeWorkforceModal();
+      navTo('14C');
+    }
+
+    function navTo(screenId) {
+      console.log('Navigating to screen:', screenId);
+      const targetMap = {
+        '6C': '../6c/code.html',
+        '7C': '../7c/code.html',
+        '9C': '../9c/code.html',
+        '12C': '../12c/code.html',
+        '14C': '../14c/code.html',
+        '15C': '../15c/code.html',
+        '16C': '../16c/code.html',
+        '17C': '../17c/code.html',
+        '18C': '../18c/code.html'
+      };
+      if (targetMap[screenId]) {
+        window.location.href = targetMap[screenId];
+      } else {
+        window.location.href = '#' + screenId;
+      }
+    }
+  </script>
+</body>
+</html>

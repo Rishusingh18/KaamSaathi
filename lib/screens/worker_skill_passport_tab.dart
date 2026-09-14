@@ -146,7 +146,7 @@ class WorkerSkillPassportTab extends StatelessWidget {
                   borderRadius: BorderRadius.circular(16),
                 ),
                 alignment: Alignment.center,
-                child: const Text('RK', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
+                child: Text('RK', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
               ),
               const SizedBox(width: 16),
               Expanded(
@@ -155,7 +155,7 @@ class WorkerSkillPassportTab extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Text('Ramlal Kumar', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                        Text(AppLocalization.get('Ramlal Kumar'), style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
                         const SizedBox(width: 8),
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
@@ -321,7 +321,7 @@ class WorkerSkillPassportTab extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              const Text('5 ', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
+              Text('5 ', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
               Text(AppLocalization.get('years'), style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
               const SizedBox(width: 8),
               Padding(
@@ -461,7 +461,7 @@ class WorkerSkillPassportTab extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Nirman Shramik Cooperative', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                    Text(AppLocalization.get('Nirman Shramik Cooperative'), style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
                     const SizedBox(height: 4),
                     Text('${AppLocalization.get("Registration ID:")} NSC-DL-2023', style: const TextStyle(fontSize: 11, color: AppColors.textSecondary)),
                   ],

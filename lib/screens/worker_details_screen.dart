@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../theme/colors.dart';
 import 'worker_assignment_screen.dart';
+import '../utils/localization.dart';
 
 class WorkerDetailsScreen extends StatelessWidget {
   const WorkerDetailsScreen({Key? key}) : super(key: key);
@@ -16,8 +17,7 @@ class WorkerDetailsScreen extends StatelessWidget {
           icon: const Icon(Icons.arrow_back, color: AppColors.textPrimary),
           onPressed: () => Navigator.pop(context),
         ),
-        title: const Text(
-          'Worker Details',
+        title: Text(AppLocalization.get('Worker Details'),
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
@@ -36,13 +36,13 @@ class WorkerDetailsScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Row(
-                  children: const [
-                    Text('EN', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
+                  children: [
+                    Text(AppLocalization.get('EN'), style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 4.0),
                       child: Text('|', style: TextStyle(fontSize: 11, color: Colors.grey)),
                     ),
-                    Text('हिन्दी', style: TextStyle(fontSize: 11, color: Colors.grey)),
+                    Text(AppLocalization.get('हिन्दी'), style: TextStyle(fontSize: 11, color: Colors.grey)),
                   ],
                 ),
               ),
@@ -77,9 +77,9 @@ class WorkerDetailsScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text('Ramlal Kumar', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                            Text(AppLocalization.get('Ramlal Kumar'), style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
                             const SizedBox(height: 2),
-                            const Text('Construction Worker', style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                            Text(AppLocalization.get('Construction Worker'), style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),
                             const SizedBox(height: 4),
                             Container(
                               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
@@ -90,10 +90,10 @@ class WorkerDetailsScreen extends StatelessWidget {
                               ),
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
-                                children: const [
+                                children: [
                                   Text('✓', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: AppColors.cooperativeGreen)),
                                   SizedBox(width: 4),
-                                  Text('Available', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.cooperativeGreen)),
+                                  Text(AppLocalization.get('Available'), style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.cooperativeGreen)),
                                 ],
                               ),
                             ),
@@ -132,7 +132,7 @@ class WorkerDetailsScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('SKILLS & EXPERIENCE', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                  Text(AppLocalization.get('SKILLS & EXPERIENCE'), style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
                   const SizedBox(height: 8),
                   Wrap(
                     spacing: 6,
@@ -150,8 +150,8 @@ class WorkerDetailsScreen extends StatelessWidget {
                     }).toList(),
                   ),
                   const SizedBox(height: 8),
-                  const Text('5 years experience', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
-                  const Text('Construction and residential work', style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                  Text(AppLocalization.get('5 years experience'), style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                  Text(AppLocalization.get('Construction and residential work'), style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),
                 ],
               ),
             ),
@@ -163,7 +163,7 @@ class WorkerDetailsScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('AVAILABILITY', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                  Text(AppLocalization.get('AVAILABILITY'), style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
                   const SizedBox(height: 12),
                   _buildInfoRow('Status', 'Available', valueColor: Colors.green.shade700, showDot: true),
                   const SizedBox(height: 8),
@@ -183,9 +183,9 @@ class WorkerDetailsScreen extends StatelessWidget {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      Text('RECENT WORK', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
-                      Text('Latest records', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
+                    children: [
+                      Text(AppLocalization.get('RECENT WORK'), style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                      Text(AppLocalization.get('Latest records'), style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
                     ],
                   ),
                   const SizedBox(height: 12),
@@ -203,7 +203,7 @@ class WorkerDetailsScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('COOPERATIVE ASSOCIATION', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                  Text(AppLocalization.get('COOPERATIVE ASSOCIATION'), style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
                   const SizedBox(height: 12),
                   _buildInfoRow('Cooperative', 'Nirman Shramik Cooperative', isValueBold: true, valueColor: AppColors.primaryContainer),
                   const SizedBox(height: 8),
@@ -216,8 +216,7 @@ class WorkerDetailsScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(6),
                       border: Border.all(color: Colors.blue.shade100),
                     ),
-                    child: const Text(
-                      'Worker profiles and Skill Passports can exist independently of cooperative membership.',
+                    child: Text(AppLocalization.get('Worker profiles and Skill Passports can exist independently of cooperative membership.'),
                       style: TextStyle(fontSize: 10, color: AppColors.primaryContainer),
                     ),
                   ),
@@ -235,7 +234,7 @@ class WorkerDetailsScreen extends StatelessWidget {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => const WorkerAssignmentScreen()));
                 },
                 icon: const Icon(Icons.arrow_forward),
-                label: const Text('Assign to Project', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+                label: Text(AppLocalization.get('Assign to Project'), style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 14),
                   backgroundColor: AppColors.cooperativeGreen,
@@ -253,7 +252,7 @@ class WorkerDetailsScreen extends StatelessWidget {
                   side: const BorderSide(color: AppColors.primaryContainer),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                 ),
-                child: const Text('View Work History', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
+                child: Text(AppLocalization.get('View Work History'), style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
               ),
             ),
             

@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:dotted_border/dotted_border.dart';
 import '../theme/colors.dart';
 import '../utils/localization.dart';
 import 'reports_screen.dart';
 import 'worker_welfare_screen.dart';
+import 'role_selection_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+  final VoidCallback? onBack;
+
+  const ProfileScreen({super.key, this.onBack});
 
   @override
   Widget build(BuildContext context) {
@@ -18,13 +22,49 @@ class ProfileScreen extends StatelessWidget {
             backgroundColor: AppColors.surfaceCanvas,
             elevation: 0,
             automaticallyImplyLeading: false,
+            titleSpacing: 16,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                InkWell(
+                  onTap: () {
+                    if (onBack != null) {
+                      onBack!();
+                    } else if (Navigator.canPop(context)) {
+                      Navigator.pop(context);
+                    }
+                  },
+                  borderRadius: BorderRadius.circular(8),
+                  child: DottedBorder(
+                    options: RoundedRectDottedBorderOptions(
+                      color: AppColors.primaryContainer,
+                      strokeWidth: 1.2,
+                      dashPattern: const [4, 4],
+                      radius: const Radius.circular(8),
+                    ),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(Icons.chevron_left, size: 16, color: AppColors.primaryContainer),
+                          Text(
+                            AppLocalization.get('Back'),
+                            style: const TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.primaryContainer,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
                 Text(
                   AppLocalization.get('Cooperative Profile'),
                   style: const TextStyle(
-                    fontSize: 20,
+                    fontSize: 17,
                     fontWeight: FontWeight.bold,
                     color: AppColors.primaryContainer,
                   ),
@@ -32,13 +72,14 @@ class ProfileScreen extends StatelessWidget {
                 GestureDetector(
                   onTap: AppLocalization.toggleLanguage,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
                       color: Colors.grey.shade100,
                       border: Border.all(color: AppColors.borderSubtle),
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: Row(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         Text('EN', style: TextStyle(fontSize: 11, fontWeight: lang == 'EN' ? FontWeight.bold : FontWeight.normal, color: lang == 'EN' ? AppColors.primaryContainer : Colors.grey)),
                         const Padding(
@@ -105,9 +146,9 @@ class ProfileScreen extends StatelessWidget {
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                         decoration: BoxDecoration(
-                          color: AppColors.cooperativeGreen.withOpacity(0.1),
+                          color: AppColors.cooperativeGreen.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: AppColors.cooperativeGreen.withOpacity(0.3)),
+                          border: Border.all(color: AppColors.cooperativeGreen.withValues(alpha: 0.3)),
                         ),
                         child: Text(
                           AppLocalization.get('✓ Verified'),
@@ -290,9 +331,9 @@ class ProfileScreen extends StatelessWidget {
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                         decoration: BoxDecoration(
-                          color: AppColors.cooperativeGreen.withOpacity(0.1),
+                          color: AppColors.cooperativeGreen.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: AppColors.cooperativeGreen.withOpacity(0.3)),
+                          border: Border.all(color: AppColors.cooperativeGreen.withValues(alpha: 0.3)),
                         ),
                         child: Text(
                           AppLocalization.get('Approved'),
@@ -334,7 +375,39 @@ class ProfileScreen extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: OutlinedButton.icon(
-                onPressed: () {},
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (ctx) => AlertDialog(
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                      title: Text(AppLocalization.get('Log Out'), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                      content: Text(AppLocalization.get('Are you sure you want to log out?'), style: const TextStyle(fontSize: 13)),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(ctx),
+                          child: Text(AppLocalization.get('Cancel'), style: const TextStyle(color: AppColors.textSecondary)),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.pop(ctx);
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(builder: (context) => const RoleSelectionScreen()),
+                              (route) => false,
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red,
+                            foregroundColor: Colors.white,
+                            elevation: 0,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                          ),
+                          child: Text(AppLocalization.get('Log Out')),
+                        ),
+                      ],
+                    ),
+                  );
+                },
                 icon: const Icon(Icons.logout, size: 16, color: Colors.red),
                 label: Text(AppLocalization.get('Log Out'), style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.red)),
                 style: OutlinedButton.styleFrom(
@@ -363,7 +436,7 @@ class ProfileScreen extends StatelessWidget {
         border: Border.all(color: AppColors.borderSubtle),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.02),
+            color: Colors.black.withValues(alpha: 0.02),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),

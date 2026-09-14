@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../theme/colors.dart';
+import '../utils/localization.dart';
 
 class ProjectsScreen extends StatefulWidget {
   const ProjectsScreen({Key? key}) : super(key: key);
@@ -24,8 +25,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
-              'Active Projects',
+            Text(AppLocalization.get('Active Projects'),
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -54,11 +54,10 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
-            child: Text(
-              'Track ongoing work and assigned teams.',
-              style: TextStyle(fontSize: 13, color: AppColors.textSecondary),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+            child: Text(AppLocalization.get('Track ongoing work and assigned teams.'),
+              style: const TextStyle(fontSize: 13, color: AppColors.textSecondary),
             ),
           ),
           
@@ -269,7 +268,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text('Execution Status', style: TextStyle(fontSize: 11, color: AppColors.textSecondary, fontWeight: FontWeight.w500)),
+                Text(AppLocalization.get('Execution Status'), style: TextStyle(fontSize: 11, color: AppColors.textSecondary, fontWeight: FontWeight.w500)),
                 Text(progressText, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
               ],
             ),
@@ -328,9 +327,8 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
               InkWell(
                 onTap: () {},
                 child: Row(
-                  children: const [
-                    Text(
-                      'View Project',
+                  children: [
+                    Text(AppLocalization.get('View Project'),
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,

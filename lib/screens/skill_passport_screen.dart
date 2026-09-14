@@ -328,7 +328,7 @@ class _SkillPassportScreenState extends State<SkillPassportScreen> {
                               TextSpan(
                                 text: AppLocalization.get('YOUR SKILLS'),
                                 style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textPrimary, letterSpacing: 0.5),
-                                children: const [
+                                children: [
                                   TextSpan(text: ' *', style: TextStyle(color: Colors.red)),
                                 ],
                               ),

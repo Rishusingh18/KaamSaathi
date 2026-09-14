@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+
+<html data-lt-installed="true" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>6C</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Noto+Sans+Devanagari:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'Noto Sans Devanagari', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              navy: '#123B5D',
+              green: '#087443',
+              saffron: '#F59B18',
+              bg: '#F8FAFC',
+              text: '#17212B',
+              muted: '#64748B',
+              border: '#E2E8F0',
+            }
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    body {
+      background-color: #0b0f17;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+      background-size: 24px 24px;
+      font-family: 'Inter', 'Noto Sans Devanagari', sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Outer Phone Frame: exactly 390 x 884 */
+    .phone-mockup {
+      width: 390px;
+      height: 884px;
+      background-color: #000000;
+      border-radius: 52px;
+      padding: 11px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.12);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Screen Inside Bezel */
+    .phone-screen {
+      width: 100%;
+      height: 100%;
+      background-color: #F8FAFC;
+      border-radius: 42px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Custom thin scrollbar */
+    .scrollable-content::-webkit-scrollbar {
+      width: 4px;
+    }
+    .scrollable-content::-webkit-scrollbar-thumb {
+      background-color: #CBD5E1;
+      border-radius: 4px;
+    }
+    .scrollable-content::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    /* Dynamic Island cutout */
+    .dynamic-island {
+      width: 120px;
+      height: 32px;
+      background-color: #000000;
+      border-radius: 20px;
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10px;
+    }
+
+    /* Home Indicator */
+    .home-indicator {
+      width: 138px;
+      height: 5px;
+      background-color: #000000;
+      border-radius: 9999px;
+      margin: 6px auto 6px;
+      opacity: 0.85;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+<div class="phone-mockup">
+<div class="phone-screen">
+<!-- Dynamic Island -->
+<div class="dynamic-island">
+<div class="w-3 h-3 rounded-full bg-[#111111] border border-gray-900"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-[#0a1628] border border-blue-950"></div>
+</div>
+<!-- Status Bar -->
+<div class="h-12 w-full flex items-center justify-between px-7 pt-2 select-none z-40 bg-[#F8FAFC] flex-shrink-0">
+<span class="text-[14px] font-semibold tracking-tight text-slate-900">09:41</span>
+<div class="flex items-center space-x-2 text-slate-900">
+<!-- Signal -->
+<svg class="w-4 h-4 fill-current" viewbox="0 0 24 24">
+<path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 18.25c-.2.2-.2.51 0 .71.2.2.51.2.71 0l1.24-1.24C7.86 18.57 9.84 19 12 19c4.97 0 9-4.03 9-9s-4.03-9-9-9zm0 14.5c-3.03 0-5.5-2.47-5.5-5.5S8.97 6.5 12 6.5s5.5 2.47 5.5 5.5-2.47 5.5-5.5 5.5z" opacity="0.1"></path>
+<rect height="5" rx="1" width="3" x="2" y="16"></rect>
+<rect height="8" rx="1" width="3" x="7" y="13"></rect>
+<rect height="12" rx="1" width="3" x="12" y="9"></rect>
+<rect height="16" rx="1" width="3" x="17" y="5"></rect>
+</svg>
+<!-- Wi-Fi -->
+<svg class="w-4 h-4 fill-current" viewbox="0 0 24 24">
+<path d="M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98C20.93 5.9 16.69 4 12 4zm0 3.5c3.55 0 6.78 1.41 9.17 3.71L12 18.5 2.83 11.21C5.22 8.91 8.45 7.5 12 7.5z"></path>
+</svg>
+<!-- Battery -->
+<div class="flex items-center">
+<div class="w-5 h-2.5 border border-slate-900 rounded-[3px] p-0.5 flex items-center">
+<div class="h-full w-3.5 bg-slate-900 rounded-[1px]"></div>
+</div>
+<div class="w-0.5 h-1 bg-slate-900 rounded-r-[1px] ml-[1px]"></div>
+</div>
+</div>
+</div>
+<!-- Top Header Navigation -->
+<header class="px-5 py-2 flex items-center justify-between bg-[#F8FAFC] border-b border-slate-200/80 z-30 flex-shrink-0">
+<div class="flex items-center">
+<img alt="SAHYOG Logo" class="h-9 w-auto object-contain drop-shadow-xs" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_UyVozWvrDUswepAXXC3-xKyH3z9ka8adb3AdzVz1IXgotOhg6zX9gRUXZjHu7mdtyzQrZYzsY3wvEfkgh45iWMUJ2b4_PmmN1lwX8AWIemXw7ZHHGxKlCJGJaH9rBZ32jshadl-hH7dK6XNilAUMg4USotyIqsw8_RSLQihSeF7VlfSQ3vWOKfyibvZt40AkPu3-TeCYeG0Ums-mbFPOLuHJseJPbVlomlTAqJtHLiowKxwIuUJ9PzpdjeX-i46MXA"/>
+</div>
+<div class="flex items-center gap-2">
+<!-- Notification Bell -->
+<button aria-label="Notifications" class="relative p-1.5 rounded-full hover:bg-slate-200/70 text-slate-700 transition-colors" type="button">
+<svg class="w-5 h-5 text-slate-700" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span class="absolute 0 top-0.5 right-0.5 w-4 h-4 bg-rose-600 text-white text-[9.5px] font-bold rounded-full flex items-center justify-center leading-none">3</span>
+</button>
+<!-- Language Selector -->
+<div class="flex items-center gap-1 px-2 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-[11px] font-medium text-slate-600">
+<span class="text-brand-navy font-bold">EN</span>
+<span class="text-slate-300">|</span>
+<span class="text-slate-500">हिन्दी</span>
+</div>
+</div>
+</header>
+<!-- Main Scrollable Dashboard Content -->
+<main class="scrollable-content flex-1 overflow-y-auto px-4 py-3.5 space-y-4">
+<!-- 2. Greeting & Cooperative Verification Badge -->
+<section class="space-y-1">
+<h1 class="text-lg font-semibold text-slate-900 tracking-tight leading-snug">Good morning, Nirman Shramik 👋</h1>
+<p class="text-xs text-slate-500 leading-normal">Manage your workforce, requests and opportunities.</p>
+<div class="pt-0.5" id="verificationBadgeContainer">
+<span id="coopVerificationBadge" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#E6F4EA] border border-[#BBF7D0] text-[#087443] text-xs font-medium">
+<svg id="coopVerificationBadgeIcon" class="w-3.5 h-3.5 fill-current flex-shrink-0" viewbox="0 0 20 20">
+<path clip-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" fill-rule="evenodd"></path>
+</svg>
+        <span id="coopVerificationBadgeText">Cooperative Verified</span>
+      </span>
+</div>
+</section>
+<!-- 3. Key Metrics (2x2 compact grid) -->
+<section class="grid grid-cols-2 gap-2.5">
+<!-- Metric 1: Workers -->
+<div class="bg-white rounded-xl p-3 border border-[#E2E8F0] shadow-xs">
+<div class="flex items-center justify-between text-slate-500 text-xs mb-1">
+<span class="font-medium text-[11.5px] text-slate-600">👷 Workers</span>
+</div>
+<div class="text-xl font-bold text-[#123B5D] leading-tight">42</div>
+<div class="text-xs font-medium text-[#087443] mt-1 flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-[#087443]"></span>
+        28 Available
+      </div>
+</div>
+<!-- Metric 2: Active Jobs -->
+<div class="bg-white rounded-xl p-3 border border-[#E2E8F0] shadow-xs">
+<div class="flex items-center justify-between text-slate-500 text-xs mb-1">
+<span class="font-medium text-[11.5px] text-slate-600">📋 Active Jobs</span>
+</div>
+<div class="text-xl font-bold text-[#123B5D] leading-tight">7</div>
+<div class="text-xs font-medium text-[#D97706] mt-1 flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-[#D97706]"></span>
+        5 Pending Requests
+      </div>
+</div>
+<!-- Metric 3: Earnings -->
+<div class="bg-white rounded-xl p-3 border border-[#E2E8F0] shadow-xs">
+<div class="flex items-center justify-between text-slate-500 text-xs mb-1">
+<span class="font-medium text-[11.5px] text-slate-600">💰 Earnings</span>
+</div>
+<div class="text-xl font-bold text-[#123B5D] leading-tight">₹48,600</div>
+<div class="text-xs text-slate-500 mt-1">This Month</div>
+</div>
+<!-- Metric 4: Workforce Utilization -->
+<div class="bg-white rounded-xl p-3 border border-[#E2E8F0] shadow-xs">
+<div class="flex items-center justify-between text-slate-500 text-xs mb-1">
+<span class="font-medium text-[11.5px] text-slate-600">📊 Workforce Utilization</span>
+</div>
+<div class="text-xl font-bold text-[#123B5D] leading-tight">78%</div>
+<div class="text-xs font-medium text-[#087443] mt-1">This Month</div>
+</div>
+</section>
+<!-- 4. Incoming Requests Section -->
+<section class="space-y-2.5">
+<div class="flex items-center justify-between">
+<h2 class="text-sm font-semibold text-slate-900">Incoming Requests</h2>
+<a class="text-xs font-semibold text-[#123B5D] hover:underline flex items-center gap-0.5" href="javascript:void(0)" onclick="alert('Navigating to SCREEN 7C — Incoming Requests')">
+        View All Requests →
+      </a>
+</div>
+<!-- Request Card 1 -->
+<div class="bg-white rounded-xl p-3.5 border border-[#E2E8F0] shadow-xs space-y-2.5">
+<div class="flex items-start justify-between gap-2">
+<div>
+<h3 class="text-[13.5px] font-semibold text-slate-900 leading-snug">Residential Painting</h3>
+<div class="flex items-center gap-1.5 text-xs text-slate-600 mt-0.5">
+<span class="inline-flex items-center gap-1">
+<svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+              Dwarka
+            </span>
+<span class="text-slate-300">•</span>
+<span>Household</span>
+</div>
+</div>
+<span class="text-[10.5px] font-medium bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-full flex-shrink-0">New</span>
+</div>
+<div class="flex items-center justify-between pt-1 border-t border-slate-100">
+<span class="text-xs text-slate-600 font-medium">🗓️ Sep 12 • 2 workers</span>
+<button class="text-xs font-semibold text-[#123B5D] bg-slate-50 hover:bg-slate-100 px-2.5 py-1 rounded-lg border border-slate-200 transition-colors" onclick="alert('Navigating to SCREEN 7C — Request Details')" type="button">
+          View Request →
+        </button>
+</div>
+</div>
+<!-- Request Card 2 -->
+<div class="bg-white rounded-xl p-3.5 border border-[#E2E8F0] shadow-xs space-y-2.5">
+<div class="flex items-start justify-between gap-2">
+<div>
+<h3 class="text-[13.5px] font-semibold text-slate-900 leading-snug">Community Hall Repair</h3>
+<div class="flex items-center gap-1.5 text-xs text-slate-600 mt-0.5">
+<span class="inline-flex items-center gap-1">
+<svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+              Najafgarh
+            </span>
+<span class="text-slate-300">•</span>
+<span>Institution</span>
+</div>
+</div>
+<span class="text-[10.5px] font-medium bg-amber-50 text-amber-700 border border-amber-200 px-2 py-0.5 rounded-full flex-shrink-0">Urgent</span>
+</div>
+<div class="flex items-center justify-between pt-1 border-t border-slate-100">
+<span class="text-xs text-slate-600 font-medium">🗓️ Sep 18–22 • 5 workers</span>
+<button class="text-xs font-semibold text-[#123B5D] bg-slate-50 hover:bg-slate-100 px-2.5 py-1 rounded-lg border border-slate-200 transition-colors" onclick="alert('Navigating to SCREEN 7C — Request Details')" type="button">
+          View Request →
+        </button>
+</div>
+</div>
+</section>
+<!-- 5. Workforce Overview Section -->
+<section class="bg-white rounded-xl p-3.5 border border-[#E2E8F0] shadow-xs space-y-3">
+<div class="flex items-center justify-between">
+<h2 class="text-sm font-semibold text-slate-900">Workforce Overview</h2>
+<a class="text-xs font-medium text-[#123B5D] hover:underline" href="javascript:void(0)" onclick="alert('Navigating to SCREEN 9C — Workforce / Worker List')">
+        Manage Workers →
+      </a>
+</div>
+<!-- Segmented Status Indicators / Pill Row -->
+<div class="grid grid-cols-2 gap-2">
+<div class="flex items-center justify-between bg-emerald-50/70 border border-emerald-200/80 rounded-lg px-2.5 py-1.5">
+<span class="text-xs font-medium text-[#087443]">Available</span>
+<span class="text-xs font-bold text-[#087443] bg-white px-2 py-0.5 rounded shadow-2xs">28</span>
+</div>
+<div class="flex items-center justify-between bg-blue-50/70 border border-blue-200/80 rounded-lg px-2.5 py-1.5">
+<span class="text-xs font-medium text-[#2563EB]">Working</span>
+<span class="text-xs font-bold text-[#2563EB] bg-white px-2 py-0.5 rounded shadow-2xs">7</span>
+</div>
+<div class="flex items-center justify-between bg-amber-50/70 border border-amber-200/80 rounded-lg px-2.5 py-1.5">
+<span class="text-xs font-medium text-[#D97706]">Assigned</span>
+<span class="text-xs font-bold text-[#D97706] bg-white px-2 py-0.5 rounded shadow-2xs">5</span>
+</div>
+<div class="flex items-center justify-between bg-slate-100 border border-slate-200 rounded-lg px-2.5 py-1.5">
+<span class="text-xs font-medium text-[#64748B]">Unavailable</span>
+<span class="text-xs font-bold text-[#64748B] bg-white px-2 py-0.5 rounded shadow-2xs">2</span>
+</div>
+</div>
+</section>
+<!-- 6. AI Insight Card -->
+<section class="bg-white rounded-xl p-3.5 border border-slate-200 shadow-xs space-y-2.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<div class="w-6 h-6 rounded-md bg-blue-50 text-[#123B5D] flex items-center justify-center">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<h3 class="text-xs font-bold uppercase tracking-wider text-slate-700">Workforce Insight</h3>
+</div>
+<span class="text-[10px] font-semibold bg-slate-100 text-slate-700 border border-slate-200 px-2 py-0.5 rounded">Confidence: 82%</span>
+</div>
+<p class="text-xs text-slate-800 font-medium leading-relaxed">
+      Painting demand is expected to increase by 24% next week.
+    </p>
+<p class="text-xs text-slate-600 leading-normal">
+      Consider adding 4–6 painting workers to your available pool.
+    </p>
+<div class="pt-0.5">
+<button class="w-full py-1.5 bg-slate-50 hover:bg-slate-100 text-[#123B5D] text-xs font-semibold rounded-lg border border-slate-200 transition-colors" onclick="alert('Navigating to SCREEN 15C — AI Demand &amp; Workforce Insights')" type="button">
+        View Insights →
+      </button>
+</div>
+</section>
+<!-- 7. Cooperative Exchange Card -->
+<section class="border border-[#86EFAC] bg-[#F0FDF4] rounded-xl p-3.5 space-y-2">
+<div class="flex items-center gap-1.5">
+<span class="text-sm">🤝</span>
+<h3 class="text-sm font-semibold text-[#087443]">Cooperative Exchange</h3>
+</div>
+<p class="text-xs text-slate-700 leading-relaxed">
+      Find nearby work opportunities, workforce support and shared equipment.
+    </p>
+<button class="mt-1 w-full py-2 bg-[#087443] hover:bg-[#065c35] text-white text-xs font-semibold rounded-lg shadow-xs transition-colors flex items-center justify-center gap-1" onclick="alert('Navigating to SCREEN 14C — Cooperative Exchange')" type="button">
+<span>Explore Exchange →</span>
+</button>
+</section>
+</main>
+<!-- 8. Fixed Bottom Navigation Bar -->
+<nav class="bg-white border-t border-slate-200 px-2 pt-1.5 pb-1 flex items-center justify-around z-40 flex-shrink-0">
+<!-- Home (Active) -->
+<button class="flex flex-col items-center justify-center w-14 py-1 text-[#123B5D] group" type="button">
+<svg class="w-5 h-5 fill-current" viewbox="0 0 24 24">
+<path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path>
+</svg>
+<span class="text-[10.5px] font-bold mt-0.5">Home</span>
+</button>
+<!-- Requests -->
+<button class="flex flex-col items-center justify-center w-14 py-1 text-slate-500 hover:text-slate-900 transition-colors group" onclick="alert('Navigating to SCREEN 7C — Requests')" type="button">
+<svg class="w-5 h-5 stroke-current fill-none" stroke-width="1.8" viewbox="0 0 24 24">
+<path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span class="text-[10.5px] font-medium mt-0.5">Requests</span>
+</button>
+<!-- Workers -->
+<button class="flex flex-col items-center justify-center w-14 py-1 text-slate-500 hover:text-slate-900 transition-colors group" onclick="alert('Navigating to SCREEN 9C — Workforce / Worker List')" type="button">
+<svg class="w-5 h-5 stroke-current fill-none" stroke-width="1.8" viewbox="0 0 24 24">
+<path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span class="text-[10.5px] font-medium mt-0.5">Workers</span>
+</button>
+<!-- Projects -->
+<button class="flex flex-col items-center justify-center w-14 py-1 text-slate-500 hover:text-slate-900 transition-colors group" onclick="alert('Navigating to SCREEN 12C — Projects')" type="button">
+<svg class="w-5 h-5 stroke-current fill-none" stroke-width="1.8" viewbox="0 0 24 24">
+<path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span class="text-[10.5px] font-medium mt-0.5">Projects</span>
+</button>
+<!-- More -->
+<button class="flex flex-col items-center justify-center w-14 py-1 text-slate-500 hover:text-slate-900 transition-colors group" onclick="alert('Navigating to SCREEN 18C — Cooperative Profile / Settings')" type="button">
+<svg class="w-5 h-5 stroke-current fill-none" stroke-width="1.8" viewbox="0 0 24 24">
+<circle cx="12" cy="12" r="1.5"></circle>
+<circle cx="19" cy="12" r="1.5"></circle>
+<circle cx="5" cy="12" r="1.5"></circle>
+</svg>
+<span class="text-[10.5px] font-medium mt-0.5">More</span>
+</button>
+</nav>
+<!-- Home Indicator -->
+<div class="home-indicator"></div>
+</div>
+</div>
+<script>
+  (function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    let status = urlParams.get('status');
+    if (status) {
+      try { localStorage.setItem('cooperative_verification_status', status); } catch(e) {}
+    } else {
+      try { status = localStorage.getItem('cooperative_verification_status'); } catch(e) {}
+    }
+    if (!status) status = 'pending';
+
+    const badge = document.getElementById('coopVerificationBadge');
+    const badgeText = document.getElementById('coopVerificationBadgeText');
+    if (badge && badgeText) {
+      const lower = status.toLowerCase();
+      if (lower === 'verified') {
+        badge.className = 'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#E6F4EA] border border-[#BBF7D0] text-[#087443] text-xs font-medium';
+        badgeText.textContent = 'Cooperative Verified';
+      } else if (lower === 'deferred') {
+        badge.className = 'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-slate-100 border border-slate-300 text-slate-700 text-xs font-medium';
+        badgeText.textContent = 'Verification Deferred';
+      } else if (lower === 'rejected') {
+        badge.className = 'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-rose-50 border border-rose-200 text-rose-700 text-xs font-medium';
+        badgeText.textContent = 'Verification Rejected';
+      } else {
+        // Fallback for missing, 'pending', or unsupported values -> pending / unverified
+        badge.className = 'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs font-medium';
+        badgeText.textContent = 'Verification Pending';
+      }
+    }
+  })();
+</script>
+</body></html>

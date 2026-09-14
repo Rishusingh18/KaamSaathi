@@ -50,12 +50,12 @@ class WorkerDashboardScreen extends StatelessWidget {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text('EN', style: TextStyle(fontSize: 10, fontWeight: lang == 'EN' ? FontWeight.bold : FontWeight.normal, color: lang == 'EN' ? AppColors.primaryContainer : Colors.grey)),
+                      Text(AppLocalization.get('EN'), style: TextStyle(fontSize: 10, fontWeight: lang == 'EN' ? FontWeight.bold : FontWeight.normal, color: lang == 'EN' ? AppColors.primaryContainer : Colors.grey)),
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 4.0),
                         child: Text('|', style: TextStyle(fontSize: 10, color: Colors.grey)),
                       ),
-                      Text('हिन्दी', style: TextStyle(fontSize: 10, fontWeight: lang == 'HI' ? FontWeight.bold : FontWeight.normal, color: lang == 'HI' ? AppColors.primaryContainer : Colors.grey)),
+                      Text(AppLocalization.get('हिन्दी'), style: TextStyle(fontSize: 10, fontWeight: lang == 'HI' ? FontWeight.bold : FontWeight.normal, color: lang == 'HI' ? AppColors.primaryContainer : Colors.grey)),
                     ],
                   ),
                 ),

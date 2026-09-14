@@ -37,7 +37,7 @@ class _LoginOptionsScreenState extends State<LoginOptionsScreen> {
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please enter a valid 10-digit mobile number')),
+        SnackBar(content: Text(AppLocalization.get('Please enter a valid 10-digit mobile number'))),
       );
     }
   }
@@ -265,7 +265,7 @@ class _LoginOptionsScreenState extends State<LoginOptionsScreen> {
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
-                  children: const [
+                  children: [
                     Text('🇮🇳', style: TextStyle(fontSize: 14)),
                     SizedBox(width: 4),
                     Text('+91', style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),

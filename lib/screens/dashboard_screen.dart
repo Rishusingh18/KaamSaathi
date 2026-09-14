@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:dotted_border/dotted_border.dart';
 import '../theme/colors.dart';
-import '../widgets/action_card.dart';
 import '../utils/localization.dart';
 import 'earnings_screen.dart';
 import 'ai_insights_screen.dart';
 import 'cooperative_exchange_screen.dart';
 
 class DashboardScreen extends StatelessWidget {
-  const DashboardScreen({Key? key}) : super(key: key);
+  final ValueChanged<int>? onNavigateTab;
+
+  const DashboardScreen({super.key, this.onNavigateTab});
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +22,22 @@ class DashboardScreen extends StatelessWidget {
             automaticallyImplyLeading: false,
             backgroundColor: AppColors.surfaceCanvas,
             elevation: 0,
-            title: Image.asset(
-                'assets/images/logo.png',
-              height: 36,
-              errorBuilder: (context, error, stackTrace) => 
-                  const Text('SAHYOG', style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
+            title: DottedBorder(
+              options: RoundedRectDottedBorderOptions(
+                color: const Color(0xFF3B82F6),
+                strokeWidth: 1.2,
+                dashPattern: const [4, 4],
+                radius: const Radius.circular(4),
+              ),
+              child: Container(
+                padding: const EdgeInsets.all(4),
+                child: Image.asset(
+                  'assets/images/logo.png',
+                  height: 30,
+                  errorBuilder: (context, error, stackTrace) => 
+                      const Text('SAHYOG', style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
+                ),
+              ),
             ),
             actions: [
               IconButton(
@@ -112,7 +125,7 @@ class DashboardScreen extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               childAspectRatio: 1.6,
               children: [
-                _buildMetricCard(context, AppLocalization.get('👷 Workers'), '42', AppLocalization.get('28 Available'), AppColors.cooperativeGreen),
+                _buildMetricCard(context, AppLocalization.get('👷 Workers'), '42', AppLocalization.get('28 Available'), AppColors.cooperativeGreen, hasDottedBorder: true),
                 _buildMetricCard(context, AppLocalization.get('📋 Active Jobs'), '7', AppLocalization.get('5 Pending Requests'), Colors.orange[700]!),
                 _buildMetricCard(context, AppLocalization.get('💰 Earnings'), '₹48,600', AppLocalization.get('This Month'), AppColors.textSecondary, isDot: false, onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => const EarningsScreen()));
@@ -128,7 +141,18 @@ class DashboardScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(AppLocalization.get('Incoming Requests'), style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
-                Text(AppLocalization.get('View All Requests →'), style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
+                DottedBorder(
+                  options: RoundedRectDottedBorderOptions(
+                    color: const Color(0xFF3B82F6),
+                    strokeWidth: 1.2,
+                    dashPattern: const [4, 4],
+                    radius: const Radius.circular(4),
+                  ),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                    child: Text(AppLocalization.get('View All Requests →'), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 12),
@@ -153,7 +177,18 @@ class DashboardScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(AppLocalization.get('Workforce Overview'), style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
-                      Text(AppLocalization.get('Manage Workers →'), style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
+                      DottedBorder(
+                        options: RoundedRectDottedBorderOptions(
+                          color: const Color(0xFF3B82F6),
+                          strokeWidth: 1.2,
+                          dashPattern: const [4, 4],
+                          radius: const Radius.circular(4),
+                        ),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                          child: Text(AppLocalization.get('Manage Workers →'), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 16),
@@ -218,8 +253,16 @@ class DashboardScreen extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: OutlinedButton(
-                      onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const AiInsightsScreen()));
+                      onPressed: () async {
+                        final res = await Navigator.push<int>(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AiInsightsScreen(onTabSelected: onNavigateTab),
+                          ),
+                        );
+                        if (res != null) {
+                          onNavigateTab?.call(res);
+                        }
                       },
                       style: OutlinedButton.styleFrom(
                         foregroundColor: AppColors.primaryContainer,
@@ -261,7 +304,12 @@ class DashboardScreen extends StatelessWidget {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const CooperativeExchangeScreen()));
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const CooperativeExchangeScreen(showBackButton: true),
+                          ),
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.cooperativeGreen,
@@ -285,15 +333,13 @@ class DashboardScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildMetricCard(BuildContext context, String title, String value, String subtitle, Color subtitleColor, {bool isDot = true, VoidCallback? onTap}) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
+  Widget _buildMetricCard(BuildContext context, String title, String value, String subtitle, Color subtitleColor, {bool isDot = true, bool hasDottedBorder = false, VoidCallback? onTap}) {
+    final cardBody = Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.borderSubtle),
+        border: hasDottedBorder ? null : Border.all(color: AppColors.borderSubtle),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -314,7 +360,21 @@ class DashboardScreen extends StatelessWidget {
           )
         ],
       ),
-    ),
+    );
+
+    return GestureDetector(
+      onTap: onTap,
+      child: hasDottedBorder
+          ? DottedBorder(
+              options: RoundedRectDottedBorderOptions(
+                color: const Color(0xFF3B82F6),
+                strokeWidth: 1.2,
+                dashPattern: const [4, 4],
+                radius: const Radius.circular(12),
+              ),
+              child: cardBody,
+            )
+          : cardBody,
     );
   }
 
@@ -400,7 +460,7 @@ class DashboardScreen extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(4),
-              boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 2)],
+              boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 2)],
             ),
             child: Text(count, style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: color[700])),
           )

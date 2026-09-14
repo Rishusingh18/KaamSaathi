@@ -3,6 +3,7 @@ import '../theme/colors.dart';
 import '../widgets/custom_buttons.dart';
 import '../widgets/action_card.dart';
 import 'main_layout.dart';
+import '../utils/localization.dart';
 
 class VerificationScreen extends StatefulWidget {
   const VerificationScreen({Key? key}) : super(key: key);
@@ -22,7 +23,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
         leading: TextButton.icon(
           onPressed: () {},
           icon: const Icon(Icons.arrow_back_ios_new, size: 16),
-          label: const Text('Back'),
+          label: Text(AppLocalization.get('Back')),
           style: TextButton.styleFrom(foregroundColor: AppColors.textSecondary),
         ),
         leadingWidth: 80,
@@ -36,13 +37,13 @@ class _VerificationScreenState extends State<VerificationScreen> {
               border: Border.all(color: Colors.grey[300]!),
             ),
             child: Row(
-              children: const [
-                Text('EN', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
+              children: [
+                Text(AppLocalization.get('EN'), style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 4.0),
                   child: Text('|', style: TextStyle(fontSize: 11, color: Colors.grey)),
                 ),
-                Text('हिन्दी', style: TextStyle(fontSize: 11, color: Colors.grey)),
+                Text(AppLocalization.get('हिन्दी'), style: TextStyle(fontSize: 11, color: Colors.grey)),
               ],
             ),
           )
@@ -72,11 +73,10 @@ class _VerificationScreenState extends State<VerificationScreen> {
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
-                  children: const [
+                  children: [
                     Text('🏢', style: TextStyle(fontSize: 12)),
                     SizedBox(width: 6),
-                    Text(
-                      'COOPERATIVE VERIFICATION • संस्था सत्यापन',
+                    Text(AppLocalization.get('COOPERATIVE VERIFICATION • संस्था सत्यापन'),
                       style: TextStyle(
                         fontSize: 11,
                         fontWeight: FontWeight.bold,
@@ -89,13 +89,11 @@ class _VerificationScreenState extends State<VerificationScreen> {
               ),
               
               const SizedBox(height: 12),
-              const Text(
-                'Verify your cooperative',
+              Text(AppLocalization.get('Verify your cooperative'),
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.primaryContainer),
               ),
               const SizedBox(height: 4),
-              const Text(
-                'Submit your cooperative details for verification on SAHYOG.',
+              Text(AppLocalization.get('Submit your cooperative details for verification on SAHYOG.'),
                 style: TextStyle(fontSize: 12, color: AppColors.textSecondary),
                 textAlign: TextAlign.center,
               ),
@@ -105,8 +103,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
               if (!_isSubmitted) _buildFormState() else _buildSuccessState(),
               
               const SizedBox(height: 24),
-              const Text(
-                'COOPERATE. EMPOWER. GROW.\nसाथ मिलकर, समृद्धि की ओर',
+              Text(AppLocalization.get('COOPERATE. EMPOWER. GROW.\nसाथ मिलकर, समृद्धि की ओर'),
                 style: TextStyle(fontSize: 10, color: Colors.grey, fontWeight: FontWeight.bold, letterSpacing: 1),
                 textAlign: TextAlign.center,
               ),
@@ -128,7 +125,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text('COOPERATIVE DETAILS', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
+                  Text(AppLocalization.get('COOPERATIVE DETAILS'), style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                     decoration: BoxDecoration(
@@ -136,7 +133,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       border: Border.all(color: const Color(0xFFD1FAE5)),
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: const Text('Pre-filled', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.green)),
+                    child: Text(AppLocalization.get('Pre-filled'), style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.green)),
                   )
                 ],
               ),
@@ -145,7 +142,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
               _buildDetailItem('Cooperative Name', 'Nirman Shramik Cooperative'),
               const SizedBox(height: 12),
               
-              const Text('Registration Number', style: TextStyle(fontSize: 10.5, color: AppColors.textSecondary)),
+              Text(AppLocalization.get('Registration Number'), style: TextStyle(fontSize: 10.5, color: AppColors.textSecondary)),
               const SizedBox(height: 4),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
@@ -158,13 +155,13 @@ class _VerificationScreenState extends State<VerificationScreen> {
               ),
               
               const SizedBox(height: 12),
-              const Text('Registered Location', style: TextStyle(fontSize: 10.5, color: AppColors.textSecondary)),
+              Text(AppLocalization.get('Registered Location'), style: TextStyle(fontSize: 10.5, color: AppColors.textSecondary)),
               const SizedBox(height: 4),
               Row(
-                children: const [
+                children: [
                   Icon(Icons.location_on_outlined, size: 14, color: Colors.red),
                   SizedBox(width: 4),
-                  Text('Dwarka, New Delhi', style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.bold)),
+                  Text(AppLocalization.get('Dwarka, New Delhi'), style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.bold)),
                 ],
               ),
               
@@ -172,7 +169,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
               _buildDetailItem('Service Areas', 'Dwarka • Najafgarh • West Delhi'),
               
               const SizedBox(height: 12),
-              const Text('Primary Services', style: TextStyle(fontSize: 10.5, color: AppColors.textSecondary)),
+              Text(AppLocalization.get('Primary Services'), style: TextStyle(fontSize: 10.5, color: AppColors.textSecondary)),
               const SizedBox(height: 4),
               Wrap(
                 spacing: 6,
@@ -195,7 +192,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('COOPERATIVE REGISTRATION DOCUMENT', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
+              Text(AppLocalization.get('COOPERATIVE REGISTRATION DOCUMENT'), style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
               const SizedBox(height: 12),
               Container(
                 padding: const EdgeInsets.all(12),
@@ -214,7 +211,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                         border: Border.all(color: Colors.red[100]!),
                       ),
                       alignment: Alignment.center,
-                      child: const Text('PDF', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.red)),
+                      child: Text(AppLocalization.get('PDF'), style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.red)),
                     ),
                     const SizedBox(width: 12),
                     Expanded(
@@ -223,7 +220,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                         children: [
                           const Text('Cooperative_Registration.pdf', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold)),
                           Row(
-                            children: const [
+                            children: [
                               Text('2.4 MB', style: TextStyle(fontSize: 10, color: Colors.grey)),
                               Text(' • ', style: TextStyle(fontSize: 10, color: Colors.grey)),
                               Icon(Icons.check, size: 12, color: Colors.green),
@@ -239,7 +236,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
                         minimumSize: const Size(0, 32),
                       ),
-                      child: const Text('Replace', style: TextStyle(fontSize: 11)),
+                      child: Text(AppLocalization.get('Replace'), style: TextStyle(fontSize: 11)),
                     )
                   ],
                 ),
@@ -266,10 +263,9 @@ class _VerificationScreenState extends State<VerificationScreen> {
                 child: const Icon(Icons.shield, size: 12, color: Colors.white),
               ),
               const SizedBox(width: 8),
-              const Expanded(
-                child: Text(
-                  'Your cooperative details and registration document will be reviewed before your cooperative is verified.',
-                  style: TextStyle(fontSize: 11, color: Colors.green, fontWeight: FontWeight.w500),
+              Expanded(
+                child: Text(AppLocalization.get('Your cooperative details and registration document will be reviewed before your cooperative is verified.'),
+                  style: const TextStyle(fontSize: 11, color: Colors.green, fontWeight: FontWeight.w500),
                 ),
               ),
             ],
@@ -288,7 +284,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
         ),
         TextButton(
           onPressed: () {},
-          child: const Text('Skip for Now', style: TextStyle(fontSize: 12)),
+          child: Text(AppLocalization.get('Skip for Now'), style: TextStyle(fontSize: 12)),
         )
       ],
     );
@@ -317,12 +313,11 @@ class _VerificationScreenState extends State<VerificationScreen> {
             child: const Icon(Icons.check, size: 32, color: AppColors.cooperativeGreen),
           ),
           const SizedBox(height: 16),
-          const Text('Verification submitted ✓', style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold, color: AppColors.cooperativeGreen)),
+          Text(AppLocalization.get('Verification submitted ✓'), style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold, color: AppColors.cooperativeGreen)),
           const SizedBox(height: 4),
-          const Text('Your cooperative details are under review.', style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
+          Text(AppLocalization.get('Your cooperative details are under review.'), style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
           const SizedBox(height: 6),
-          const Text(
-            'You can continue to your dashboard while verification is in progress.',
+          Text(AppLocalization.get('You can continue to your dashboard while verification is in progress.'),
             style: TextStyle(fontSize: 11.5, color: Colors.grey),
             textAlign: TextAlign.center,
           ),
@@ -339,16 +334,16 @@ class _VerificationScreenState extends State<VerificationScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                  children: const [
+                  children: [
                     Icon(Icons.circle, size: 8, color: Colors.orange),
                     SizedBox(width: 4),
-                    Text('STATUS', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.grey, letterSpacing: 1)),
+                    Text(AppLocalization.get('STATUS'), style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.grey, letterSpacing: 1)),
                   ],
                 ),
                 const SizedBox(height: 8),
                 const Text('Application Reference: #VER-DL-2026-0142', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 2),
-                const Text('Pending Administrative Review', style: TextStyle(fontSize: 10.5, fontWeight: FontWeight.bold, color: Colors.orange)),
+                Text(AppLocalization.get('Pending Administrative Review'), style: TextStyle(fontSize: 10.5, fontWeight: FontWeight.bold, color: Colors.orange)),
               ],
             ),
           ),

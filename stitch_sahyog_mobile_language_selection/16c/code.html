@@ -1,0 +1,363 @@
+<!DOCTYPE html><html lang="en" data-lt-installed="true"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>16C</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Noto+Sans+Devanagari:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style data-stitch-css-vh="
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #0b0f17;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+      background-size: 24px 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #17212B;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    .phone-mockup {
+      width: 390px;
+      height: 884px;
+      background-color: #FFFFFF;
+      border-radius: 52px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.6), 0 0 0 12px #1E2633, 0 0 0 14px #2D3748;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .dynamic-island {
+      width: 120px;
+      height: 32px;
+      background-color: #000000;
+      border-radius: 20px;
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 50;
+    }
+
+    .status-bar {
+      height: 48px;
+      padding: 14px 26px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: #17212B;
+      z-index: 40;
+      flex-shrink: 0;
+    }
+
+    .home-indicator {
+      width: 138px;
+      height: 5px;
+      background-color: #17212B;
+      border-radius: 3px;
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 50;
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .tab-btn.active {
+      background-color: #123B5D;
+      color: #FFFFFF;
+      font-weight: 600;
+    }
+    .tab-btn:not(.active) {
+      background-color: #F1F5F9;
+      color: #64748B;
+      font-weight: 500;
+    }
+  ">
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #0b0f17;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+      background-size: 24px 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 884px;
+      color: #17212B;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    .phone-mockup {
+      width: 390px;
+      height: 884px;
+      background-color: #FFFFFF;
+      border-radius: 52px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.6), 0 0 0 12px #1E2633, 0 0 0 14px #2D3748;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .dynamic-island {
+      width: 120px;
+      height: 32px;
+      background-color: #000000;
+      border-radius: 20px;
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 50;
+    }
+
+    .status-bar {
+      height: 48px;
+      padding: 14px 26px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: #17212B;
+      z-index: 40;
+      flex-shrink: 0;
+    }
+
+    .home-indicator {
+      width: 138px;
+      height: 5px;
+      background-color: #17212B;
+      border-radius: 3px;
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 50;
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .tab-btn.active {
+      background-color: #123B5D;
+      color: #FFFFFF;
+      font-weight: 600;
+    }
+    .tab-btn:not(.active) {
+      background-color: #F1F5F9;
+      color: #64748B;
+      font-weight: 500;
+    }
+  </style>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.absolute{position:absolute}.bottom-0{bottom:0px}.left-0{left:0px}.right-0{right:0px}.z-30{z-index:30}.z-40{z-index:40}.mt-0\.5{margin-top:0.125rem}.mt-1\.5{margin-top:0.375rem}.mt-2{margin-top:0.5rem}.mt-1{margin-top:0.25rem}.block{display:block}.inline-block{display:inline-block}.flex{display:flex}.grid{display:grid}.hidden{display:none}.h-3\.5{height:0.875rem}.h-4{height:1rem}.h-5{height:1.25rem}.h-2{height:0.5rem}.w-3\.5{width:0.875rem}.w-4{width:1rem}.w-5{width:1.25rem}.w-full{width:100%}.flex-1{flex:1 1 0%}.grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.grid-cols-5{grid-template-columns:repeat(5, minmax(0, 1fr))}.flex-col{flex-direction:column}.items-start{align-items:flex-start}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-1\.5{gap:0.375rem}.gap-2{gap:0.5rem}.gap-1{gap:0.25rem}.gap-2\.5{gap:0.625rem}.space-x-0\.5 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(0.125rem * var(--tw-space-x-reverse));margin-left:calc(0.125rem * calc(1 - var(--tw-space-x-reverse)))}.space-x-1 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(0.25rem * var(--tw-space-x-reverse));margin-left:calc(0.25rem * calc(1 - var(--tw-space-x-reverse)))}.space-x-1\.5 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(0.375rem * var(--tw-space-x-reverse));margin-left:calc(0.375rem * calc(1 - var(--tw-space-x-reverse)))}.space-x-2 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(0.5rem * var(--tw-space-x-reverse));margin-left:calc(0.5rem * calc(1 - var(--tw-space-x-reverse)))}.space-y-0\.5 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.125rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.125rem * var(--tw-space-y-reverse))}.space-y-2 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.5rem * var(--tw-space-y-reverse))}.space-y-2\.5 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.625rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.625rem * var(--tw-space-y-reverse))}.space-y-3\.5 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.875rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.875rem * var(--tw-space-y-reverse))}.space-y-1 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.25rem * var(--tw-space-y-reverse))}.space-y-3 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.75rem * var(--tw-space-y-reverse))}.overflow-hidden{overflow:hidden}.overflow-x-auto{overflow-x:auto}.overflow-y-auto{overflow-y:auto}.rounded{border-radius:0.25rem}.rounded-2xl{border-radius:1rem}.rounded-full{border-radius:9999px}.rounded-xl{border-radius:0.75rem}.border{border-width:1px}.border-2{border-width:2px}.border-b{border-bottom-width:1px}.border-t{border-top-width:1px}.border-dashed{border-style:dashed}.border-\[\#E2E8F0\]{--tw-border-opacity:1;border-color:rgb(226 232 240 / var(--tw-border-opacity, 1))}.border-emerald-200{--tw-border-opacity:1;border-color:rgb(167 243 208 / var(--tw-border-opacity, 1))}.border-slate-100{--tw-border-opacity:1;border-color:rgb(241 245 249 / var(--tw-border-opacity, 1))}.border-slate-200{--tw-border-opacity:1;border-color:rgb(226 232 240 / var(--tw-border-opacity, 1))}.border-\[\#123B5D\]{--tw-border-opacity:1;border-color:rgb(18 59 93 / var(--tw-border-opacity, 1))}.bg-\[\#123B5D\]{--tw-bg-opacity:1;background-color:rgb(18 59 93 / var(--tw-bg-opacity, 1))}.bg-\[\#F8FAFC\]{--tw-bg-opacity:1;background-color:rgb(248 250 252 / var(--tw-bg-opacity, 1))}.bg-emerald-50{--tw-bg-opacity:1;background-color:rgb(236 253 245 / var(--tw-bg-opacity, 1))}.bg-slate-100{--tw-bg-opacity:1;background-color:rgb(241 245 249 / var(--tw-bg-opacity, 1))}.bg-slate-50{--tw-bg-opacity:1;background-color:rgb(248 250 252 / var(--tw-bg-opacity, 1))}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1))}.bg-\[\#087443\]{--tw-bg-opacity:1;background-color:rgb(8 116 67 / var(--tw-bg-opacity, 1))}.bg-slate-200\/80{background-color:rgb(226 232 240 / 0.8)}.p-2{padding:0.5rem}.p-2\.5{padding:0.625rem}.p-3{padding:0.75rem}.p-3\.5{padding:0.875rem}.p-4{padding:1rem}.px-2{padding-left:0.5rem;padding-right:0.5rem}.px-3{padding-left:0.75rem;padding-right:0.75rem}.px-5{padding-left:1.25rem;padding-right:1.25rem}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem}.py-1{padding-top:0.25rem;padding-bottom:0.25rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.px-1\.5{padding-left:0.375rem;padding-right:0.375rem}.px-4{padding-left:1rem;padding-right:1rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-2\.5{padding-top:0.625rem;padding-bottom:0.625rem}.pb-2\.5{padding-bottom:0.625rem}.pb-24{padding-bottom:6rem}.pt-1{padding-top:0.25rem}.pt-2\.5{padding-top:0.625rem}.pb-2{padding-bottom:0.5rem}.pb-6{padding-bottom:1.5rem}.pt-2{padding-top:0.5rem}.text-center{text-align:center}.text-right{text-align:right}.text-\[10px\]{font-size:10px}.text-\[11px\]{font-size:11px}.text-\[9px\]{font-size:9px}.text-base{font-size:1rem;line-height:1.5rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xs{font-size:0.75rem;line-height:1rem}.font-bold{font-weight:700}.font-medium{font-weight:500}.font-semibold{font-weight:600}.uppercase{text-transform:uppercase}.leading-tight{line-height:1.25}.leading-relaxed{line-height:1.625}.tracking-tight{letter-spacing:-0.025em}.tracking-wide{letter-spacing:0.025em}.tracking-wider{letter-spacing:0.05em}.text-\[\#087443\]{--tw-text-opacity:1;color:rgb(8 116 67 / var(--tw-text-opacity, 1))}.text-\[\#123B5D\]{--tw-text-opacity:1;color:rgb(18 59 93 / var(--tw-text-opacity, 1))}.text-\[\#17212B\]{--tw-text-opacity:1;color:rgb(23 33 43 / var(--tw-text-opacity, 1))}.text-amber-600{--tw-text-opacity:1;color:rgb(217 119 6 / var(--tw-text-opacity, 1))}.text-slate-400{--tw-text-opacity:1;color:rgb(148 163 184 / var(--tw-text-opacity, 1))}.text-slate-500{--tw-text-opacity:1;color:rgb(100 116 139 / var(--tw-text-opacity, 1))}.text-slate-600{--tw-text-opacity:1;color:rgb(71 85 105 / var(--tw-text-opacity, 1))}.text-slate-700{--tw-text-opacity:1;color:rgb(51 65 85 / var(--tw-text-opacity, 1))}.text-slate-800{--tw-text-opacity:1;color:rgb(30 41 59 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.shadow-sm{--tw-shadow:0 1px 2px 0 rgb(0 0 0 / 0.05);--tw-shadow-colored:0 1px 2px 0 var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.transition-colors{transition-property:color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-opacity{transition-property:opacity;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.hover\:bg-\[\#065e36\]:hover{--tw-bg-opacity:1;background-color:rgb(6 94 54 / var(--tw-bg-opacity, 1))}.hover\:bg-\[\#123B5D\]:hover{--tw-bg-opacity:1;background-color:rgb(18 59 93 / var(--tw-bg-opacity, 1))}.hover\:text-slate-800:hover{--tw-text-opacity:1;color:rgb(30 41 59 / var(--tw-text-opacity, 1))}.hover\:text-slate-900:hover{--tw-text-opacity:1;color:rgb(15 23 42 / var(--tw-text-opacity, 1))}.hover\:text-white:hover{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.hover\:underline:hover{-webkit-text-decoration-line:underline;text-decoration-line:underline}.active\:opacity-70:active{opacity:0.7}</style></head>
+<body data-mode="connect">
+<div class="phone-mockup" id="phoneMockup">
+<!-- Dynamic Island -->
+<div class="dynamic-island"></div>
+<!-- Status Bar -->
+<div class="status-bar">
+<span>09:41</span>
+<div class="flex items-center space-x-1.5">
+<svg class="w-4 h-4 text-slate-800" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L12 22l7.03-4.39C20.26 16.07 21 14.12 21 12c0-4.97-4.03-9-9-9zm0 14c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"></path></svg>
+<svg class="w-3.5 h-3.5 text-slate-800" fill="currentColor" viewBox="0 0 24 24"><path d="M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98A16.88 16.88 0 0 0 12 4z"></path></svg>
+<svg class="w-5 h-5 text-slate-800" fill="currentColor" viewBox="0 0 24 24"><path d="M17 4h-3V2h-4v2H7v18h10V4zm-2 16H9V6h6v14z"></path></svg>
+</div>
+</div>
+<!-- App Header -->
+<div class="px-5 pt-1 pb-2.5 border-b border-slate-100 bg-white z-30"><div class="flex items-center justify-between"><button class="flex items-center space-x-1 text-slate-700 hover:text-slate-900 active:opacity-70 transition-opacity" onclick="goBack15C()"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="text-sm font-semibold">Back</span></button><div class="flex items-center space-x-1.5"><h1 class="text-base font-bold text-[#123B5D] tracking-tight">Reports &amp; Work History</h1></div><div class="text-[11px] font-semibold tracking-wide text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full border border-slate-200"><span class="text-[#123B5D]">EN</span> | <span class="text-slate-400">हिन्दी</span></div></div><p class="text-xs font-medium text-slate-500 mt-1.5">Review completed work and cooperative performance.</p></div>
+<!-- Scrollable Main Content -->
+<div class="flex-1 overflow-y-auto no-scrollbar bg-[#F8FAFC] pb-24" id="mainContent"><div class="px-5 py-3 space-y-3.5"><div class="grid grid-cols-3 gap-2"><div class="bg-white border border-[#E2E8F0] rounded-xl p-2.5 text-center shadow-sm"><div class="text-base font-bold text-[#123B5D]">24</div><div class="text-[10px] font-medium text-slate-700 mt-0.5 leading-tight">Completed</div><div class="text-[9px] text-slate-400 mt-0.5">This Year</div></div><div class="bg-white border border-[#E2E8F0] rounded-xl p-2.5 text-center shadow-sm"><div class="text-base font-bold text-[#087443]">42</div><div class="text-[10px] font-medium text-slate-700 mt-0.5 leading-tight">Workers</div><div class="text-[9px] text-slate-400 mt-0.5">Total</div></div><div class="bg-white border border-[#E2E8F0] rounded-xl p-2.5 text-center shadow-sm"><div class="text-base font-bold text-[#17212B]">₹4.82L</div><div class="text-[10px] font-medium text-slate-700 mt-0.5 leading-tight">Project Value</div><div class="text-[9px] text-slate-400 mt-0.5">This Year</div></div></div><div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5"><button class="px-3 py-1 rounded-full text-xs font-semibold bg-[#123B5D] text-white transition-colors" id="filterAll" onclick="setFilter('All')">All</button><button class="px-3 py-1 rounded-full text-xs font-medium bg-white border border-[#E2E8F0] text-slate-600 hover:text-slate-800 transition-colors" id="filterCompleted" onclick="setFilter('Completed')">Completed</button><button class="px-3 py-1 rounded-full text-xs font-medium bg-white border border-[#E2E8F0] text-slate-600 hover:text-slate-800 transition-colors" id="filterInProgress" onclick="setFilter('In Progress')">In Progress</button><button class="px-3 py-1 rounded-full text-xs font-medium bg-white border border-[#E2E8F0] text-slate-600 hover:text-slate-800 transition-colors" id="filterThisMonth" onclick="setFilter('This Month')">This Month</button></div><div class="space-y-2.5"><div class="flex items-center justify-between"><h2 class="text-xs font-bold uppercase tracking-wider text-slate-700">Recent Projects</h2><span class="text-[10px] text-slate-400 font-medium">Showing 3 of 24</span></div><div class="bg-white border border-[#E2E8F0] rounded-2xl p-3.5 shadow-sm space-y-2.5" id="projCard1" data-status="Completed" data-date="2026-09-10"><div class="flex items-start justify-between"><div class="space-y-0.5"><div class="flex items-center space-x-2"><h3 class="text-sm font-bold text-[#17212B]">Residential Painting</h3><span class="text-[10px] font-bold text-[#087443] bg-emerald-50 border border-emerald-200 px-2 py-0.2 rounded-full">Completed</span></div><p class="text-[11px] text-slate-500">🏠 Household • Dwarka</p></div><div class="text-right"><span class="text-sm font-bold text-[#123B5D]">₹3,250</span><p class="text-[10px] text-slate-400">Total Value</p></div></div><div class="flex items-center justify-between pt-1 border-t border-slate-100 text-[11px] text-slate-500"><span>Sep 10, 2026 • 2 workers</span><button class="font-semibold text-[#123B5D] hover:underline flex items-center space-x-0.5" onclick="toggleProjectDetails('1')"><span id="projToggleText1">View Details</span><span class="text-xs">→</span></button></div><div class="hidden pt-2.5 mt-2 border-t border-dashed border-slate-200 space-y-2 text-xs bg-slate-50 p-3 rounded-xl" id="projDetail1"><div class="grid grid-cols-2 gap-2 text-[11px]"><div class="bg-white p-2 rounded border border-slate-100"><span class="text-slate-400 block text-[10px]">Workers Assigned</span><span class="font-semibold text-slate-800">Ramlal K., Rajesh S.</span></div><div class="bg-white p-2 rounded border border-slate-100"><span class="text-slate-400 block text-[10px]">Verified Completion</span><span class="font-semibold text-slate-800">Sep 10, 2026</span></div><div class="bg-white p-2 rounded border border-slate-100"><span class="text-slate-400 block text-[10px]">Client Rating</span><span class="font-bold text-amber-600">5.0 ★ (Verified)</span></div><div class="bg-white p-2 rounded border border-slate-100"><span class="text-slate-400 block text-[10px]">Invoice &amp; Receipt</span><span class="font-semibold text-[#087443]">Settled (#INV-8821)</span></div></div></div></div><div class="bg-white border border-[#E2E8F0] rounded-2xl p-3.5 shadow-sm space-y-2.5" id="projCard2" data-status="Completed" data-date="2026-09-05"><div class="flex items-start justify-between"><div class="space-y-0.5"><div class="flex items-center space-x-2"><h3 class="text-sm font-bold text-[#17212B]">Community Hall Repair</h3><span class="text-[10px] font-bold text-[#087443] bg-emerald-50 border border-emerald-200 px-2 py-0.2 rounded-full">Completed</span></div><p class="text-[11px] text-slate-500">🏢 Institution • Najafgarh</p></div><div class="text-right"><span class="text-sm font-bold text-[#123B5D]">₹7,800</span><p class="text-[10px] text-slate-400">Total Value</p></div></div><div class="flex items-center justify-between pt-1 border-t border-slate-100 text-[11px] text-slate-500"><span>Sep 5, 2026 • 4 workers</span><button class="font-semibold text-[#123B5D] hover:underline flex items-center space-x-0.5" onclick="toggleProjectDetails('2')"><span id="projToggleText2">View Details</span><span class="text-xs">→</span></button></div><div class="hidden pt-2.5 mt-2 border-t border-dashed border-slate-200 space-y-2 text-xs bg-slate-50 p-3 rounded-xl" id="projDetail2"><div class="grid grid-cols-2 gap-2 text-[11px]"><div class="bg-white p-2 rounded border border-slate-100"><span class="text-slate-400 block text-[10px]">Workers Assigned</span><span class="font-semibold text-slate-800">Mohan L., Amit P. +2</span></div><div class="bg-white p-2 rounded border border-slate-100"><span class="text-slate-400 block text-[10px]">Verified Completion</span><span class="font-semibold text-slate-800">Sep 5, 2026</span></div><div class="bg-white p-2 rounded border border-slate-100"><span class="text-slate-400 block text-[10px]">Client Rating</span><span class="font-bold text-amber-600">4.9 ★ (Verified)</span></div><div class="bg-white p-2 rounded border border-slate-100"><span class="text-slate-400 block text-[10px]">Invoice &amp; Receipt</span><span class="font-semibold text-[#087443]">Settled (#INV-8794)</span></div></div></div></div><div class="bg-white border border-[#E2E8F0] rounded-2xl p-3.5 shadow-sm space-y-2.5" id="projCard3" data-status="In Progress" data-date="2026-08-28"><div class="flex items-start justify-between"><div class="space-y-0.5"><div class="flex items-center space-x-2"><h3 class="text-sm font-bold text-[#17212B]">Electrical Maintenance</h3><span class="text-[10px] font-bold text-blue-700 bg-blue-50 border border-blue-200 px-2 py-0.2 rounded-full">In Progress</span></div><p class="text-[11px] text-slate-500">🏢 Institution • Janakpuri</p></div><div class="text-right"><span class="text-sm font-bold text-[#123B5D]">₹5,800</span><p class="text-[10px] text-slate-400">Total Value</p></div></div><div class="flex items-center justify-between pt-1 border-t border-slate-100 text-[11px] text-slate-500"><span>Aug 28, 2026 • 3 workers</span><button class="font-semibold text-[#123B5D] hover:underline flex items-center space-x-0.5" onclick="toggleProjectDetails('3')"><span id="projToggleText3">View Details</span><span class="text-xs">→</span></button></div><div class="hidden pt-2.5 mt-2 border-t border-dashed border-slate-200 space-y-2 text-xs bg-slate-50 p-3 rounded-xl" id="projDetail3"><div class="grid grid-cols-2 gap-2 text-[11px]"><div class="bg-white p-2 rounded border border-slate-100"><span class="text-slate-400 block text-[10px]">Workers Assigned</span><span class="font-semibold text-slate-800">Sunita D., Vikas K., Manoj</span></div><div class="bg-white p-2 rounded border border-slate-100"><span class="text-slate-400 block text-[10px]">Verified Completion</span><span class="font-semibold text-slate-800">Aug 28, 2026</span></div><div class="bg-white p-2 rounded border border-slate-100"><span class="text-slate-400 block text-[10px]">Client Rating</span><span class="font-bold text-amber-600">5.0 ★ (Verified)</span></div><div class="bg-white p-2 rounded border border-slate-100"><span class="text-slate-400 block text-[10px]">Invoice &amp; Receipt</span><span class="font-semibold text-[#087443]">Settled (#INV-8742)</span></div></div></div></div></div><div class="bg-white border border-[#E2E8F0] rounded-2xl p-4 shadow-sm space-y-3"><div class="flex items-center justify-between border-b border-slate-100 pb-2"><h2 class="text-xs font-bold uppercase tracking-wider text-slate-700">Workforce Performance</h2><span class="text-[10px] text-[#087443] font-bold bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">Top Tier</span></div><div class="grid grid-cols-2 gap-2.5"><div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100"><span class="text-[10px] text-slate-500 block">Jobs Completed</span><span class="text-base font-bold text-[#17212B]">24</span></div><div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100"><span class="text-[10px] text-slate-500 block">Avg Worker Rating</span><span class="text-base font-bold text-amber-600 flex items-center gap-1">4.7 <span class="text-sm">★</span></span></div></div><div class="space-y-2 pt-1"><div class="space-y-1"><div class="flex justify-between text-[11px]"><span class="font-medium text-slate-600">Workforce Utilization</span><span class="font-bold text-slate-800">78%</span></div><div class="w-full bg-slate-200/80 rounded-full h-2 overflow-hidden"><div class="bg-[#087443] h-2 rounded-full" style="width: 78%"></div></div></div><div class="space-y-1"><div class="flex justify-between text-[11px]"><span class="font-medium text-slate-600">On-time Completion</span><span class="font-bold text-slate-800">92%</span></div><div class="w-full bg-slate-200/80 rounded-full h-2 overflow-hidden"><div class="bg-[#123B5D] h-2 rounded-full" style="width: 92%"></div></div></div></div></div><div class="bg-white border border-[#E2E8F0] rounded-2xl p-4 shadow-sm space-y-3"><div class="flex items-center justify-between border-b border-slate-100 pb-2"><h2 class="text-xs font-bold uppercase tracking-wider text-slate-700">Recent Payments</h2><span class="text-[10px] text-slate-400 font-medium">Sep 2026</span></div><div class="space-y-2"><div class="flex items-center justify-between p-2 rounded-xl bg-slate-50 border border-slate-100"><div class="space-y-0.5"><div class="text-xs font-bold text-slate-800">Ramlal Kumar</div><div class="text-[10px] text-slate-500">Residential Painting</div></div><div class="text-right space-y-0.5"><div class="text-xs font-bold text-[#17212B]">₹1,200</div><span class="text-[9px] font-semibold text-[#087443] bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded-full inline-block">Paid • Sep 10</span></div></div><div class="flex items-center justify-between p-2 rounded-xl bg-slate-50 border border-slate-100"><div class="space-y-0.5"><div class="text-xs font-bold text-slate-800">Sunita Devi</div><div class="text-[10px] text-slate-500">Electrical Maintenance</div></div><div class="text-right space-y-0.5"><div class="text-xs font-bold text-[#17212B]">₹1,500</div><span class="text-[9px] font-semibold text-[#087443] bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded-full inline-block">Paid • Sep 8</span></div></div><div class="flex items-center justify-between p-2 rounded-xl bg-slate-50 border border-slate-100"><div class="space-y-0.5"><div class="text-xs font-bold text-slate-800">Mohan Lal</div><div class="text-[10px] text-slate-500">Community Hall Repair</div></div><div class="text-right space-y-0.5"><div class="text-xs font-bold text-[#17212B]">₹1,200</div><span class="text-[9px] font-semibold text-[#087443] bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded-full inline-block">Paid • Sep 5</span></div></div><div class="hidden space-y-2 pt-1" id="extraPaymentsList"><div class="flex items-center justify-between p-2 rounded-xl bg-slate-50 border border-slate-100"><div class="space-y-0.5"><div class="text-xs font-bold text-slate-800">Rajesh Sharma</div><div class="text-[10px] text-slate-500">Residential Painting</div></div><div class="text-right space-y-0.5"><div class="text-xs font-bold text-[#17212B]">₹1,150</div><span class="text-[9px] font-semibold text-[#087443] bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded-full inline-block">Paid • Sep 4</span></div></div><div class="flex items-center justify-between p-2 rounded-xl bg-slate-50 border border-slate-100"><div class="space-y-0.5"><div class="text-xs font-bold text-slate-800">Amit Pal</div><div class="text-[10px] text-slate-500">Masonry Repair</div></div><div class="text-right space-y-0.5"><div class="text-xs font-bold text-[#17212B]">₹1,400</div><span class="text-[9px] font-semibold text-[#087443] bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded-full inline-block">Paid • Aug 31</span></div></div></div></div><button class="w-full py-2 text-center text-xs font-semibold text-[#123B5D] hover:underline bg-slate-50 rounded-xl border border-slate-100 transition-colors" id="togglePaymentsBtn" onclick="toggleAllPayments()">View All Payments →</button></div><div class="space-y-2 pt-1"><button class="w-full py-2.5 px-4 border-2 border-[#123B5D] text-[#123B5D] hover:bg-[#123B5D] hover:text-white rounded-xl text-xs font-bold flex items-center justify-center space-x-1.5 transition-colors shadow-sm" id="generateReportBtn" onclick="generateReport()"><span>Worker Welfare &amp; Issues</span></button><div class="hidden bg-emerald-50 border border-emerald-200 rounded-2xl p-4 shadow-sm space-y-2.5" id="reportSuccessCard"><div class="flex items-center justify-between"><span class="text-xs font-bold text-[#087443] flex items-center gap-1.5"><span>✓</span> Report Ready</span><span class="text-[10px] text-slate-400">PDF • 1.4 MB</span></div><p class="text-[11px] text-slate-600 leading-relaxed">Your cooperative performance report has been generated.</p><button class="w-full py-2 px-3 bg-[#087443] hover:bg-[#065e36] text-white rounded-xl text-xs font-semibold flex items-center justify-center space-x-1 transition-colors shadow-sm" id="downloadBtn" onclick="downloadReport()"><span>Download Report</span></button></div></div></div></div>
+<!-- Cooperative Persistent Bottom Navigation -->
+<div class="absolute bottom-0 left-0 right-0 bg-white border-t border-slate-200 px-3 pt-2 pb-6 z-40">
+<div class="grid grid-cols-5 gap-1 text-center">
+<!-- Home -->
+<button class="flex flex-col items-center justify-center text-slate-500 hover:text-slate-900 active:opacity-70 transition-colors" onclick="navTo('6C')">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span class="text-[10px] font-medium mt-1">Home</span>
+</button>
+<!-- Requests -->
+<button class="flex flex-col items-center justify-center text-slate-500 hover:text-slate-900 active:opacity-70 transition-colors" onclick="navTo('7C')">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span class="text-[10px] font-medium mt-1">Requests</span>
+</button>
+<!-- Workers -->
+<button class="flex flex-col items-center justify-center text-slate-500 hover:text-slate-900 active:opacity-70 transition-colors" onclick="navTo('9C')">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span class="text-[10px] font-medium mt-1">Workers</span>
+</button>
+<!-- Projects -->
+<button class="flex flex-col items-center justify-center text-slate-500 hover:text-slate-900 active:opacity-70 transition-colors" onclick="navTo('12C')">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span class="text-[10px] font-medium mt-1">Projects</span>
+</button>
+<!-- More (Active) -->
+<button class="flex flex-col items-center justify-center text-[#123B5D]">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span class="text-[10px] font-bold mt-1 text-[#123B5D]">More</span>
+</button>
+</div>
+</div>
+<!-- Home Indicator -->
+<div class="home-indicator"></div>
+</div>
+<script>
+    function goBack15C() {
+      navTo('15C');
+    }
+
+    function setFilter(filter) {
+      const filterButtons = ['filterAll', 'filterCompleted', 'filterInProgress', 'filterThisMonth'];
+      filterButtons.forEach(btnId => {
+        const btn = document.getElementById(btnId);
+        if (!btn) return;
+        btn.className = 'px-3 py-1 rounded-full text-xs font-medium bg-white border border-[#E2E8F0] text-slate-600 hover:text-slate-800 transition-colors';
+      });
+
+      const activeBtnMap = {
+        'All': 'filterAll',
+        'Completed': 'filterCompleted',
+        'In Progress': 'filterInProgress',
+        'This Month': 'filterThisMonth'
+      };
+
+      const activeBtn = document.getElementById(activeBtnMap[filter] || 'filterAll');
+      if (activeBtn) {
+        activeBtn.className = 'px-3 py-1 rounded-full text-xs font-semibold bg-[#123B5D] text-white transition-colors';
+      }
+
+      const cards = document.querySelectorAll('[id^="projCard"]');
+      const currentMonthPattern = /sep|2026-09/i;
+
+      cards.forEach(card => {
+        const status = (card.getAttribute('data-status') || '').trim();
+        const date = (card.getAttribute('data-date') || '').trim();
+
+        let matches = false;
+        if (filter === 'All') {
+          matches = true;
+        } else if (filter === 'Completed') {
+          matches = status.toLowerCase() === 'completed';
+        } else if (filter === 'In Progress') {
+          matches = status.toLowerCase() === 'in progress';
+        } else if (filter === 'This Month') {
+          matches = currentMonthPattern.test(date);
+        }
+
+        if (matches) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+
+    function toggleProjectDetails(id) {
+      const detailEl = document.getElementById('projDetail' + id);
+      const textEl = document.getElementById('projToggleText' + id);
+      if (!detailEl) return;
+
+      const isHidden = detailEl.classList.contains('hidden');
+      if (isHidden) {
+        detailEl.classList.remove('hidden');
+        if (textEl) textEl.textContent = 'Hide Details';
+      } else {
+        detailEl.classList.add('hidden');
+        if (textEl) textEl.textContent = 'View Details';
+      }
+    }
+
+    function toggleAllPayments() {
+      const extraList = document.getElementById('extraPaymentsList');
+      const btn = document.getElementById('togglePaymentsBtn');
+      if (!extraList) return;
+
+      const isHidden = extraList.classList.contains('hidden');
+      if (isHidden) {
+        extraList.classList.remove('hidden');
+        if (btn) btn.textContent = 'Show Less ↑';
+      } else {
+        extraList.classList.add('hidden');
+        if (btn) btn.textContent = 'View All Payments →';
+      }
+    }
+
+    function generateReport() {
+      const genBtn = document.getElementById('generateReportBtn');
+      const successCard = document.getElementById('reportSuccessCard');
+
+      if (genBtn) {
+        genBtn.disabled = true;
+        genBtn.innerHTML = '<span>Generating Report...</span>';
+      }
+
+      setTimeout(() => {
+        if (genBtn) {
+          genBtn.disabled = false;
+          genBtn.innerHTML = '<span>Worker Welfare &amp; Issues</span>';
+        }
+        if (successCard) {
+          successCard.classList.remove('hidden');
+          successCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      }, 500);
+    }
+
+    function downloadReport() {
+      const btn = document.getElementById('downloadBtn');
+      if (btn) {
+        btn.innerHTML = '<span>Downloading...</span>';
+        setTimeout(() => {
+          btn.innerHTML = '<span>Downloaded ✓</span>';
+          btn.classList.remove('bg-[#087443]', 'hover:bg-[#065e36]');
+          btn.classList.add('bg-slate-700');
+        }, 500);
+      }
+    }
+
+    function navTo(screenId) {
+      console.log('Navigating to screen:', screenId);
+      const targetMap = {
+        '6C': '../6c/code.html',
+        '7C': '../7c/code.html',
+        '9C': '../9c/code.html',
+        '12C': '../12c/code.html',
+        '13C': '../13c/code.html',
+        '14C': '../14c/code.html',
+        '15C': '../15c/code.html',
+        '16C': '../16c/code.html',
+        '17C': '../17c/code.html',
+        '18C': '../18c/code.html'
+      };
+      if (targetMap[screenId]) {
+        window.location.href = targetMap[screenId];
+      } else {
+        window.location.href = '#' + screenId;
+      }
+    }
+  </script>
+
+</body></html>

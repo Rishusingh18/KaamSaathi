@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>17C — Worker Welfare &amp; Issues</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Noto+Sans+Devanagari:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #0b0f17;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+      background-size: 24px 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #17212B;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    .phone-mockup {
+      width: 390px;
+      height: 884px;
+      background-color: #FFFFFF;
+      border-radius: 52px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.6), 0 0 0 12px #1E2633, 0 0 0 14px #2D3748;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .dynamic-island {
+      width: 120px;
+      height: 32px;
+      background-color: #000000;
+      border-radius: 20px;
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 50;
+    }
+
+    .status-bar {
+      height: 48px;
+      padding: 14px 26px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: #17212B;
+      z-index: 40;
+      flex-shrink: 0;
+    }
+
+    .home-indicator {
+      width: 138px;
+      height: 5px;
+      background-color: #17212B;
+      border-radius: 3px;
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 50;
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body>
+<div class="phone-mockup" id="phoneMockup">
+<!-- Dynamic Island -->
+<div class="dynamic-island"></div>
+<!-- Status Bar -->
+<div class="status-bar">
+<span>09:41</span>
+<div class="flex items-center space-x-1.5">
+<svg class="w-4 h-4 text-slate-800" fill="currentColor" viewbox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L12 22l7.03-4.39C20.26 16.07 21 14.12 21 12c0-4.97-4.03-9-9-9zm0 14c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"></path></svg>
+<svg class="w-3.5 h-3.5 text-slate-800" fill="currentColor" viewbox="0 0 24 24"><path d="M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98A16.88 16.88 0 0 0 12 4z"></path></svg>
+<svg class="w-5 h-5 text-slate-800" fill="currentColor" viewbox="0 0 24 24"><path d="M17 4h-3V2h-4v2H7v18h10V4zm-2 16H9V6h6v14z"></path></svg>
+</div>
+</div>
+<!-- App Header -->
+<div class="px-5 pt-1 pb-2.5 border-b border-slate-100 bg-white z-30">
+<div class="flex items-center justify-between">
+<button class="flex items-center space-x-1 text-slate-700 hover:text-slate-900 active:opacity-70 transition-opacity" onclick="goBack16C()">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span class="text-sm font-semibold">Back</span>
+</button>
+<div class="flex items-center space-x-1.5">
+<h1 class="text-base font-bold text-[#123B5D] tracking-tight">Worker Welfare &amp; Issues</h1>
+</div>
+<div class="text-[11px] font-semibold tracking-wide text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full border border-slate-200">
+<span class="text-[#123B5D]">EN</span> | <span class="text-slate-400">हिन्दी</span>
+</div>
+</div>
+<p class="text-xs font-medium text-slate-500 mt-1.5">Support worker wellbeing, safety and timely assistance.</p>
+</div>
+<!-- Scrollable Main Content -->
+<div class="flex-1 overflow-y-auto no-scrollbar bg-[#F8FAFC] pb-24" id="mainContent">
+<div class="px-5 py-3 space-y-3.5">
+<!-- 2. Summary KPIs -->
+<div class="grid grid-cols-3 gap-2">
+<div class="bg-white border border-[#E2E8F0] rounded-xl p-2.5 text-center shadow-sm">
+<div class="text-base font-bold text-[#123B5D]" id="kpiPendingPayments">3</div>
+<div class="text-[10px] font-medium text-slate-700 mt-0.5 leading-tight">Pending Payments</div>
+<div class="inline-block bg-amber-50 text-amber-700 border border-amber-200 text-[9px] font-semibold px-1.5 py-0.2 rounded-full mt-1">Need attention</div>
+</div>
+<div class="bg-white border border-[#E2E8F0] rounded-xl p-2.5 text-center shadow-sm">
+<div class="text-base font-bold text-[#DC2626]" id="kpiSafetyIssues">1</div>
+<div class="text-[10px] font-medium text-slate-700 mt-0.5 leading-tight">Safety Issues</div>
+<div class="inline-block bg-rose-50 text-rose-700 border border-rose-200 text-[9px] font-semibold px-1.5 py-0.2 rounded-full mt-1">Open</div>
+</div>
+<div class="bg-white border border-[#E2E8F0] rounded-xl p-2.5 text-center shadow-sm">
+<div class="text-base font-bold text-[#2563EB]">2</div>
+<div class="text-[10px] font-medium text-slate-700 mt-0.5 leading-tight">Assistance Requests</div>
+<div class="inline-block bg-blue-50 text-blue-700 border border-blue-200 text-[9px] font-semibold px-1.5 py-0.2 rounded-full mt-1">Pending</div>
+</div>
+</div>
+<!-- 3. Urgent Attention Section ("Needs Attention") -->
+<div class="space-y-2.5">
+<div class="flex items-center justify-between">
+<h2 class="text-xs font-bold uppercase tracking-wider text-slate-700">Needs Attention</h2>
+<span class="text-[10px] text-slate-400 font-medium" id="activeUrgentCount">2 Active</span>
+</div>
+<!-- Card 1: Safety Issue -->
+<div class="bg-white border border-[#E2E8F0] rounded-2xl p-3.5 shadow-sm space-y-2.5" id="urgentCard1">
+<div class="flex items-start justify-between">
+<div class="space-y-0.5">
+<div class="flex items-center space-x-1.5">
+<span class="text-[10px] font-bold text-amber-800 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full">⚠ Safety Issue</span>
+<span class="text-[10px] font-bold text-rose-700 bg-rose-50 border border-rose-200 px-1.5 py-0.5 rounded-full" id="safetyBadgeTag">Open</span>
+</div>
+<h3 class="text-sm font-bold text-[#17212B] mt-1">Sunita Devi</h3>
+<p class="text-[11px] text-slate-500">🏢 Electrical Maintenance</p>
+</div>
+</div>
+<p class="text-xs text-slate-600 leading-snug">Safety equipment required before next assignment.</p>
+<div class="flex items-center justify-between pt-1 border-t border-slate-100 text-[11px]">
+<span class="text-slate-400">Reported Sep 10, 2026</span>
+<button class="font-semibold text-[#123B5D] hover:underline flex items-center space-x-0.5" onclick="openSafetyDetail()">
+<span>View Issue</span>
+<span class="text-xs">→</span>
+</button>
+</div>
+</div>
+<!-- Card 2: Pending Payment -->
+<div class="bg-white border border-[#E2E8F0] rounded-2xl p-3.5 shadow-sm space-y-2.5" id="urgentCard2">
+<div class="flex items-start justify-between">
+<div class="space-y-0.5">
+<div class="flex items-center space-x-1.5">
+<span class="text-[10px] font-bold text-amber-800 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full">💰 Pending Payment</span>
+<span class="text-[10px] font-bold text-amber-700 bg-amber-50 border border-amber-200 px-1.5 py-0.5 rounded-full" id="paymentBadgeTag">Pending</span>
+</div>
+<h3 class="text-sm font-bold text-[#17212B] mt-1">Ramlal Kumar</h3>
+</div>
+<div class="text-right">
+<span class="text-sm font-bold text-[#123B5D]">₹1,200</span>
+<p class="text-[10px] text-slate-400">Amount Due</p>
+</div>
+</div>
+<p class="text-xs text-slate-600 leading-snug">Payment pending for Residential Painting.</p>
+<div class="flex items-center justify-between pt-1 border-t border-slate-100 text-[11px]">
+<span class="text-slate-400">Completed Sep 10, 2026</span>
+<button class="font-semibold text-[#123B5D] hover:underline flex items-center space-x-0.5" onclick="openPaymentDetail()">
+<span>Review Payment</span>
+<span class="text-xs">→</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Same-Screen Modal / Detail: Safety Issue Detail -->
+<div class="hidden bg-white border-2 border-amber-300 rounded-2xl p-4 shadow-md space-y-3" id="safetyDetailModal">
+<div class="flex items-center justify-between border-b border-slate-100 pb-2">
+<div class="flex items-center space-x-1.5">
+<span class="text-sm">⚠</span>
+<h3 class="text-xs font-bold uppercase tracking-wider text-slate-800">Safety Issue Detail</h3>
+</div>
+<button class="text-slate-400 hover:text-slate-600 text-sm font-bold" onclick="closeSafetyDetail()">✕</button>
+</div>
+<div class="bg-slate-50 p-3 rounded-xl border border-slate-100 space-y-1.5 text-xs">
+<div class="flex justify-between"><span class="text-slate-500">Worker</span><span class="font-bold text-slate-800">Sunita Devi</span></div>
+<div class="flex justify-between"><span class="text-slate-500">Project</span><span class="font-medium text-slate-800">Electrical Maintenance</span></div>
+<div class="flex justify-between"><span class="text-slate-500">Reported</span><span class="font-medium text-slate-800">Sep 10, 2026</span></div>
+<div class="pt-1.5 border-t border-slate-200">
+<span class="text-slate-500 block text-[11px]">Issue Description:</span>
+<p class="font-medium text-slate-700 mt-0.5">Safety equipment required before assignment.</p>
+</div>
+</div>
+<div class="space-y-2 pt-1" id="safetyActionControls">
+<button class="w-full py-2.5 px-3 bg-[#087443] hover:bg-[#065e36] text-white rounded-xl text-xs font-semibold flex items-center justify-center space-x-1.5 transition-colors shadow-sm" onclick="resolveSafetyIssue()">
+<span>Mark Resolved</span>
+</button>
+<button class="w-full py-2 px-3 border border-slate-300 text-slate-700 hover:bg-slate-50 rounded-xl text-xs font-semibold flex items-center justify-center space-x-1 transition-colors" onclick="contactWorkerAlert('Sunita Devi')">
+<span>📞 Contact Worker</span>
+</button>
+</div>
+<div class="hidden bg-emerald-50 border border-emerald-200 rounded-xl p-3 text-xs space-y-1" id="safetySuccessMsg">
+<span class="font-bold text-[#087443] flex items-center gap-1">✓ Issue Resolved</span>
+<p class="text-[11px] text-slate-600">This welfare issue has been marked as resolved.</p>
+</div>
+</div>
+<!-- Same-Screen Modal / Detail: Payment Concern Detail -->
+<div class="hidden bg-white border-2 border-emerald-300 rounded-2xl p-4 shadow-md space-y-3" id="paymentDetailModal">
+<div class="flex items-center justify-between border-b border-slate-100 pb-2">
+<div class="flex items-center space-x-1.5">
+<span class="text-sm">💰</span>
+<h3 class="text-xs font-bold uppercase tracking-wider text-slate-800">Payment Concern</h3>
+</div>
+<button class="text-slate-400 hover:text-slate-600 text-sm font-bold" onclick="closePaymentDetail()">✕</button>
+</div>
+<div class="bg-slate-50 p-3 rounded-xl border border-slate-100 space-y-1.5 text-xs">
+<div class="flex justify-between"><span class="text-slate-500">Worker</span><span class="font-bold text-slate-800">Ramlal Kumar</span></div>
+<div class="flex justify-between"><span class="text-slate-500">Project</span><span class="font-medium text-slate-800">Residential Painting</span></div>
+<div class="flex justify-between"><span class="text-slate-500">Amount</span><span class="font-bold text-[#123B5D] text-sm">₹1,200</span></div>
+<div class="flex justify-between"><span class="text-slate-500">Current Status</span><span class="font-bold text-amber-600" id="modalPaymentStatus">Pending</span></div>
+</div>
+<div class="space-y-2 pt-1" id="paymentActionControls">
+<button class="w-full py-2.5 px-3 bg-[#087443] hover:bg-[#065e36] text-white rounded-xl text-xs font-semibold flex items-center justify-center space-x-1.5 transition-colors shadow-sm" onclick="processPayment()">
+<span>Mark for Processing</span>
+</button>
+<button class="w-full py-2 px-3 border border-slate-300 text-slate-700 hover:bg-slate-50 rounded-xl text-xs font-semibold flex items-center justify-center space-x-1 transition-colors" onclick="contactWorkerAlert('Ramlal Kumar')">
+<span>📞 Contact Worker</span>
+</button>
+</div>
+<div class="hidden bg-emerald-50 border border-emerald-200 rounded-xl p-3 text-xs space-y-1" id="paymentSuccessMsg">
+<span class="font-bold text-[#087443] flex items-center gap-1">✓ Payment Marked for Processing</span>
+<p class="text-[11px] text-slate-600">SAHYOG has recorded this status for cooperative payroll review (no automatic bank transfer initiated).</p>
+</div>
+</div>
+<!-- 4. Worker Support Section -->
+<div class="bg-white border border-[#E2E8F0] rounded-2xl p-4 shadow-sm space-y-3">
+<div class="flex items-center justify-between border-b border-slate-100 pb-2">
+<h2 class="text-xs font-bold uppercase tracking-wider text-slate-700">Worker Support</h2>
+<span class="text-[10px] text-slate-400 font-medium">Quick Actions</span>
+</div>
+<div class="space-y-2">
+<!-- Item 1 -->
+<div class="border border-slate-100 rounded-xl overflow-hidden">
+<button class="w-full flex items-center justify-between p-2.5 bg-slate-50 hover:bg-slate-100 transition-colors text-left" onclick="toggleSupportSection('safety')">
+<div class="flex items-center space-x-2.5">
+<span class="text-base">🦺</span>
+<div>
+<div class="text-xs font-bold text-slate-800">Safety &amp; Equipment</div>
+<div class="text-[10px] text-slate-500">Track safety requirements and equipment needs.</div>
+</div>
+</div>
+<span class="text-slate-400 text-xs font-bold" id="arrowSafety">↓</span>
+</button>
+<div class="hidden p-3 bg-white border-t border-slate-100 text-xs space-y-2" id="supportSectionSafety">
+<div class="flex items-center justify-between text-[11px] p-2 bg-slate-50 rounded-lg">
+<span>Insulated Gloves (Sunita D.)</span>
+<span class="text-[9px] font-semibold bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded">Ordered</span>
+</div>
+<div class="flex items-center justify-between text-[11px] p-2 bg-slate-50 rounded-lg">
+<span>Hard Hat Kits (Site #4)</span>
+<span class="text-[9px] font-semibold bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded">Available</span>
+</div>
+<button class="w-full py-1.5 text-center text-[11px] font-semibold text-[#123B5D] hover:underline" onclick="alert('Cooperative equipment inventory opened.')">Manage Equipment Inventory →</button>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="border border-slate-100 rounded-xl overflow-hidden">
+<button class="w-full flex items-center justify-between p-2.5 bg-slate-50 hover:bg-slate-100 transition-colors text-left" onclick="toggleSupportSection('assistance')">
+<div class="flex items-center space-x-2.5">
+<span class="text-base">💬</span>
+<div>
+<div class="text-xs font-bold text-slate-800">Assistance Requests</div>
+<div class="text-[10px] text-slate-500">Review requests for worker support.</div>
+</div>
+</div>
+<span class="text-slate-400 text-xs font-bold" id="arrowAssistance">↓</span>
+</button>
+<div class="hidden p-3 bg-white border-t border-slate-100 text-xs space-y-2" id="supportSectionAssistance">
+<div class="p-2 bg-slate-50 rounded-lg text-[11px] space-y-1">
+<div class="flex justify-between"><span class="font-semibold text-slate-800">Vikas Kumar</span><span class="text-slate-400 text-[10px]">Sep 9</span></div>
+<p class="text-slate-600">Transit stipend inquiry for Najafgarh project.</p>
+</div>
+<div class="p-2 bg-slate-50 rounded-lg text-[11px] space-y-1">
+<div class="flex justify-between"><span class="font-semibold text-slate-800">Mohan Lal</span><span class="text-slate-400 text-[10px]">Sep 7</span></div>
+<p class="text-slate-600">Health insurance renewal query submitted.</p>
+</div>
+<button class="w-full py-1.5 text-center text-[11px] font-semibold text-[#123B5D] hover:underline" onclick="alert('Viewing all worker assistance tickets.')">View All Support Tickets →</button>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="border border-slate-100 rounded-xl overflow-hidden">
+<button class="w-full flex items-center justify-between p-2.5 bg-slate-50 hover:bg-slate-100 transition-colors text-left" onclick="toggleSupportSection('payments')">
+<div class="flex items-center space-x-2.5">
+<span class="text-base">💰</span>
+<div>
+<div class="text-xs font-bold text-slate-800">Payment Concerns</div>
+<div class="text-[10px] text-slate-500">Review delayed or disputed worker payments.</div>
+</div>
+</div>
+<span class="text-slate-400 text-xs font-bold" id="arrowPayments">↓</span>
+</button>
+<div class="hidden p-3 bg-white border-t border-slate-100 text-xs space-y-2" id="supportSectionPayments">
+<div class="flex items-center justify-between text-[11px] p-2 bg-slate-50 rounded-lg">
+<div>
+<div class="font-semibold text-slate-800">Rajesh Sharma • ₹1,150</div>
+<div class="text-[10px] text-slate-500">Batch clearance pending verification</div>
+</div>
+<span class="text-[9px] font-semibold bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded">Queued</span>
+</div>
+<div class="flex items-center justify-between text-[11px] p-2 bg-slate-50 rounded-lg">
+<div>
+<div class="font-semibold text-slate-800">Amit Pal • ₹1,400</div>
+<div class="text-[10px] text-slate-500">Bank account details re-verification</div>
+</div>
+<span class="text-[9px] font-semibold bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded">Action Req</span>
+</div>
+<button class="w-full py-1.5 text-center text-[11px] font-semibold text-[#123B5D] hover:underline" onclick="alert('Navigating to Detailed Payment Reconciliation.')">Open Payment Ledger →</button>
+</div>
+</div>
+</div>
+</div>
+<!-- 5. Safety & Welfare Status Section -->
+<div class="bg-white border border-[#E2E8F0] rounded-2xl p-4 shadow-sm space-y-3">
+<div class="flex items-center justify-between border-b border-slate-100 pb-2">
+<h2 class="text-xs font-bold uppercase tracking-wider text-slate-700">Workforce Welfare</h2>
+<span class="text-[10px] text-[#087443] font-bold bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">Active</span>
+</div>
+<div class="space-y-3 pt-1">
+<!-- Row 1 -->
+<div class="space-y-1">
+<div class="flex justify-between text-[11px]">
+<span class="font-medium text-slate-600">Safety Training</span>
+<span class="font-bold text-slate-800">38 / 42 workers</span>
+</div>
+<div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+<div class="bg-[#123B5D] h-2 rounded-full" style="width: 90.4%"></div>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="space-y-1">
+<div class="flex justify-between text-[11px]">
+<span class="font-medium text-slate-600">Safety Equipment</span>
+<span class="font-bold text-slate-800">40 / 42 workers</span>
+</div>
+<div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+<div class="bg-[#123B5D] h-2 rounded-full" style="width: 95.2%"></div>
+</div>
+</div>
+<!-- Row 3 -->
+<div class="space-y-1">
+<div class="flex justify-between text-[11px]">
+<span class="font-medium text-slate-600">Payments On Time</span>
+<span class="font-bold text-[#087443]">92%</span>
+</div>
+<div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+<div class="bg-[#087443] h-2 rounded-full" style="width: 92%"></div>
+</div>
+</div>
+</div>
+<div class="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px]">
+<span class="text-slate-500 font-medium">Overall Welfare Status:</span>
+<span class="font-bold text-[#087443] bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full" id="welfareStatusText">Good — 3 items need attention</span>
+</div>
+</div>
+</div>
+</div>
+<!-- 7. Cooperative Persistent Bottom Navigation -->
+<div class="absolute bottom-0 left-0 right-0 bg-white border-t border-slate-200 px-3 pt-2 pb-6 z-40">
+<div class="grid grid-cols-5 gap-1 text-center">
+<!-- Home -->
+<button class="flex flex-col items-center justify-center text-slate-500 hover:text-slate-900 active:opacity-70 transition-colors" onclick="navTo('6C')">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span class="text-[10px] font-medium mt-1">Home</span>
+</button>
+<!-- Requests -->
+<button class="flex flex-col items-center justify-center text-slate-500 hover:text-slate-900 active:opacity-70 transition-colors" onclick="navTo('7C')">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span class="text-[10px] font-medium mt-1">Requests</span>
+</button>
+<!-- Workers -->
+<button class="flex flex-col items-center justify-center text-slate-500 hover:text-slate-900 active:opacity-70 transition-colors" onclick="navTo('9C')">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span class="text-[10px] font-medium mt-1">Workers</span>
+</button>
+<!-- Projects -->
+<button class="flex flex-col items-center justify-center text-slate-500 hover:text-slate-900 active:opacity-70 transition-colors" onclick="navTo('12C')">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span class="text-[10px] font-medium mt-1">Projects</span>
+</button>
+<!-- More (Selected / Active) -->
+<button class="flex flex-col items-center justify-center text-[#123B5D]">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span class="text-[10px] font-bold mt-1 text-[#123B5D]">More</span>
+</button>
+</div>
+</div>
+<!-- Home Indicator -->
+<div class="home-indicator"></div>
+</div>
+<script>
+    function goBack16C() {
+      alert("Navigating back to SCREEN 16C — Reports & Work History");
+    }
+
+    function navTo(screen) {
+      alert("Navigating to SCREEN " + screen);
+    }
+
+    function toggleSupportSection(section) {
+      if (section === 'safety') {
+        const el = document.getElementById('supportSectionSafety');
+        const arrow = document.getElementById('arrowSafety');
+        const isHidden = el.classList.toggle('hidden');
+        arrow.textContent = isHidden ? '↓' : '↑';
+      } else if (section === 'assistance') {
+        const el = document.getElementById('supportSectionAssistance');
+        const arrow = document.getElementById('arrowAssistance');
+        const isHidden = el.classList.toggle('hidden');
+        arrow.textContent = isHidden ? '↓' : '↑';
+      } else if (section === 'payments') {
+        const el = document.getElementById('supportSectionPayments');
+        const arrow = document.getElementById('arrowPayments');
+        const isHidden = el.classList.toggle('hidden');
+        arrow.textContent = isHidden ? '↓' : '↑';
+      }
+    }
+
+    function openSafetyDetail() {
+      document.getElementById('safetyDetailModal').classList.remove('hidden');
+      document.getElementById('paymentDetailModal').classList.add('hidden');
+      document.getElementById('safetyDetailModal').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function closeSafetyDetail() {
+      document.getElementById('safetyDetailModal').classList.add('hidden');
+    }
+
+    let safetyIssuesCount = 1;
+    let pendingPaymentsCount = 3;
+    let activeUrgentCount = 2;
+
+    function updateUrgentSummary() {
+      const safetyEl = document.getElementById('kpiSafetyIssues');
+      if (safetyEl) safetyEl.textContent = safetyIssuesCount;
+
+      const paymentsEl = document.getElementById('kpiPendingPayments');
+      if (paymentsEl) paymentsEl.textContent = pendingPaymentsCount;
+
+      const activeEl = document.getElementById('activeUrgentCount');
+      if (activeEl) activeEl.textContent = `${activeUrgentCount} Active`;
+
+      const welfareStatus = document.getElementById('welfareStatusText');
+      if (welfareStatus) {
+        if (activeUrgentCount === 0) {
+          welfareStatus.textContent = 'Excellent — No items need attention';
+        } else if (activeUrgentCount === 1) {
+          welfareStatus.textContent = 'Good — 1 item needs attention';
+        } else {
+          welfareStatus.textContent = `Good — ${activeUrgentCount} items need attention`;
+        }
+      }
+    }
+
+    function resolveSafetyIssue() {
+      document.getElementById('safetyActionControls').classList.add('hidden');
+      document.getElementById('safetySuccessMsg').classList.remove('hidden');
+      
+      const badge = document.getElementById('safetyBadgeTag');
+      if (badge) {
+        badge.textContent = 'Resolved';
+        badge.className = 'text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded-full';
+      }
+      
+      if (safetyIssuesCount > 0) {
+        safetyIssuesCount = 0;
+        activeUrgentCount = Math.max(0, activeUrgentCount - 1);
+      }
+      updateUrgentSummary();
+    }
+
+    function openPaymentDetail() {
+      document.getElementById('paymentDetailModal').classList.remove('hidden');
+      document.getElementById('safetyDetailModal').classList.add('hidden');
+      document.getElementById('paymentDetailModal').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function closePaymentDetail() {
+      document.getElementById('paymentDetailModal').classList.add('hidden');
+    }
+
+    function processPayment() {
+      document.getElementById('paymentActionControls').classList.add('hidden');
+      document.getElementById('paymentSuccessMsg').classList.remove('hidden');
+      
+      const modalStatus = document.getElementById('modalPaymentStatus');
+      if (modalStatus) {
+        modalStatus.textContent = 'Processing';
+        modalStatus.className = 'font-bold text-emerald-700';
+      }
+
+      const tag = document.getElementById('paymentBadgeTag');
+      if (tag) {
+        tag.textContent = 'Processing';
+        tag.className = 'text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded-full';
+      }
+
+      if (pendingPaymentsCount > 0) {
+        pendingPaymentsCount = Math.max(0, pendingPaymentsCount - 1);
+        activeUrgentCount = Math.max(0, activeUrgentCount - 1);
+      }
+      updateUrgentSummary();
+    }
+
+    function contactWorkerAlert(worker) {
+      alert("Dialing contact for " + worker + " via Cooperative Support Line.");
+    }
+  </script>
+</body></html>

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../theme/colors.dart';
 import 'main_layout.dart';
+import '../utils/localization.dart';
 
 class WorkerAssignmentScreen extends StatefulWidget {
   const WorkerAssignmentScreen({Key? key}) : super(key: key);
@@ -43,8 +44,7 @@ class _WorkerAssignmentScreenState extends State<WorkerAssignmentScreen> {
           icon: const Icon(Icons.arrow_back, color: AppColors.textPrimary),
           onPressed: () => Navigator.pop(context),
         ),
-        title: const Text(
-          'Assign Workers',
+        title: Text(AppLocalization.get('Assign Workers'),
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
@@ -63,13 +63,13 @@ class _WorkerAssignmentScreenState extends State<WorkerAssignmentScreen> {
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Row(
-                  children: const [
-                    Text('EN', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
+                  children: [
+                    Text(AppLocalization.get('EN'), style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 4.0),
                       child: Text('|', style: TextStyle(fontSize: 11, color: Colors.grey)),
                     ),
-                    Text('हिन्दी', style: TextStyle(fontSize: 11, color: Colors.grey)),
+                    Text(AppLocalization.get('हिन्दी'), style: TextStyle(fontSize: 11, color: Colors.grey)),
                   ],
                 ),
               ),
@@ -85,7 +85,7 @@ class _WorkerAssignmentScreenState extends State<WorkerAssignmentScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Select workers for Community Hall Repair.', style: TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w500)),
+                  Text(AppLocalization.get('Select workers for Community Hall Repair.'), style: TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w500)),
                   const SizedBox(height: 12),
                   
                   // Project Summary Card
@@ -120,7 +120,7 @@ class _WorkerAssignmentScreenState extends State<WorkerAssignmentScreen> {
                                     child: const Text('🏢 Najafgarh Community Centre', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500, color: AppColors.textPrimary)),
                                   ),
                                   const SizedBox(height: 6),
-                                  const Text('Community Hall Repair', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
+                                  Text(AppLocalization.get('Community Hall Repair'), style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
                                   const SizedBox(height: 4),
                                   const Text('🗓️ Sep 18–22, 2026  •  ⏰ 9:00 AM–5:00 PM', style: TextStyle(fontSize: 11, color: AppColors.textSecondary)),
                                 ],
@@ -145,7 +145,7 @@ class _WorkerAssignmentScreenState extends State<WorkerAssignmentScreen> {
                           spacing: 6,
                           crossAxisAlignment: WrapCrossAlignment.center,
                           children: [
-                            const Text('Required Skills:', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: AppColors.textSecondary)),
+                            Text(AppLocalization.get('Required Skills:'), style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: AppColors.textSecondary)),
                             ...['Masonry', 'Painting', 'General Labour'].map((skill) => Container(
                               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                               decoration: BoxDecoration(
@@ -162,8 +162,8 @@ class _WorkerAssignmentScreenState extends State<WorkerAssignmentScreen> {
                   
                   const SizedBox(height: 16),
                   
-                  const Text('RECOMMENDED WORKERS', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textSecondary)),
-                  const Text('AI-assisted matching based on skills, availability and experience.', style: TextStyle(fontSize: 11, color: AppColors.textSecondary)),
+                  Text(AppLocalization.get('RECOMMENDED WORKERS'), style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textSecondary)),
+                  Text(AppLocalization.get('AI-assisted matching based on skills, availability and experience.'), style: TextStyle(fontSize: 11, color: AppColors.textSecondary)),
                   
                   const SizedBox(height: 12),
                   
@@ -198,12 +198,12 @@ class _WorkerAssignmentScreenState extends State<WorkerAssignmentScreen> {
                                 child: const Icon(Icons.check, color: Colors.white, size: 20),
                               ),
                               const SizedBox(width: 12),
-                              const Expanded(
+                              Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text('Workers Assigned ✓', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.cooperativeGreen)),
-                                    Text('Selected workers have been assigned to Community Hall Repair.', style: TextStyle(fontSize: 12, color: AppColors.textPrimary)),
+                                    Text(AppLocalization.get('Workers Assigned ✓'), style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.cooperativeGreen)),
+                                    Text(AppLocalization.get('Selected workers have been assigned to Community Hall Repair.'), style: const TextStyle(fontSize: 12, color: AppColors.textPrimary)),
                                   ],
                                 ),
                               ),
@@ -226,7 +226,7 @@ class _WorkerAssignmentScreenState extends State<WorkerAssignmentScreen> {
                                 padding: const EdgeInsets.symmetric(vertical: 12),
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                               ),
-                              child: const Text('View Active Project →', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+                              child: Text(AppLocalization.get('View Active Project →'), style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
                             ),
                           ),
                           const SizedBox(height: 8),
@@ -237,7 +237,7 @@ class _WorkerAssignmentScreenState extends State<WorkerAssignmentScreen> {
                                   _isAssigned = false;
                                 });
                               },
-                              child: const Text('Modify Worker Selection', style: TextStyle(fontSize: 11, color: AppColors.textSecondary)),
+                              child: Text(AppLocalization.get('Modify Worker Selection'), style: TextStyle(fontSize: 11, color: AppColors.textSecondary)),
                             ),
                           ),
                         ],
@@ -289,10 +289,10 @@ class _WorkerAssignmentScreenState extends State<WorkerAssignmentScreen> {
                           children: [
                             Container(width: 8, height: 8, decoration: BoxDecoration(color: selectedCount > 0 ? AppColors.cooperativeGreen : Colors.grey, shape: BoxShape.circle)),
                             const SizedBox(width: 8),
-                            Text('$selectedCount of 5 workers selected', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                            Text('$selectedCount ${AppLocalization.get('of 5 workers selected')}', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
                           ],
                         ),
-                        const Text('Req: 5 workers', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color: AppColors.textSecondary)),
+                        Text(AppLocalization.get('Req: 5 workers'), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color: AppColors.textSecondary)),
                       ],
                     ),
                   ),
@@ -302,7 +302,7 @@ class _WorkerAssignmentScreenState extends State<WorkerAssignmentScreen> {
                     child: ElevatedButton.icon(
                       onPressed: isButtonEnabled ? _handleAssignment : null,
                       icon: const Icon(Icons.arrow_forward),
-                      label: const Text('Assign Selected Workers'),
+                      label: Text(AppLocalization.get('Assign Selected Workers')),
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 14),
                         backgroundColor: isButtonEnabled ? AppColors.cooperativeGreen : Colors.grey.shade300,
@@ -316,7 +316,7 @@ class _WorkerAssignmentScreenState extends State<WorkerAssignmentScreen> {
                     width: double.infinity,
                     child: TextButton(
                       onPressed: () => Navigator.pop(context),
-                      child: const Text('Cancel', style: TextStyle(color: AppColors.textSecondary)),
+                      child: Text(AppLocalization.get('Cancel'), style: TextStyle(color: AppColors.textSecondary)),
                     ),
                   ),
                 ],

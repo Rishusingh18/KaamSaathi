@@ -90,8 +90,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
                     ),
                   ),
                   const SizedBox(height: 4),
-                  const Text(
-                    'Choose your preferred language',
+                  Text(AppLocalization.get('Choose your preferred language'),
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
@@ -128,7 +127,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
                   // Info text
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
+                    children: [
                       Icon(Icons.info_outline, size: 14, color: AppColors.textSecondary),
                       SizedBox(width: 6),
                       Text(

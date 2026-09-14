@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../theme/colors.dart';
 import 'worker_details_screen.dart';
+import '../utils/localization.dart';
 
 class WorkersScreen extends StatefulWidget {
   const WorkersScreen({Key? key}) : super(key: key);
@@ -27,17 +28,15 @@ class _WorkersScreenState extends State<WorkersScreen> {
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text(
-                  'Workforce',
+              children: [
+                Text(AppLocalization.get('Workforce'),
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: AppColors.primaryContainer,
                   ),
                 ),
-                Text(
-                  'Manage workers associated with your cooperative.',
+                Text(AppLocalization.get('Manage workers associated with your cooperative.'),
                   style: TextStyle(fontSize: 12, color: AppColors.textSecondary),
                 ),
               ],
@@ -49,9 +48,9 @@ class _WorkersScreenState extends State<WorkersScreen> {
                 border: Border.all(color: AppColors.borderSubtle),
                 borderRadius: BorderRadius.circular(16),
               ),
-              child: const Text(
-                '42 Workers',
-                style: TextStyle(
+              child: Text(
+                '42 ${AppLocalization.get('Workers')}',
+                style: const TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
                   color: AppColors.primaryContainer,
@@ -337,9 +336,8 @@ class _WorkersScreenState extends State<WorkersScreen> {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => const WorkerDetailsScreen()));
                 },
                 child: Row(
-                  children: const [
-                    Text(
-                      'View Profile',
+                  children: [
+                    Text(AppLocalization.get('View Profile'),
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,

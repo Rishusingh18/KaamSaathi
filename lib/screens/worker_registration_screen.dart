@@ -202,8 +202,7 @@ class _WorkerRegistrationScreenState extends State<WorkerRegistrationScreen> {
                           children: [
                             GestureDetector(
                               onTap: () => AppLocalization.setLanguage('EN'),
-                              child: Text(
-                                'EN', 
+                              child: Text(AppLocalization.get('EN'), 
                                 style: TextStyle(
                                   fontWeight: lang == 'EN' ? FontWeight.bold : FontWeight.normal, 
                                   fontSize: 12, 
@@ -217,8 +216,7 @@ class _WorkerRegistrationScreenState extends State<WorkerRegistrationScreen> {
                             ),
                             GestureDetector(
                               onTap: () => AppLocalization.setLanguage('HI'),
-                              child: Text(
-                                'हिन्दी', 
+                              child: Text(AppLocalization.get('हिन्दी'), 
                                 style: TextStyle(
                                   fontWeight: lang == 'HI' ? FontWeight.bold : FontWeight.normal, 
                                   fontSize: 12, 
@@ -322,7 +320,7 @@ class _WorkerRegistrationScreenState extends State<WorkerRegistrationScreen> {
                                       ),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.min,
-                                        children: const [
+                                        children: [
                                           Text('🇮🇳', style: TextStyle(fontSize: 14)),
                                           SizedBox(width: 4),
                                           Text('+91', style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
@@ -349,7 +347,7 @@ class _WorkerRegistrationScreenState extends State<WorkerRegistrationScreen> {
                                   TextSpan(
                                     text: AppLocalization.get('Primary Skill'),
                                     style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
-                                    children: const [
+                                    children: [
                                       TextSpan(text: ' *', style: TextStyle(color: Colors.red)),
                                     ],
                                   ),

@@ -68,22 +68,21 @@ class HomeScreen extends StatelessWidget {
               
               // Hero Illustration & Role Badge
               Container(
-                width: 124,
-                height: 124,
-                padding: const EdgeInsets.all(4),
-                decoration: BoxDecoration(
+                width: 136,
+                height: 136,
+                decoration: const BoxDecoration(
                   shape: BoxShape.circle,
-                  color: const Color(0xFFECFDF5),
-                  border: Border.all(color: const Color(0xFFD1FAE5), width: 2),
                 ),
                 child: ClipOval(
                   child: Image.asset(
-                    role == 'Worker' ? 'assets/images/worker_logo.png' : 'assets/images/logo.png',
-                    fit: BoxFit.cover,
+                    role == 'Worker'
+                        ? 'assets/images/worker_logo.png'
+                        : 'assets/images/cooperative_logo.png',
+                    fit: BoxFit.contain,
                     errorBuilder: (context, error, stackTrace) => Icon(
                       role == 'Worker' ? Icons.engineering : Icons.business, 
                       size: 64, 
-                      color: AppColors.cooperativeGreen
+                      color: AppColors.cooperativeGreen,
                     ),
                   ),
                 ),

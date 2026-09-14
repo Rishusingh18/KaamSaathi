@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../theme/colors.dart';
-import 'worker_assignment_screen.dart'; // To be implemented later
+import 'worker_assignment_screen.dart';
+import '../utils/localization.dart'; // To be implemented later
 
 class RequestDetailsScreen extends StatefulWidget {
   const RequestDetailsScreen({Key? key}) : super(key: key);
@@ -45,13 +46,13 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Row(
-                children: const [
-                  Text('EN', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
+                children: [
+                  Text(AppLocalization.get('EN'), style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.primaryContainer)),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 4.0),
                     child: Text('|', style: TextStyle(fontSize: 11, color: Colors.grey)),
                   ),
-                  Text('हिन्दी', style: TextStyle(fontSize: 11, color: Colors.grey)),
+                  Text(AppLocalization.get('हिन्दी'), style: TextStyle(fontSize: 11, color: Colors.grey)),
                 ],
               ),
             ),
@@ -68,17 +69,15 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text(
-                      'Request Details',
+                  children: [
+                    Text(AppLocalization.get('Request Details'),
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: AppColors.primaryContainer,
                       ),
                     ),
-                    Text(
-                      'Review requirements and cooperative capacity',
+                    Text(AppLocalization.get('Review requirements and cooperative capacity'),
                       style: TextStyle(fontSize: 12, color: AppColors.textSecondary),
                     ),
                   ],
@@ -140,9 +139,9 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Text('Request accepted successfully!', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.green)),
-                          Text('Assign workers to begin this project.', style: TextStyle(fontSize: 11, color: Colors.green)),
+                        children: [
+                          Text(AppLocalization.get('Request accepted successfully!'), style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.green)),
+                          Text(AppLocalization.get('Assign workers to begin this project.'), style: TextStyle(fontSize: 11, color: Colors.green)),
                         ],
                       ),
                     ),
@@ -168,8 +167,8 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  const Text('Community Hall Repair', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                  const Text('Najafgarh Community Centre', style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                  Text(AppLocalization.get('Community Hall Repair'), style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  Text(AppLocalization.get('Najafgarh Community Centre'), style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
                   const SizedBox(height: 12),
                   const Divider(color: AppColors.borderSubtle),
                   const SizedBox(height: 12),
@@ -195,7 +194,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('REQUIRED SKILLS', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                  Text(AppLocalization.get('REQUIRED SKILLS'), style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
                   const SizedBox(height: 8),
                   Wrap(
                     spacing: 8,
@@ -214,16 +213,15 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                   const SizedBox(height: 12),
                   const Divider(color: AppColors.borderSubtle),
                   const SizedBox(height: 12),
-                  const Text('WORK DESCRIPTION', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                  Text(AppLocalization.get('WORK DESCRIPTION'), style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
                   const SizedBox(height: 8),
-                  const Text(
-                    'Repair and repaint the community hall, including wall repairs, surface preparation and interior painting.',
+                  Text(AppLocalization.get('Repair and repaint the community hall, including wall repairs, surface preparation and interior painting.'),
                     style: TextStyle(fontSize: 12, color: AppColors.textSecondary, height: 1.5),
                   ),
                   const SizedBox(height: 12),
                   const Divider(color: AppColors.borderSubtle),
                   const SizedBox(height: 12),
-                  const Text('ESTIMATED WORK', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                  Text(AppLocalization.get('ESTIMATED WORK'), style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
                   const SizedBox(height: 12),
                   Row(
                     children: [
@@ -245,7 +243,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('ESTIMATED PAYMENT', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                  Text(AppLocalization.get('ESTIMATED PAYMENT'), style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
                   const SizedBox(height: 12),
                   _buildPaymentRow('Labour', '₹6,000'),
                   const SizedBox(height: 8),
@@ -262,12 +260,11 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                     ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      children: [
                         Text('ℹ️', style: TextStyle(fontSize: 12)),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(
-                            'Final worker payments will be recorded through the cooperative.',
+                          child: Text(AppLocalization.get('Final worker payments will be recorded through the cooperative.'),
                             style: TextStyle(fontSize: 10, color: AppColors.textSecondary),
                           ),
                         ),
@@ -302,7 +299,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                             decoration: const BoxDecoration(color: AppColors.cooperativeGreen, shape: BoxShape.circle),
                           ),
                           const SizedBox(width: 8),
-                          const Text('Workforce Match', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.cooperativeGreen)),
+                          Text(AppLocalization.get('Workforce Match'), style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.cooperativeGreen)),
                         ],
                       ),
                       Container(
@@ -333,7 +330,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => const WorkerAssignmentScreen()));
                   },
                   icon: const Icon(Icons.arrow_forward),
-                  label: const Text('Assign Workers'),
+                  label: Text(AppLocalization.get('Assign Workers')),
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     backgroundColor: AppColors.cooperativeGreen,
@@ -351,7 +348,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         backgroundColor: AppColors.cooperativeGreen,
                       ),
-                      child: const Text('Accept Request', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+                      child: Text(AppLocalization.get('Accept Request'), style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
                     ),
                   ),
                   const SizedBox(height: 12),
@@ -363,7 +360,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         side: const BorderSide(color: AppColors.borderSubtle),
                       ),
-                      child: const Text('Decline', style: TextStyle(fontSize: 14, color: AppColors.textPrimary)),
+                      child: Text(AppLocalization.get('Decline'), style: TextStyle(fontSize: 14, color: AppColors.textPrimary)),
                     ),
                   ),
                 ],

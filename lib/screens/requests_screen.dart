@@ -333,7 +333,7 @@ class _RequestsScreenState extends State<RequestsScreen> {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => const RequestDetailsScreen()));
                 },
                 child: Row(
-                  children: const [
+                  children: [
                     Text(
                       'View Details',
                       style: TextStyle(

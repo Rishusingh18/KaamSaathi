@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import '../theme/colors.dart';
 import '../utils/localization.dart';
 import 'home_screen.dart';
+import 'household_welcome_screen.dart';
+import 'institution/institution_welcome_screen.dart';
 
 class RoleSelectionScreen extends StatefulWidget {
-  const RoleSelectionScreen({Key? key}) : super(key: key);
+  const RoleSelectionScreen({super.key});
 
   @override
   State<RoleSelectionScreen> createState() => _RoleSelectionScreenState();
@@ -36,7 +38,7 @@ class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
                           padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            border: Border.all(color: Colors.blue.withOpacity(0.3), width: 1.5),
+                            border: Border.all(color: Colors.blue.withValues(alpha: 0.3), width: 1.5),
                           ),
                           child: const Icon(Icons.arrow_back_ios_new, size: 16, color: AppColors.primaryContainer),
                         ),
@@ -118,7 +120,29 @@ class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
                     tagTextColor: AppColors.cooperativeGreen,
                   ),
                   const SizedBox(height: 12),
-
+                  _buildRoleOption(
+                    id: 'Household',
+                    title: AppLocalization.get('Household'),
+                    tag: AppLocalization.get('परिवार'),
+                    subtitle: AppLocalization.get('Request trusted local services'),
+                    icon: Icons.home_outlined,
+                    iconColor: const Color(0xFFEA580C),
+                    iconBgColor: const Color(0xFFFFF7ED),
+                    tagBgColor: const Color(0xFFFED7AA),
+                    tagTextColor: const Color(0xFFEA580C),
+                  ),
+                  const SizedBox(height: 12),
+                  _buildRoleOption(
+                    id: 'Institution',
+                    title: AppLocalization.get('Institution'),
+                    tag: AppLocalization.get('संस्थान'),
+                    subtitle: AppLocalization.get('Request skilled workers & cooperative teams for facilities'),
+                    icon: Icons.account_balance_outlined,
+                    iconColor: const Color(0xFF123B5D),
+                    iconBgColor: const Color(0xFFEFF6FF),
+                    tagBgColor: const Color(0xFFE0F2FE),
+                    tagTextColor: const Color(0xFF0369A1),
+                  ),
                   
                   const SizedBox(height: 24),
                   
@@ -149,7 +173,7 @@ class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
                   // Continue Button with dotted border
                   Container(
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.blue.withOpacity(0.3), style: BorderStyle.solid, width: 2),
+                      border: Border.all(color: Colors.blue.withValues(alpha: 0.3), style: BorderStyle.solid, width: 2),
                       borderRadius: BorderRadius.circular(16),
                     ),
                     padding: const EdgeInsets.all(3),
@@ -157,10 +181,22 @@ class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => HomeScreen(role: _selectedRole)),
-                          );
+                          if (_selectedRole == 'Household') {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const HouseholdWelcomeScreen()),
+                            );
+                          } else if (_selectedRole == 'Institution') {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const InstitutionWelcomeScreen()),
+                            );
+                          } else {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => HomeScreen(role: _selectedRole)),
+                            );
+                          }
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.primaryContainer,
@@ -262,7 +298,7 @@ class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
                         decoration: BoxDecoration(
                           color: tagBgColor,
                           borderRadius: BorderRadius.circular(4),
-                          border: Border.all(color: tagTextColor.withOpacity(0.3)),
+                          border: Border.all(color: tagTextColor.withValues(alpha: 0.3)),
                         ),
                         child: Text(
                           tag,
